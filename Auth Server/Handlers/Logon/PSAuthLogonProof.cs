@@ -3,7 +3,7 @@ using Framework.Crypt;
 using Framework.Extensions;
 using Framework.Network;
 
-namespace Auth_Server.Handlers
+namespace Auth_Server.Handlers.Logon
 {
     class PSAuthLogonProof : ServerPacket
     {

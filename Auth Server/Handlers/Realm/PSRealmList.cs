@@ -3,7 +3,7 @@ using Framework.Extensions;
 using Framework.Network;
 using System;
 
-namespace Auth_Server.Handlers
+namespace Auth_Server.Handlers.Realm
 {
     class PSRealmList : ServerPacket
     {

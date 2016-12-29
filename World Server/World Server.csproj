@@ -75,12 +75,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Handlers\PCAuthSession.cs" />
-    <Compile Include="Handlers\PSAuthResponse.cs" />
-    <Compile Include="Handlers\PSCharEnum.cs" />
+    <Compile Include="Game\World.cs" />
+    <Compile Include="Handlers\Auth\PCAuthSession.cs" />
+    <Compile Include="Handlers\Auth\PSAuthResponse.cs" />
+    <Compile Include="Handlers\Char\PCCharCreate.cs" />
+    <Compile Include="Handlers\Char\PCCharDelete.cs" />
+    <Compile Include="Handlers\Char\PSCharCreate.cs" />
+    <Compile Include="Handlers\Char\PSCharDelete.cs" />
+    <Compile Include="Handlers\Char\PSCharEnum.cs" />
     <Compile Include="Handlers\WorldDataRouter.cs" />
     <Compile Include="Handlers\World\PCPing.cs" />
+    <Compile Include="Handlers\World\PCPlayerLogin.cs" />
     <Compile Include="Handlers\World\PSPong.cs" />
+    <Compile Include="Managers\CharacterManager.cs" />
+    <Compile Include="Managers\DataBaseManager.cs" />
     <Compile Include="Managers\RealmManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

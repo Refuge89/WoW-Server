@@ -17,7 +17,8 @@ namespace World_Server
 
         public static WorldServer World { get; private set; }
 
-        public static DBManager Database;
+        public static DataBaseManager Database;
+        public static DBManager DBManager;
 
         static void Main(string[] args)
         {
@@ -33,11 +34,14 @@ namespace World_Server
             World = new WorldServer();
             if (World.Start(WorldPoint))
             {
-                // Iniciando Realm
-                RealmManager.Boot();
-
                 // Iniciando Database
-                Database = new DBManager();
+                Database = new DataBaseManager();
+                DBManager = new DBManager();
+
+                // Iniciando Sequencia
+                RealmManager.Boot();
+                CharacterManager.Boot();
+                
 
                 Log.Print("World Server", $"Server is now listening at {WorldPoint.Address}:{WorldPoint.Port}", ConsoleColor.Green);
                 Log.Print("World Server", $"Successfully started in {Time.getMSTimeDiff(time, Time.getMSTime()) / 1000}s", ConsoleColor.Green);

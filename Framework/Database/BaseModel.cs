@@ -1,6 +1,6 @@
 ﻿using Shaolinq;
+using Shaolinq.MySql;
 using Shaolinq.Sqlite;
-using System.IO;
 
 namespace Framework.Database
 {
@@ -10,14 +10,9 @@ namespace Framework.Database
 
         public BaseModel()
         {
-            //if (File.Exists(@"database.sqlite"))
-                //File.Delete(@"database.sqlite");
-
-            var configuration = SqliteConfiguration.Create("database.sqlite", null);
+            //var configuration = SqliteConfiguration.Create("database.sqlite", null);
+            var configuration = MySqlConfiguration.Create("wow", "127.0.0.1", "homestead", "secret");
             this.model = DataAccessModel.BuildDataAccessModel<T>(configuration);
-
-            // Recria a base inteira
-            //this.model.Create(DatabaseCreationOptions.DeleteExistingDatabase);
         }
     }
 }

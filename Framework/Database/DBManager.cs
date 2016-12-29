@@ -2,6 +2,7 @@
 using Shaolinq;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Framework.Database
 {
@@ -9,6 +10,9 @@ namespace Framework.Database
     {
         public void Boot()
         {
+            // Recria a base inteira
+            this.model.Create(DatabaseCreationOptions.DeleteExistingDatabase);
+
             using (var scope = new DataAccessScope())
             {
                 var User = this.model.Users.Create();
@@ -27,7 +31,7 @@ namespace Framework.Database
             return this.model.Users.FirstOrDefault(a => a.username.ToLower() == username.ToLower());
         }
 
-        public async System.Threading.Tasks.Task<Users> SetSessionKey(String username, byte[] key)
+        public async Task<Users> SetSessionKey(String username, byte[] key)
         {
             Users account = GetAccount(username);
 

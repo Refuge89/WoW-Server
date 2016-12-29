@@ -1,6 +1,6 @@
 ﻿using Framework.Network;
 
-namespace Auth_Server.Handlers
+namespace Auth_Server.Handlers.Logon
 {
     public class PCAuthLogonProof : PacketReader
     {

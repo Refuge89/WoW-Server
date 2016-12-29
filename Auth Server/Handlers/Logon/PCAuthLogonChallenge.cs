@@ -2,7 +2,7 @@
 using System;
 using System.Net;
 
-namespace Auth_Server.Handlers
+namespace Auth_Server.Handlers.Logon
 {
     public class PCAuthLogonChallenge : PacketReader
     {

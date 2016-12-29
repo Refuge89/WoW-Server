@@ -3,19 +3,18 @@ using Framework.Crypt;
 using Framework.Extensions;
 using Framework.Network;
 
-namespace Auth_Server.Handlers
+namespace Auth_Server.Handlers.Logon
 {
     class PSAuthLogonChallange : ServerPacket
     {
         public PSAuthLogonChallange(SRP Srp, AuthenticationResult result) : base(AuthServerOpCode.AUTH_LOGON_CHALLENGE)
         {
             Write((byte)0);
-            Write((byte)0);
 
             if (result == AuthenticationResult.Success)
             {
-
                 Write((byte)result);
+                Write((byte)0);
                 Write(Srp.ServerEphemeral.ToProperByteArray());
                 Write((byte)1);
                 Write(Srp.Generator.ToByteArray());
@@ -26,6 +25,7 @@ namespace Auth_Server.Handlers
             }
             else
             {
+                Write((byte)0);
                 Write((byte)result);
                 this.WriteNullByte(6);
             }

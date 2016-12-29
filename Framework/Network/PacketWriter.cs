@@ -132,6 +132,7 @@ namespace Framework.Network
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine("We've been a {0}", ex.Message);
                     return;
                 }
             }

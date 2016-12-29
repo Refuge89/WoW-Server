@@ -47,5 +47,14 @@ namespace Auth_Server.Sessions
 
             sendData(((MemoryStream)writer.BaseStream).ToArray());
         }
+
+
+        public bool IsAuthenticated
+        {
+            get
+            {
+                return Srp != null && Srp.ClientProof == Srp.GenerateClientProof();
+            }
+        }
     }
 }
