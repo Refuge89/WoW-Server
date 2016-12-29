@@ -14,5 +14,12 @@ namespace Framework.Database
 
         [DataAccessObjects]
         public abstract DataAccessObjects<CharactersSkin> CharactersSkin { get; }
+
+        [DataAccessObjects]
+        public abstract DataAccessObjects<GameObject> GameObject { get; }
+
+        [DataAccessObjects]
+        public abstract DataAccessObjects<GameObjectTemplate> GameObjectTemplate { get; }
+        
     }
 }

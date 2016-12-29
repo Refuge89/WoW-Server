@@ -9,7 +9,9 @@ namespace Framework.Database.Tables
     {
         [AutoIncrement]
         [PersistedMember]
+#pragma warning disable CS0114 // Member hides inherited member; missing override keyword
         public abstract int Id { get; set; }
+#pragma warning restore CS0114 // Member hides inherited member; missing override keyword
 
         [PersistedMember]
         public abstract Users Users { get; set; }
@@ -52,6 +54,9 @@ namespace Framework.Database.Tables
 
         [PersistedMember]
         public abstract float MapZ { get; set; }
+
+        [PersistedMember]
+        public abstract float MapRotation { get; set; }
 
         [PersistedMember]
         public abstract string Equipment { get; set; }

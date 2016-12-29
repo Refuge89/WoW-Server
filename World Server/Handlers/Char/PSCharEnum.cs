@@ -40,11 +40,11 @@ namespace World_Server.Handlers.Char
                 Write((int)0); // Guild ID
                 Write((int)0); // Character Flags
 
-                Write((byte)0); // // Login Flags?
+                Write((byte)10); // // Login Flags?
 
-                Write(0); // Pet DisplayID
-                Write(0); // Pet Level
-                Write(0); // Pet FamilyID
+                Write(10); // Pet DisplayID
+                Write(10); // Pet Level
+                Write(10); // Pet FamilyID
 
                 for (int itemSlot = 0; itemSlot < 19; itemSlot++)
                 {

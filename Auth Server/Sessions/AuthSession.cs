@@ -18,7 +18,6 @@ namespace Auth_Server.Sessions
 
         public AuthSession(int _connectionID, Socket _connectionSocket) : base(_connectionID, _connectionSocket)
         {
-
         }
 
         public override void onPacket(byte[] data)

@@ -75,15 +75,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game\World.cs" />
+    <Compile Include="Game\Entitys\EntityBase.cs" />
+    <Compile Include="Game\Entitys\GOEntity.cs" />
+    <Compile Include="Game\Entitys\ObjectEntity.cs" />
+    <Compile Include="Game\Entitys\PlayerEntity.cs" />
+    <Compile Include="Game\Entitys\UnitEntity.cs" />
     <Compile Include="Handlers\Auth\PCAuthSession.cs" />
+    <Compile Include="Handlers\Auth\PSAccountDataTimes.cs" />
     <Compile Include="Handlers\Auth\PSAuthResponse.cs" />
     <Compile Include="Handlers\Char\PCCharCreate.cs" />
     <Compile Include="Handlers\Char\PCCharDelete.cs" />
     <Compile Include="Handlers\Char\PSCharCreate.cs" />
     <Compile Include="Handlers\Char\PSCharDelete.cs" />
     <Compile Include="Handlers\Char\PSCharEnum.cs" />
+    <Compile Include="Handlers\Motd\PSSendMotd.cs" />
+    <Compile Include="Handlers\Updates\PSUpdateObject.cs" />
+    <Compile Include="Handlers\Updates\UpdateBlock.cs" />
     <Compile Include="Handlers\WorldDataRouter.cs" />
+    <Compile Include="Handlers\World\LoginVerifyWorld.cs" />
     <Compile Include="Handlers\World\PCPing.cs" />
     <Compile Include="Handlers\World\PCPlayerLogin.cs" />
     <Compile Include="Handlers\World\PSPong.cs" />
@@ -104,6 +113,7 @@
       <Name>Framework</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.104.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.104.0\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

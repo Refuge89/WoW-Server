@@ -25,9 +25,11 @@ namespace World_Server.Managers
                 Char.Money = 0;
                 Char.Online = 0;
                 Char.MapID = 1;
-                Char.MapX = 1235.54f;
-                Char.MapY = 1427.1f;
-                Char.MapZ = 309.715f;
+                Char.MapZone = 14;
+                Char.MapX = -618.518f;
+                Char.MapY = -4251.67f;
+                Char.MapZ = 38.718f;
+                Char.MapRotation = 0f;
                 Char.Equipment = "36,117,159,6134,6135,9562,6948,-1,-1,-1,-1,-1";
                                
                 var Skin = this.model.CharactersSkin.Create();
