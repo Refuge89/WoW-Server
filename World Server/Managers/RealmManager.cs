@@ -4,8 +4,6 @@ using Framework.Helpers;
 using System;
 using World_Server.Handlers;
 using World_Server.Handlers.Auth;
-using World_Server.Handlers.Motd;
-using World_Server.Handlers.Updates;
 using World_Server.Handlers.World;
 using World_Server.Sessions;
 
@@ -38,18 +36,20 @@ namespace World_Server.Managers
         private static void OnPlayerLogin(WorldSession session, PCPlayerLogin packet)
         {
             session.Character = Program.Database.GetCharacter(Convert.ToInt32(packet.GUID));
-
-            PSUpdateObject playerEntity = PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out session.Entity);
-
-            session.sendPacket(new LoginVerifyWorld(0, -616.383f, -4261.2148437f, 38.2418174743f, 5.50078153610229f));
-
+            
+            session.sendPacket(new LoginVerifyWorld(14, -618.518f, -4251.67f, 38.718f, 0f));
             session.sendPacket(new PSAccountDataTimes());
-
-            //session.sendPacket(new PSSendMotd());
-
-            session.sendPacket(playerEntity);
-
-            session.Entity.Session = session;
+            session.sendPacket(new PSSetRestStart());
+            session.sendPacket(new PSBindPointUpdate());
+            session.sendPacket(new PSTutorialFlags());
+            session.sendPacket(new PSInitialSpells());
+            session.sendPacket(new PSActionButtons());
+            session.sendPacket(new PSLoginSetTimeSpeed());
+            session.sendPacket(new PSTriggerCinematic());
+            ///
+            session.sendPacket(new PSFriendList());
+            session.sendPacket(new PSIgnoreList());
+            session.sendPacket(new PSInitWorldStates());         
         }
 
         private static void onUpdateAccount(WorldSession session, byte[] data)

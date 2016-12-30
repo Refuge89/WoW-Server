@@ -7,7 +7,6 @@ using Framework.Sessions;
 using System;
 using System.IO;
 using System.Net.Sockets;
-using World_Server.Game.Entitys;
 using World_Server.Handlers;
 
 namespace World_Server.Sessions
@@ -16,7 +15,6 @@ namespace World_Server.Sessions
     {
         public VanillaCrypt crypt;
         public Character Character;
-        public PlayerEntity Entity;
         public Users users;
 
         public WorldSession(int _connectionID, Socket _connectionSocket) : base(_connectionID, _connectionSocket)

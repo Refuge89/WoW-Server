@@ -72,5 +72,21 @@ namespace Framework.Extensions
                 writer.Write((uint)0);
             }
         }
+
+        public static void WriteHexPacket(this BinaryWriter writer, string data)
+        {
+            WriteBytes(writer, HexToByteArray(data));
+        }
+
+        public static byte[] HexToByteArray(string hex)
+        {
+            // Cleanup string
+            hex = hex.Replace(" ", "").Replace("\n", "").Replace("\r", "");
+
+            return Enumerable.Range(0, hex.Length)
+                             .Where(x => x % 2 == 0)
+                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+                             .ToArray();
+        }
     }
 }

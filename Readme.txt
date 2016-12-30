@@ -1,3 +1,5 @@
+https://svn.code.sf.net/p/shadowmoses/code/
+
 http://wowmapview.sourceforge.net/
 
 http://wow.gamepressure.com/map.asp?ID=24
