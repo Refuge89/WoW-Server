@@ -6,6 +6,7 @@ using Framework.Network;
 using Framework.Sessions;
 using System;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using World_Server.Handlers;
 
@@ -26,6 +27,24 @@ namespace World_Server.Sessions
         {
             sendPacket((int)packet.Opcode, packet.Packet);
         }
+
+        public void sendHexPacket(WorldOpcodes opcde, string hex)
+        {
+            string end = hex.Replace(" ", "").Replace("\n", "");
+
+            byte[] data = StringToByteArray(end);
+
+            sendPacket(opcde, data);
+        }
+
+        public static byte[] StringToByteArray(string hex)
+        {
+            return Enumerable.Range(0, hex.Length)
+                             .Where(x => x % 2 == 0)
+                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+                             .ToArray();
+        }
+
 
         public void sendPacket(WorldOpcodes opcode, byte[] data)
         {

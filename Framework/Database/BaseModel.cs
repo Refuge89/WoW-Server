@@ -10,8 +10,8 @@ namespace Framework.Database
 
         public BaseModel()
         {
-            var configuration = SqliteConfiguration.Create("database.sqlite", null);
-            //var configuration = MySqlConfiguration.Create("wow", "127.0.0.1", "homestead", "secret");
+            //var configuration = SqliteConfiguration.Create("database.sqlite", null);
+            var configuration = MySqlConfiguration.Create("wow", "127.0.0.1", "homestead", "secret");
             this.model = DataAccessModel.BuildDataAccessModel<T>(configuration);
         }
     }

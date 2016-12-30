@@ -16,9 +16,9 @@ namespace World_Server.Handlers.Char
             {
                 var Skin = Program.Database.GetSking(character);
 
-                Write((ulong)character.Id);
+                Write((ulong)character.Id);         // Int64
                 WriteCString(character.Name);
-                Write((byte)character.Race);
+                Write((byte)character.Race);        // Int8
                 Write((byte)character.Class);
 
                 Write((byte)character.Gender);
@@ -31,7 +31,7 @@ namespace World_Server.Handlers.Char
                     
                 Write((byte)character.Level);
 
-                Write(character.MapZone); // Zone ID
+                Write(character.MapZone);           // Int32
                 Write(character.MapID);
                 Write(character.MapX);
                 Write(character.MapY);

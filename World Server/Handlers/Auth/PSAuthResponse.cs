@@ -1,4 +1,5 @@
 ﻿using Framework.Contants;
+using Framework.Database.Tables;
 using Framework.Network;
 
 namespace World_Server.Handlers

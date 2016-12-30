@@ -84,12 +84,12 @@
     <Compile Include="Handlers\Char\PSCharDelete.cs" />
     <Compile Include="Handlers\Char\PSCharEnum.cs" />
     <Compile Include="Handlers\Motd\PSSendMotd.cs" />
-    <Compile Include="Handlers\Updates\UpdateBlock.cs" />
     <Compile Include="Handlers\WorldDataRouter.cs" />
     <Compile Include="Handlers\World\LoginVerifyWorld.cs" />
     <Compile Include="Handlers\World\PCPing.cs" />
     <Compile Include="Handlers\World\PCPlayerLogin.cs" />
     <Compile Include="Handlers\World\PSPong.cs" />
+    <Compile Include="Handlers\World\PSUpdateObject.cs" />
     <Compile Include="Managers\CharacterManager.cs" />
     <Compile Include="Managers\DataBaseManager.cs" />
     <Compile Include="Managers\RealmManager.cs" />
