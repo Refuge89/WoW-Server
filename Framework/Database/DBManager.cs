@@ -23,6 +23,17 @@ namespace Framework.Database
 
                 scope.Complete();
             }
+
+            using (var scope = new DataAccessScope())
+            {
+                var User = this.model.Users.Create();
+                User.name = "Dabal Doe";
+                User.username = "dabal";
+                User.email = "dabal@doe.com";
+                User.password = "doe";
+
+                scope.Complete();
+            }
         }
 
         public Users GetAccount(string username)

@@ -1,51 +1,51 @@
-https://github.com/mynew4/Arctium
+	https://github.com/mynew4/Arctium
 
-https://github.com/WCell/WCell
+	https://github.com/WCell/WCell
 
-https://github.com/Trinity-Encore/Encore
+	https://github.com/Trinity-Encore/Encore
 
-https://github.com/hazzik/uwow2
+	https://github.com/hazzik/uwow2
 
-https://github.com/miceiken/WoWClassicAuthServer
+	https://github.com/miceiken/WoWClassicAuthServer
 
-https://github.com/Evairfairy/Hurricane
+	https://github.com/Evairfairy/Hurricane
 
-https://github.com/barncastle/Alpha-WoW
+	https://github.com/barncastle/Alpha-WoW
 
-https://github.com/CastielS/Mists-of-Pandaria
+	https://github.com/CastielS/Mists-of-Pandaria
 
-https://github.com/robpaveza/dbcexplorer
+	https://github.com/robpaveza/dbcexplorer
 
-https://github.com/ovr/CypherCore
+	https://github.com/ovr/CypherCore
 
-https://github.com/Kirth/WAGER
+	https://github.com/Kirth/WAGER
 
-https://github.com/frostfiregaming/HurricaneEmu
+	https://github.com/frostfiregaming/HurricaneEmu
 
-https://github.com/acidburn974/WoWBotVaniilla
+	https://github.com/acidburn974/WoWBotVaniilla
 
-https://github.com/zdroid9770/ArctiumAlpha
+	https://github.com/zdroid9770/ArctiumAlpha
 
-https://github.com/andy012345/server
+	https://github.com/andy012345/server
 
-https://github.com/a1ien/WoWPacketViewer
+	https://github.com/a1ien/WoWPacketViewer
 
-https://github.com/andrewmunro/Vanilla
+	https://github.com/andrewmunro/Vanilla
 
-https://github.com/WoWServer/WoWServer
+	https://github.com/WoWServer/WoWServer
 
-https://github.com/Zakkgard/Moonfire
+	https://github.com/Zakkgard/Moonfire
 
-https://github.com/slfl/WoWAlpha
+	https://github.com/slfl/WoWAlpha
 
-https://github.com/fuad86/m-client
+	https://github.com/fuad86/m-client
 
-https://github.com/karliky/wowwow
+	https://github.com/karliky/wowwow
 
-https://github.com/andyhebear/HappyQ-WowServer
+	https://github.com/andyhebear/HappyQ-WowServer
 
-https://github.com/cntseesharp/WoW-Brute
+	https://github.com/cntseesharp/WoW-Brute
 
-https://github.com/FreecraftCore/FreecraftCore.Packet
+	https://github.com/FreecraftCore/FreecraftCore.Packet
 
 https://github.com/MinxxwatDo/sharpwow

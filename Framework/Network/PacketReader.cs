@@ -65,5 +65,10 @@ namespace Framework.Network
             }
             return ret;
         }
+
+        public new ulong ReadUInt64()
+        {
+            return base.ReadUInt64();
+        }
     }
 }
