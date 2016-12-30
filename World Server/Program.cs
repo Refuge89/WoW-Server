@@ -41,6 +41,7 @@ namespace World_Server
                 // Iniciando Sequencia
                 RealmManager.Boot();
                 CharacterManager.Boot();
+                ChatManager.Boot();
                 
 
                 Log.Print("World Server", $"Server is now listening at {WorldPoint.Address}:{WorldPoint.Port}", ConsoleColor.Green);
@@ -73,7 +74,6 @@ namespace World_Server
             {
                 return WorldServer.Sessions.Find(user => user.Character.Name.ToLower() == playerName.ToLower());
             }
-
         }
     }
 }

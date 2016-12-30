@@ -10,9 +10,7 @@ namespace World_Server.Handlers.Motd
         {
             Write(3);
 
-            this.WriteCString("Serivodor Teste Alpha Omega Beta");
-            this.WriteCString("Se esta vendo esta mensagem e por que funcionou.");
-            this.WriteCString("Tudo pode não funcionar! fique calmo, estou em desenvolvimento!");
+            this.WriteCString("Servidor Omega 3 Beta Alpha, se esta vendo esta mensagem e por que funcionou. Tudo pode não funcionar! fique calmo, estou em desenvolvimento!");
         }
     }
 }

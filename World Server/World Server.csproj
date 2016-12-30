@@ -75,17 +75,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game\Entitys\Player.cs" />
+    <Compile Include="Game\Entitys\PlayerEntity.cs" />
     <Compile Include="Game\Entitys\WorldObject.cs" />
+    <Compile Include="Game\World.cs" />
     <Compile Include="Handlers\Auth\PCAuthSession.cs" />
     <Compile Include="Handlers\Auth\PSAccountDataTimes.cs" />
     <Compile Include="Handlers\Auth\PSAuthResponse.cs" />
     <Compile Include="Handlers\Char\PCCharCreate.cs" />
     <Compile Include="Handlers\Char\PCCharDelete.cs" />
+    <Compile Include="Handlers\Char\PCLogoutResponse.cs" />
     <Compile Include="Handlers\Char\PSCharCreate.cs" />
     <Compile Include="Handlers\Char\PSCharDelete.cs" />
     <Compile Include="Handlers\Char\PSCharEnum.cs" />
+    <Compile Include="Handlers\Char\PSLogoutCancelAcknowledgement.cs" />
+    <Compile Include="Handlers\Char\PSLogoutComplete.cs" />
+    <Compile Include="Handlers\Communication\PCMessageChat.cs" />
+    <Compile Include="Handlers\Communication\PSMessageChat.cs" />
+    <Compile Include="Handlers\Communication\PSPlaySound.cs" />
     <Compile Include="Handlers\Motd\PSSendMotd.cs" />
+    <Compile Include="Handlers\Player\PCNameQuery.cs" />
+    <Compile Include="Handlers\Player\PSNameQueryResponse.cs" />
     <Compile Include="Handlers\WorldDataRouter.cs" />
     <Compile Include="Handlers\World\LoginVerifyWorld.cs" />
     <Compile Include="Handlers\World\PCPing.cs" />
@@ -93,7 +102,9 @@
     <Compile Include="Handlers\World\PSPong.cs" />
     <Compile Include="Handlers\World\PSUpdateObject.cs" />
     <Compile Include="Managers\CharacterManager.cs" />
+    <Compile Include="Managers\ChatManager.cs" />
     <Compile Include="Managers\DataBaseManager.cs" />
+    <Compile Include="Managers\PlayerManager.cs" />
     <Compile Include="Managers\RealmManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

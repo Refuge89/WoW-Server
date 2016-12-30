@@ -37,9 +37,9 @@ namespace World_Server.Game.Entitys
         }
     }
 
-    public class Player : WorldObject
+    public class PlayerEntity : WorldObject
     {
-        public Player(Character character) : base((int)EUnitFields.PLAYER_END - 0x4)
+        public PlayerEntity(Character character) : base((int)EUnitFields.PLAYER_END - 0x4)
         {
             var Skin = Program.Database.GetSking(character);
 
