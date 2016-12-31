@@ -89,6 +89,7 @@
     <Compile Include="Handlers\Char\PSCharEnum.cs" />
     <Compile Include="Handlers\Char\PSLogoutCancelAcknowledgement.cs" />
     <Compile Include="Handlers\Char\PSLogoutComplete.cs" />
+    <Compile Include="Handlers\Char\PSTriggerCinematic.cs" />
     <Compile Include="Handlers\Communication\PCMessageChat.cs" />
     <Compile Include="Handlers\Communication\PSMessageChat.cs" />
     <Compile Include="Handlers\Communication\PSPlaySound.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Managers\CharacterManager.cs" />
     <Compile Include="Managers\ChatManager.cs" />
     <Compile Include="Managers\DataBaseManager.cs" />
+    <Compile Include="Managers\DBCManager.cs" />
     <Compile Include="Managers\PlayerManager.cs" />
     <Compile Include="Managers\RealmManager.cs" />
     <Compile Include="Program.cs" />

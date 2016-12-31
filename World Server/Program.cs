@@ -1,9 +1,11 @@
 ﻿using Framework.Database;
+using Framework.DBC.Structs;
 using Framework.Helpers;
 using Framework.Network;
 using Framework.Sessions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using World_Server.Managers;
@@ -31,7 +33,13 @@ namespace World_Server
 
             var WorldPoint = new IPEndPoint(IPAddress.Any, 1001);
 
+            // First Load DBC Files
+            DBCManager.Boot();
+
+            // Iniciando World
             World = new WorldServer();
+
+            // Inicia Conexao
             if (World.Start(WorldPoint))
             {
                 // Iniciando Database
@@ -42,7 +50,7 @@ namespace World_Server
                 RealmManager.Boot();
                 CharacterManager.Boot();
                 ChatManager.Boot();
-                
+
 
                 Log.Print("World Server", $"Server is now listening at {WorldPoint.Address}:{WorldPoint.Port}", ConsoleColor.Green);
                 Log.Print("World Server", $"Successfully started in {Time.getMSTimeDiff(time, Time.getMSTime()) / 1000}s", ConsoleColor.Green);

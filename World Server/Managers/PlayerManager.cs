@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace World_Server.Managers
+﻿namespace World_Server.Managers
 {
     class PlayerManager
     {

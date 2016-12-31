@@ -26,6 +26,7 @@ namespace World_Server.Sessions
         public void sendPacket(ServerPacket packet)
         {
             sendPacket((int)packet.Opcode, packet.Packet);
+            return;
         }
 
         public void sendHexPacket(WorldOpcodes opcde, string hex)

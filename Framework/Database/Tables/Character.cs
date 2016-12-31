@@ -1,6 +1,7 @@
 ﻿using Framework.Contants.Character;
 using Platform.Validation;
 using Shaolinq;
+using System;
 
 namespace Framework.Database.Tables
 {
@@ -60,5 +61,14 @@ namespace Framework.Database.Tables
 
         [PersistedMember]
         public abstract string Equipment { get; set; }
+
+        [PersistedMember]
+        public abstract bool firsttime { get; set; }
+
+        [PersistedMember]
+        public abstract DateTime? created_at { get; set; }
+
+        [PersistedMember]
+        public abstract DateTime? updated_at { get; set; }
     }
 }

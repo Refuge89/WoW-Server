@@ -4,6 +4,7 @@ using Framework.Helpers;
 using System;
 using World_Server.Handlers;
 using World_Server.Handlers.Auth;
+using World_Server.Handlers.Char;
 using World_Server.Handlers.Motd;
 using World_Server.Handlers.World;
 using World_Server.Sessions;
@@ -25,7 +26,6 @@ namespace World_Server.Managers
             session.users = Program.DBManager.GetAccount(packet.AccountName);
             session.crypt = new VanillaCrypt();
             session.crypt.init(session.users.sessionkey);
-            Log.Print(LogType.Debug, "Started Encryption");
             session.sendPacket(new PSAuthResponse());
         }
 
@@ -49,6 +49,16 @@ namespace World_Server.Managers
 
             // Envia MOTD do Servidor
             session.sendPacket(new PSSendMotd());
+
+            // Envia Cinematic ao Char
+            if(session.Character.firsttime == false)
+            {
+                session.sendPacket(new PSTriggerCinematic(Program.Database.GetCharStarter(session.Character.Race).Cinematic));
+                Program.Database.UpdateCharacter(session.Character.Id, "firstlogin");
+            }
+
+            // Define Char como online
+            Program.Database.UpdateCharacter(session.Character.Id, "online");
         }
 
         private static void onUpdateAccount(WorldSession session, byte[] data)

@@ -1,7 +1,9 @@
 ﻿using Framework.Contants.Character;
 using Framework.Database;
 using Framework.Database.Tables;
+using Framework.DBC.Structs;
 using Shaolinq;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -15,33 +17,48 @@ namespace World_Server.Managers
         {
             using (var scope = new DataAccessScope())
             {
+                //CharacterCreationInfo newCharacterInfo = DBCharacters.GetCreationInfo((RaceID)packet.Race, (ClassID)packet.Class);
+                // Selecting Starter Itens Equipament
+                CharStartOutfit startItems = DBCManager.CharStartOutfit.Values.FirstOrDefault(x => x.Match(packet.Race, packet.Class, packet.Gender));
+
+                // Selecting char data creation
+                CharacterCreationInfo CharStarter = this.GetCharStarter((RaceID)packet.Race);
+
+                // Salva Char
                 var Char = this.model.Characters.Create();
-                Char.Users = User;
-                Char.Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(packet.Name);
-                Char.Race = (RaceID)packet.Race;
-                Char.Class = (ClassID)packet.Class;
-                Char.Gender = (GenderID)packet.Gender;
-                Char.Level = 1;
-                Char.Money = 0;
-                Char.Online = 0;
-                Char.MapID = 1;
-                Char.MapZone = 14;
-                Char.MapX = -618.518f;
-                Char.MapY = -4251.67f;
-                Char.MapZ = 38.718f;
-                Char.MapRotation = 0f;
-                Char.Equipment = "36,117,159,6134,6135,9562,6948,-1,-1,-1,-1,-1";
-                               
+                    Char.Users = User;
+                    Char.Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(packet.Name);
+                    Char.Race = (RaceID)packet.Race;
+                    Char.Class = (ClassID)packet.Class;
+                    Char.Gender = (GenderID)packet.Gender;
+                    Char.Level = 1;
+                    Char.Money = 0;
+                    Char.Online = 0;
+                    Char.MapID = CharStarter.MapID;
+                    Char.MapZone = CharStarter.MapZone;
+                    Char.MapX = CharStarter.MapX;
+                    Char.MapY = CharStarter.MapY;
+                    Char.MapZ = CharStarter.MapZ;
+                    Char.MapRotation = CharStarter.MapRotation;
+                    Char.Equipment = String.Join(",", startItems.m_InventoryType);
+                    Char.firsttime = false;
+                
+                // Salva Skin do Char              
                 var Skin = this.model.CharactersSkin.Create();
-                Skin.Character = Char;
-                Skin.Face = packet.Face;
-                Skin.HairStyle = packet.HairStyle;
-                Skin.HairColor = packet.HairColor;
-                Skin.Accessory = packet.Accessory;
+                    Skin.Character = Char;
+                    Skin.Face = packet.Face;
+                    Skin.HairStyle = packet.HairStyle;
+                    Skin.HairColor = packet.HairColor;
+                    Skin.Accessory = packet.Accessory;
 
                 scope.Complete();
             }
             return;
+        }
+
+        public CharacterCreationInfo GetCharStarter(RaceID Race)
+        {
+            return this.model.CharacterCreationInfo.FirstOrDefault(a => a.Race == Race);
         }
 
         public Character GetCharacter(int CharId)
@@ -65,6 +82,28 @@ namespace World_Server.Managers
             using (var scope = new DataAccessScope())
             {
                 await this.model.Characters.Where(a => a.Id == CharId).DeleteAsync();
+                await scope.CompleteAsync();
+            }
+
+            return;
+        }
+
+        public async void UpdateCharacter(int CharId, string Objeto, string Value = null)
+        {
+            using (var scope = new DataAccessScope())
+            {
+                var character = model.Characters.GetReference(CharId);
+
+                // Define Online/Offline
+                if(Objeto == "online" && character.Online == 1)
+                    character.Online = 0;
+                 else
+                    character.Online = 1;
+
+                // Define primeiro Login
+                if (Objeto == "firstlogin")
+                    character.firsttime = true;
+                    
                 await scope.CompleteAsync();
             }
 

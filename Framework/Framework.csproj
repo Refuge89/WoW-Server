@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -81,6 +82,8 @@
   <ItemGroup>
     <Compile Include="Contants\Character\Opcodes.cs" />
     <Compile Include="Contants\Game\ChatOpcodes.cs" />
+    <Compile Include="Contants\Game\ObjectOpcodes.cs" />
+    <Compile Include="Contants\Game\UnitFields.cs" />
     <Compile Include="Contants\LoginOpcodes.cs" />
     <Compile Include="Contants\RealmOpcodes.cs" />
     <Compile Include="Contants\ResponseCodes.cs" />
@@ -91,8 +94,14 @@
     <Compile Include="Database\DBManager.cs" />
     <Compile Include="Database\Models.cs" />
     <Compile Include="Database\Tables\Character.cs" />
+    <Compile Include="Database\Tables\CharacterCreationInfo.cs" />
     <Compile Include="Database\Tables\CharactersSkin.cs" />
     <Compile Include="Database\Tables\Users.cs" />
+    <Compile Include="DBC\BinaryReaderExtensions.cs" />
+    <Compile Include="DBC\DBHeader.cs" />
+    <Compile Include="DBC\DBReader.cs" />
+    <Compile Include="DBC\DBReaderExtensions.cs" />
+    <Compile Include="DBC\Structs\CharStartOutfit.cs" />
     <Compile Include="Extensions\BinaryWriterExtension.cs" />
     <Compile Include="Helpers\Log.cs" />
     <Compile Include="Helpers\Time.cs" />

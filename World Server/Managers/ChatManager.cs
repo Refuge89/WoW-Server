@@ -3,6 +3,7 @@ using Framework.Contants.Game;
 using System;
 using System.Collections.Generic;
 using World_Server.Handlers;
+using World_Server.Handlers.Char;
 using World_Server.Handlers.Communication;
 using World_Server.Sessions;
 using static World_Server.Program;
@@ -33,32 +34,25 @@ namespace World_Server.Managers
         }
 
         public static void OnMsg(WorldSession session, PCMessageChat packet)
-        {
+        {               
             WorldServer.TransmitToAll(new PSMessageChat(packet.Type, ChatLanguage.LANG_COMMON, (ulong)session.Character.Id, packet.Message));
         }
 
         public static void OnMsgWhisper(WorldSession session, PCMessageChat packet)
         {
-            //WorldSession remoteSession = WorldServer.GetSessionByPlayerName(packet.To);
-
-            Console.WriteLine("[Chat] Whisper:" + " To:" + packet.To + " From:" + session.Character.Name + " Message:" + packet.Message);
-            /*
+            WorldSession remoteSession = WorldServer.GetSessionByPlayerName(packet.To);            
             if (remoteSession != null)
             {
                 session.sendPacket(new PSMessageChat(ChatMessage.CHAT_MSG_WHISPER_INFORM, ChatLanguage.LANG_UNIVERSAL, (ulong)remoteSession.Character.Id, packet.Message));
                 remoteSession.sendPacket(new PSMessageChat(ChatMessage.CHAT_MSG_WHISPER, ChatLanguage.LANG_UNIVERSAL, (ulong)session.Character.Id, packet.Message));
+                return;
             }
-            else
-            {
-                session.sendPacket(new PSMessageChat(ChatMessage.CHAT_MSG_SYSTEM, ChatLanguage.LANG_COMMON, 0, "Player not found."));
-            }
-            */
+
+            session.sendPacket(new PSMessageChat(ChatMessage.CHAT_MSG_SYSTEM, ChatLanguage.LANG_COMMON, 0, "Player not found."));
         }
 
         public static void OnMsgMessageChat(WorldSession session, PCMessageChat packet)
         {
-            Console.WriteLine("[Chat] Type:" + packet.Type.ToString() + " Language:" + packet.Language.ToString() + " Message:" + packet.Message);
-
             if (ChatHandlers.ContainsKey(packet.Type))
             {
                 ChatHandlers[packet.Type](session, packet);

@@ -47,8 +47,7 @@ namespace World_Server.Managers
             try
             {
                 Program.Database.CreateChar(packet, session.users);
-                session.sendPacket(new PSCharCreate(LoginErrorCode.CHAR_CREATE_SUCCESS));
-                return;
+                session.sendPacket(new PSCharCreate(LoginErrorCode.CHAR_CREATE_SUCCESS)); return;
             }
             catch (Exception ex)
             {
