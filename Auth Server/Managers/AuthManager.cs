@@ -19,13 +19,16 @@ namespace Auth_Server.Managers
             AuthDataRouter.AddHandler(AuthServerOpCode.REALM_LIST, OnRealmList);
 
             // need implement reconnect code
-            AuthDataRouter.AddHandler<PCAuthReconnectChallenge>(AuthServerOpCode.AUTH_RECONNECT_CHALLENGE, OnAuthReconnectChallenge);
+            AuthDataRouter.AddHandler<PCAuthReconnectChallenge>(AuthServerOpCode.AUTH_RECONNECT_CHALLENGE,
+                OnAuthReconnectChallenge);
             //AuthDataRouter.AddHandler<PCAuthReconnectProof>(AuthServerOpCode.AUTH_RECONNECT_PROOF, OnReconnectProof);
         }
 
         private static void OnAuthLogonChallenge(AuthSession session, PCAuthLogonChallenge packet)
         {
-            Log.Print("Auth Battle.NET", $"New Connection {packet.Name} ({packet.Version} {packet.Build}) {packet.IP} - {packet.OS}/{packet.Platform}", ConsoleColor.Green);
+            Log.Print("Auth Battle.NET",
+                $"New Connection {packet.Name} ({packet.Version} {packet.Build}) {packet.IP} - {packet.OS}/{packet.Platform}",
+                ConsoleColor.Green);
 
             // Check Build Pass
             if (packet.Build != 5875)
@@ -54,7 +57,7 @@ namespace Auth_Server.Managers
         private static void OnLogonProof(AuthSession session, PCAuthLogonProof packet)
         {
             session.Srp.ClientEphemeral = packet.A.ToPositiveBigInteger();
-            session.Srp.ClientProof     = packet.M1.ToPositiveBigInteger();
+            session.Srp.ClientProof = packet.M1.ToPositiveBigInteger();
 
             // Causa Warning aqui tem que dar uma olhada nessa merda
             Program.Database.SetSessionKey(session.accountName, session.Srp.SessionKey.ToProperByteArray());

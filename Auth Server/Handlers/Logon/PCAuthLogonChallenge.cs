@@ -24,21 +24,21 @@ namespace Auth_Server.Handlers.Logon
 
         public PCAuthLogonChallenge(byte[] data) : base(data)
         {
-            OptCode     = ReadByte();
-            Error       = ReadByte();
-            Size        = ReadUInt16();
+            OptCode = ReadByte();
+            Error = ReadByte();
+            Size = ReadUInt16();
 
-            GameName    = ReadStringReversed(4);
-            Version     = ReadByte().ToString() + '.' + ReadByte().ToString() + '.' + ReadByte().ToString();
+            GameName = ReadStringReversed(4);
+            Version = ReadByte().ToString() + '.' + ReadByte().ToString() + '.' + ReadByte().ToString();
 
-            Build       = ReadUInt16();
-            Platform    = ReadStringReversed(4);
-            OS          = ReadStringReversed(4);
-            Country     = ReadStringReversed(4);
+            Build = ReadUInt16();
+            Platform = ReadStringReversed(4);
+            OS = ReadStringReversed(4);
+            Country = ReadStringReversed(4);
 
-            TimeZone    = ReadUInt32();
-            IP          = ReadIpAddress();
-            Name        = ReadPascalString(1);
+            TimeZone = ReadUInt32();
+            IP = ReadIpAddress();
+            Name = ReadPascalString(1);
         }
     }
 }

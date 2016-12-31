@@ -11,9 +11,9 @@ namespace Auth_Server.Handlers.Reconnect
 
         public PCAuthReconnectChallenge(byte[] data) : base(data)
         {
-            OptCode     = ReadByte().ToString();    // 2
-            ProofData   = ReadUInt16();             // 8706
-            ClientProof = ReadBytes(20);    // byte
+            OptCode = ReadByte().ToString(); // 2
+            ProofData = ReadUInt16(); // 8706
+            ClientProof = ReadBytes(20); // byte
         }
     }
 }

@@ -9,8 +9,8 @@ namespace Auth_Server.Handlers.Logon
     {
         public PSAuthLogonProof(SRP Srp, AuthenticationResult result) : base(AuthServerOpCode.AUTH_LOGON_PROOF)
         {
-            Write((byte)1);
-            Write((byte)result);
+            Write((byte) 1);
+            Write((byte) result);
             Write(Srp.ServerProof.ToByteArray().Pad(20));
             this.WriteNullByte(4);
         }

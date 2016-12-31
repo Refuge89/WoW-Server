@@ -13,13 +13,13 @@ namespace Auth_Server.Handlers.Logon
 
         public PCAuthLogonProof(byte[] data) : base(data)
         {
-            OptCode     = ReadByte();
-            A           = ReadBytes(32);
-            M1          = ReadBytes(20);
+            OptCode = ReadByte();
+            A = ReadBytes(32);
+            M1 = ReadBytes(20);
 
-            CRC_Hash    = ReadBytes(20);
-            nKeys       = ReadByte();
-            unk         = ReadByte();
+            CRC_Hash = ReadBytes(20);
+            nKeys = ReadByte();
+            unk = ReadByte();
         }
     }
 }

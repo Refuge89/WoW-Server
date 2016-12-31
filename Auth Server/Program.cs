@@ -25,8 +25,11 @@ namespace Auth_Server
 
             Version ver = m_Assembly.GetName().Version;
 
-            Log.Print("Auth Battle.NET", $"Version {ver.Major}.{ver.Minor}.{ver.Build}.{ver.Revision}", ConsoleColor.Green);
-            Log.Print("Auth Battle.NET", $"Running on .NET Framework Version {Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}", ConsoleColor.Green);
+            Log.Print("Auth Battle.NET", $"Version {ver.Major}.{ver.Minor}.{ver.Build}.{ver.Revision}",
+                ConsoleColor.Green);
+            Log.Print("Auth Battle.NET",
+                $"Running on .NET Framework Version {Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}",
+                ConsoleColor.Green);
 
             var AuthPoint = new IPEndPoint(IPAddress.Any, 3724);
 
@@ -40,8 +43,10 @@ namespace Auth_Server
                 Database = new DBManager();
                 Database.Boot();
 
-                Log.Print("Auth Battle.NET", $"Server is now listening at {AuthPoint.Address}:{AuthPoint.Port}", ConsoleColor.Green);
-                Log.Print("Auth Battle.NET", $"Successfully started in {Time.getMSTimeDiff(time, Time.getMSTime()) / 1000}s", ConsoleColor.Green);
+                Log.Print("Auth Battle.NET", $"Server is now listening at {AuthPoint.Address}:{AuthPoint.Port}",
+                    ConsoleColor.Green);
+                Log.Print("Auth Battle.NET",
+                    $"Successfully started in {Time.getMSTimeDiff(time, Time.getMSTime()) / 1000}s", ConsoleColor.Green);
             }
 
             while (true) Console.ReadLine();

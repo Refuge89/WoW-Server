@@ -17,6 +17,8 @@ namespace Framework.Network
         {
             activeConnections = new Dictionary<int, Session>();
             socketHandler = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socketHandler.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.NoDelay, true);
+            socketHandler.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.DontLinger, true);
 
             try
             {

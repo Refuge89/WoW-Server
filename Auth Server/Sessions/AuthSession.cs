@@ -23,37 +23,37 @@ namespace Auth_Server.Sessions
         public override void onPacket(byte[] data)
         {
             short opcode = BitConverter.ToInt16(data, 0);
-            Log.Print("Auth Battle.NET", $"Data Received: {opcode.ToString("X2")} ({((AuthServerOpCode)opcode)})", ConsoleColor.Green);
+            Log.Print("Auth Battle.NET", $"Data Received: {opcode.ToString("X2")} ({((AuthServerOpCode) opcode)})",
+                ConsoleColor.Green);
 
-            AuthServerOpCode code = (AuthServerOpCode)opcode;
+            AuthServerOpCode code = (AuthServerOpCode) opcode;
 
             AuthDataRouter.CallHandler(this, code, data);
         }
 
         public void sendPacket(ServerPacket packet)
         {
-            sendPacket((byte)packet.Opcode, packet.Packet);
+            sendPacket((byte) packet.Opcode, packet.Packet);
         }
 
         public void sendPacket(byte opcode, byte[] data)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write(opcode);
-            writer.Write((ushort)data.Length);
+            writer.Write((ushort) data.Length);
             writer.Write(data);
 
-            Log.Print("Auth Battle.NET", $"Con ({connectionID}) Server -> Client [" + (AuthServerOpCode)opcode + "] [0x" + opcode.ToString("X") + "]", ConsoleColor.Green);
+            Log.Print("Auth Battle.NET",
+                $"Con ({connectionID}) Server -> Client [" + (AuthServerOpCode) opcode + "] [0x" + opcode.ToString("X") +
+                "]", ConsoleColor.Green);
 
-            sendData(((MemoryStream)writer.BaseStream).ToArray());
+            sendData(((MemoryStream) writer.BaseStream).ToArray());
         }
 
 
         public bool IsAuthenticated
         {
-            get
-            {
-                return Srp != null && Srp.ClientProof == Srp.GenerateClientProof();
-            }
+            get { return Srp != null && Srp.ClientProof == Srp.GenerateClientProof(); }
         }
     }
 }

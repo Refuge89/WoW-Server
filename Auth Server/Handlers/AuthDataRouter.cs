@@ -7,11 +7,13 @@ using System.Collections.Generic;
 namespace Auth_Server.Handlers
 {
     public delegate void ProcessLoginPacketCallback(AuthSession Session, byte[] data);
+
     public delegate void ProcessLoginPacketCallbackTypes<T>(AuthSession Session, T handler);
 
     public class AuthDataRouter
     {
-        private static Dictionary<AuthServerOpCode, ProcessLoginPacketCallback> mCallbacks = new Dictionary<AuthServerOpCode, ProcessLoginPacketCallback>();
+        private static Dictionary<AuthServerOpCode, ProcessLoginPacketCallback> mCallbacks =
+            new Dictionary<AuthServerOpCode, ProcessLoginPacketCallback>();
 
         public static void AddHandler(AuthServerOpCode opcode, ProcessLoginPacketCallback handler)
         {
@@ -22,7 +24,7 @@ namespace Auth_Server.Handlers
         {
             AddHandler(opcode, (session, data) =>
             {
-                T generatedHandler = (T)Activator.CreateInstance(typeof(T), data);
+                T generatedHandler = (T) Activator.CreateInstance(typeof(T), data);
                 callback(session, generatedHandler);
             });
         }
