@@ -21,6 +21,7 @@ namespace World_Server.Managers
         public static void Boot()
         {
             WorldDataRouter.AddHandler<PCMessageChat>(WorldOpcodes.CMSG_MESSAGECHAT, OnMsgMessageChat);
+            WorldDataRouter.AddHandler<PCEmote>(WorldOpcodes.CMSG_TEXT_EMOTE, OnTextEmotePacket);
             //WorldDataRouter.AddHandler<PCChannel>(WorldOpcodes.CMSG_JOIN_CHANNEL, OnJoinChannel);
             //WorldDataRouter.AddHandler<PCChannel>(WorldOpcodes.CMSG_LEAVE_CHANNEL, OnLeaveChannel);
             //WorldDataRouter.AddHandler<PCChannel>(WorldOpcodes.CMSG_CHANNEL_LIST, OnListChannel);
@@ -36,6 +37,11 @@ namespace World_Server.Managers
         public static void OnMsg(WorldSession session, PCMessageChat packet)
         {               
             WorldServer.TransmitToAll(new PSMessageChat(packet.Type, ChatLanguage.LANG_COMMON, (ulong)session.Character.Id, packet.Message));
+        }
+
+        public static void OnTextEmotePacket(WorldSession session, PCEmote packet)
+        {
+            WorldServer.TransmitToAll(new PSEmote((int)packet.EmoteID, session.Character.Id));
         }
 
         public static void OnMsgWhisper(WorldSession session, PCMessageChat packet)

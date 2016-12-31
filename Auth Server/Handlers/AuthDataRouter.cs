@@ -30,14 +30,9 @@ namespace Auth_Server.Handlers
         public static void CallHandler(AuthSession session, AuthServerOpCode opcode, byte[] data)
         {
             if (mCallbacks.ContainsKey(opcode))
-            {
                 mCallbacks[opcode](session, data);
-            }
             else
-            {
                 Log.Print("Auth Battle.NET", $"Missing handler: {opcode}", ConsoleColor.Green);
-            }
         }
-
     }
 }

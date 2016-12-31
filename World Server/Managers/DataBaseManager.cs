@@ -109,5 +109,19 @@ namespace World_Server.Managers
 
             return;
         }
+
+        public async void UpdateMovement(Character Character)
+        {
+            using (var scope = new DataAccessScope())
+            {
+                var update = model.Characters.GetReference(Character.Id);
+                update.MapX = Character.MapX;
+                update.MapY = Character.MapY;
+                update.MapZ = Character.MapZ;
+                update.MapRotation = Character.MapRotation;
+
+                await scope.CompleteAsync();
+            }
+        }
     }
 }

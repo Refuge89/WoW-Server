@@ -50,7 +50,7 @@ namespace World_Server
                 RealmManager.Boot();
                 CharacterManager.Boot();
                 ChatManager.Boot();
-
+                MovementManager.Boot();
 
                 Log.Print("World Server", $"Server is now listening at {WorldPoint.Address}:{WorldPoint.Port}", ConsoleColor.Green);
                 Log.Print("World Server", $"Successfully started in {Time.getMSTimeDiff(time, Time.getMSTime()) / 1000}s", ConsoleColor.Green);

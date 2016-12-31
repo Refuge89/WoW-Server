@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="Game\Entitys\PlayerEntity.cs" />
     <Compile Include="Game\Entitys\WorldObject.cs" />
+    <Compile Include="Game\Update\ObjectGuid.cs" />
     <Compile Include="Game\World.cs" />
     <Compile Include="Handlers\Auth\PCAuthSession.cs" />
     <Compile Include="Handlers\Auth\PSAccountDataTimes.cs" />
@@ -90,10 +91,16 @@
     <Compile Include="Handlers\Char\PSLogoutCancelAcknowledgement.cs" />
     <Compile Include="Handlers\Char\PSLogoutComplete.cs" />
     <Compile Include="Handlers\Char\PSTriggerCinematic.cs" />
+    <Compile Include="Handlers\Communication\PCEmote.cs" />
     <Compile Include="Handlers\Communication\PCMessageChat.cs" />
+    <Compile Include="Handlers\Communication\PSEmote.cs" />
     <Compile Include="Handlers\Communication\PSMessageChat.cs" />
     <Compile Include="Handlers\Communication\PSPlaySound.cs" />
+    <Compile Include="Handlers\Communication\PSTextEmote.cs" />
     <Compile Include="Handlers\Motd\PSSendMotd.cs" />
+    <Compile Include="Handlers\Movement\MoveInfo.cs" />
+    <Compile Include="Handlers\Movement\PSMoveHeartbeat.cs" />
+    <Compile Include="Handlers\Movement\PSMovement.cs" />
     <Compile Include="Handlers\Player\PCNameQuery.cs" />
     <Compile Include="Handlers\Player\PSNameQueryResponse.cs" />
     <Compile Include="Handlers\WorldDataRouter.cs" />
@@ -106,6 +113,7 @@
     <Compile Include="Managers\ChatManager.cs" />
     <Compile Include="Managers\DataBaseManager.cs" />
     <Compile Include="Managers\DBCManager.cs" />
+    <Compile Include="Managers\MovementManager.cs" />
     <Compile Include="Managers\PlayerManager.cs" />
     <Compile Include="Managers\RealmManager.cs" />
     <Compile Include="Program.cs" />

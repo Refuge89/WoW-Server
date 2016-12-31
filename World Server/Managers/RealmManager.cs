@@ -2,6 +2,7 @@
 using Framework.Crypt;
 using Framework.Helpers;
 using System;
+using Framework.Database.Tables;
 using World_Server.Handlers;
 using World_Server.Handlers.Auth;
 using World_Server.Handlers.Char;
@@ -59,11 +60,42 @@ namespace World_Server.Managers
 
             // Define Char como online
             Program.Database.UpdateCharacter(session.Character.Id, "online");
+
+            EntityManager.SpawnPlayer(session.Character);
+            EntityManager.SendPlayers(session);
         }
 
         private static void onUpdateAccount(WorldSession session, byte[] data)
         {
             // Update Login Character
+        }
+    }
+
+
+    public class EntityManager
+    {
+        public static void Boot()
+        {
+        }
+
+        public static void SpawnPlayer(Character character)
+        {
+            Program.WorldServer.Sessions.FindAll(s => s.Character != character).ForEach(s =>
+            {
+                Console.WriteLine("Spawning: " + character.Name);
+                s.sendPacket(PSUpdateObject.CreateCharacterUpdate(character));
+            });
+        }
+
+        public static void SendPlayers(WorldSession session)
+        {
+            Program.WorldServer.Sessions.FindAll(s => s.Character != null)
+                .FindAll(s => s.Character != session.Character)
+                .ForEach(s =>
+                {
+                    Console.WriteLine("Spawning: " + s.Character);
+                    session.sendPacket(PSUpdateObject.CreateCharacterUpdate(s.Character));
+                });
         }
     }
 }
