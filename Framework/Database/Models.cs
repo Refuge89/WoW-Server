@@ -10,6 +10,9 @@ namespace Framework.Database
         public abstract DataAccessObjects<Users> Users { get; }
 
         [DataAccessObjects]
+        public abstract DataAccessObjects<Realms> Realms { get; }
+
+        [DataAccessObjects]
         public abstract DataAccessObjects<Character> Characters { get; }
 
         [DataAccessObjects]

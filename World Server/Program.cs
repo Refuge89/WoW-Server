@@ -19,7 +19,7 @@ namespace World_Server
 
         public static WorldServer World { get; private set; }
 
-        public static DataBaseManager Database;
+        public static DatabaseManager Database;
         public static DBManager DBManager;
 
         static void Main(string[] args)
@@ -43,7 +43,7 @@ namespace World_Server
             if (World.Start(WorldPoint))
             {
                 // Iniciando Database
-                Database = new DataBaseManager();
+                Database = new DatabaseManager();
                 DBManager = new DBManager();
 
                 // Iniciando Sequencia

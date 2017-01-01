@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Text;
-using Framework.Contants;
 using System;
 using System.Net;
 

@@ -111,7 +111,7 @@
     <Compile Include="Handlers\World\PSUpdateObject.cs" />
     <Compile Include="Managers\CharacterManager.cs" />
     <Compile Include="Managers\ChatManager.cs" />
-    <Compile Include="Managers\DataBaseManager.cs" />
+    <Compile Include="Managers\DatabaseManager.cs" />
     <Compile Include="Managers\DBCManager.cs" />
     <Compile Include="Managers\MovementManager.cs" />
     <Compile Include="Managers\PlayerManager.cs" />

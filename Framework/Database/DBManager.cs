@@ -1,9 +1,7 @@
 ﻿using Framework.Contants.Character;
-using Framework.Database.Tables;
 using Shaolinq;
 using System;
-using System.Linq;
-using System.Threading.Tasks;
+using Framework.Contants;
 
 namespace Framework.Database
 {
@@ -16,6 +14,7 @@ namespace Framework.Database
 
             using (var scope = new DataAccessScope())
             {
+                // Inserindo Usuarios
                 var User = this.model.Users.Create();
                     User.name       = "John Doe";
                     User.username   = "john";
@@ -30,6 +29,32 @@ namespace Framework.Database
                     User2.password   = "doe";
                     User2.created_at = DateTime.Now;
 
+                var User3 = this.model.Users.Create();
+                    User3.name = "John Doe";
+                    User3.username = "ban";
+                    User3.email = "john@doe.com";
+                    User3.password = "doe";
+                    User3.created_at = DateTime.Now;
+                    User3.bannet_at = DateTime.Now;
+
+                // Inserindo Realm
+                var RealmPVP = this.model.Realms.Create();
+                    RealmPVP.flag = RealmFlag.NewPlayers;
+                    RealmPVP.timezone = RealmTimezone.AnyLocale;
+                    RealmPVP.type = RealmType.PVP;
+                    RealmPVP.name = "Firetree";
+                    RealmPVP.ip = "127.0.0.1:1001";
+                    RealmPVP.created_at = DateTime.Now;
+
+                var RealmPVE = this.model.Realms.Create();
+                    RealmPVE.flag = RealmFlag.NewPlayers;
+                    RealmPVE.timezone = RealmTimezone.UnitedStates;
+                    RealmPVE.type = RealmType.Normal;
+                    RealmPVE.name = "Quel'Thalas";
+                    RealmPVE.ip = "127.0.0.1:1001";
+                    RealmPVE.created_at = DateTime.Now;
+
+                // Inserindo Dados Primarios
                 var CharInfoHuman = this.model.CharacterCreationInfo.Create();
                     CharInfoHuman.Race = RaceID.HUMAN;
                     CharInfoHuman.Cinematic = 81;
@@ -152,26 +177,6 @@ namespace Framework.Database
 
                 scope.Complete();
             }
-        }
-
-        public Users GetAccount(string username)
-        {
-            if (this.model.Users.Count() == 0) return null;
-            return this.model.Users.FirstOrDefault(a => a.username.ToLower() == username.ToLower());
-        }
-
-        public async Task<Users> SetSessionKey(String username, byte[] key)
-        {
-            Users account = GetAccount(username);
-
-            using (var scope = new DataAccessScope())
-            {
-                var User = this.model.Users.GetReference(account.Id);
-                    User.sessionkey = key;
-                await scope.CompleteAsync();
-            }
-
-            return null;
         }
     }
 }

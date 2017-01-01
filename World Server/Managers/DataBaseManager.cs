@@ -11,7 +11,7 @@ using World_Server.Handlers.Char;
 
 namespace World_Server.Managers
 {
-    public class DataBaseManager : BaseModel<Models>
+    public class DatabaseManager : BaseModel<Models>
     {
         public void CreateChar(PCCharCreate packet, Users User)
         {
@@ -61,6 +61,10 @@ namespace World_Server.Managers
             return this.model.CharacterCreationInfo.FirstOrDefault(a => a.Race == Race);
         }
 
+        // Pega conta do usuario baseado no login
+        public Users GetAccount(string username) => !this.model.Users.Any() ? null : model.Users.FirstOrDefault(a => a.username.ToLower() == username.ToLower());
+
+
         public Character GetCharacter(int CharId)
         {
             return this.model.Characters.FirstOrDefault(a => a.Id == CharId);
@@ -68,7 +72,7 @@ namespace World_Server.Managers
 
         public List<Character> GetCharacters(string username)
         {
-            Users account = Program.DBManager.GetAccount(username);
+            Users account = GetAccount(username);
             return this.model.Characters.Where(a => a.Users == account).ToList();
         }
 

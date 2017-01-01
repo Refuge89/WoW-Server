@@ -11,19 +11,20 @@ using System.Reflection;
 
 namespace Auth_Server
 {
-    class Program
+    internal class Program
     {
-        private static Assembly m_Assembly = Assembly.GetEntryAssembly();
+        private static readonly Assembly MAssembly = Assembly.GetEntryAssembly();
 
         public static AuthServer Auth { get; private set; }
 
         public static DBManager Database;
+        public static DatabaseManager DatabaseManager;
 
-        static void Main(string[] args)
+        private static void Main()
         {
             var time = Time.getMSTime();
 
-            Version ver = m_Assembly.GetName().Version;
+            Version ver = MAssembly.GetName().Version;
 
             Log.Print("Auth Battle.NET", $"Version {ver.Major}.{ver.Minor}.{ver.Build}.{ver.Revision}",
                 ConsoleColor.Green);
@@ -31,19 +32,24 @@ namespace Auth_Server
                 $"Running on .NET Framework Version {Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}",
                 ConsoleColor.Green);
 
-            var AuthPoint = new IPEndPoint(IPAddress.Any, 3724);
+            var authPoint = new IPEndPoint(IPAddress.Any, port: 3724);
 
             Auth = new AuthServer();
-            if (Auth.Start(AuthPoint))
+            if (Auth.Start(authPoint))
             {
                 // Iniciando Autenticador
                 AuthManager.Boot();
 
                 // Iniciando Database
                 Database = new DBManager();
+
+                // Insere Registros primarios
                 Database.Boot();
 
-                Log.Print("Auth Battle.NET", $"Server is now listening at {AuthPoint.Address}:{AuthPoint.Port}",
+                // Database do Auth
+                DatabaseManager = new DatabaseManager();
+
+                Log.Print("Auth Battle.NET", $"Server is now listening at {authPoint.Address}:{authPoint.Port}",
                     ConsoleColor.Green);
                 Log.Print("Auth Battle.NET",
                     $"Successfully started in {Time.getMSTimeDiff(time, Time.getMSTime()) / 1000}s", ConsoleColor.Green);
@@ -54,9 +60,9 @@ namespace Auth_Server
 
         public class AuthServer : Server
         {
-            public override Session GenerateSession(int connectionID, Socket connectionSocket)
+            public override Session GenerateSession(int connectionId, Socket connectionSocket)
             {
-                return new AuthSession(connectionID, connectionSocket);
+                return new AuthSession(connectionId, connectionSocket);
             }
         }
     }

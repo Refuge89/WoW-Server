@@ -11,7 +11,16 @@ namespace Framework.Network
     {
         private Socket socketHandler;
 
-        public Dictionary<int, Session> activeConnections;
+        public Dictionary<int, Session> activeConnections { get; protected set; }
+
+        public int ConnectionsCount
+        {
+            get
+            {
+                return this.activeConnections.Count;
+            }
+        }
+
 
         public bool Start(IPEndPoint authPoint)
         {
@@ -36,9 +45,9 @@ namespace Framework.Network
             }
         }
 
-        private void ConnectionRequest(IAsyncResult _asyncResult)
+        private void ConnectionRequest(IAsyncResult asyncResult)
         {
-            Socket connectionSocket = ((Socket)_asyncResult.AsyncState).EndAccept(_asyncResult);
+            Socket connectionSocket = ((Socket)asyncResult.AsyncState).EndAccept(asyncResult);
 
             int connectionID = GetFreeID();
 
@@ -54,7 +63,7 @@ namespace Framework.Network
                 if (!activeConnections.ContainsKey(i)) return i;
             }
 
-            return -1;
+            throw new Exception("Couldn't find free ID");
         }
 
         public virtual Session GenerateSession(int connectionID, Socket connectionSocket)

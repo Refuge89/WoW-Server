@@ -1,82 +1,90 @@
 ﻿using Auth_Server.Handlers;
-using Auth_Server.Handlers.Logon;
-using Auth_Server.Handlers.Realm;
-using Auth_Server.Handlers.Reconnect;
 using Auth_Server.Sessions;
 using Framework.Contants;
 using Framework.Crypt;
 using Framework.Helpers;
 using System;
+using Auth_Server.Router;
+using Framework.Database.Tables;
 
 namespace Auth_Server.Managers
 {
     public class AuthManager
     {
+        private static Users _user;
+
         public static void Boot()
         {
-            AuthDataRouter.AddHandler<PCAuthLogonChallenge>(AuthServerOpCode.AUTH_LOGON_CHALLENGE, OnAuthLogonChallenge);
-            AuthDataRouter.AddHandler<PCAuthLogonProof>(AuthServerOpCode.AUTH_LOGON_PROOF, OnLogonProof);
-            AuthDataRouter.AddHandler(AuthServerOpCode.REALM_LIST, OnRealmList);
-
-            // need implement reconnect code
-            AuthDataRouter.AddHandler<PCAuthReconnectChallenge>(AuthServerOpCode.AUTH_RECONNECT_CHALLENGE,
-                OnAuthReconnectChallenge);
-            //AuthDataRouter.AddHandler<PCAuthReconnectProof>(AuthServerOpCode.AUTH_RECONNECT_PROOF, OnReconnectProof);
+            AuthRouter.AddHandler<PcAuthLogonChallenge>(AuthServerOpcode.AUTH_LOGON_CHALLENGE, OnAuthLogonChallenge);
+            AuthRouter.AddHandler<PcAuthLogonProof>(AuthServerOpcode.AUTH_LOGON_PROOF, OnLogonProof);
+            AuthRouter.AddHandler(AuthServerOpcode.REALM_LIST, OnRealmList);
         }
 
-        private static void OnAuthLogonChallenge(AuthSession session, PCAuthLogonChallenge packet)
+        private static void OnAuthLogonChallenge(AuthSession session, PcAuthLogonChallenge packet)
         {
             Log.Print("Auth Battle.NET",
-                $"New Connection {packet.Name} ({packet.Version} {packet.Build}) {packet.IP} - {packet.OS}/{packet.Platform}",
+                $"New Connection {packet.Name} ({packet.Version} {packet.Build}) {packet.Ip} - {packet.Os}/{packet.Platform}",
                 ConsoleColor.Green);
+
+            // Aqui se vc fica tentanto loga multiplas vezes ou erra, ele trava por um tempo acho que e do client
 
             // Check Build Pass
             if (packet.Build != 5875)
             {
                 session.Srp = new SRP(packet.Name.ToUpper(), packet.Name.ToUpper());
-                session.sendData(new PSAuthLogonChallange(session.Srp, AuthenticationResult.WrongBuild));
+                session.sendData(new PsAuthLogonChallange(session.Srp, AuthServerResult.WrongBuild));
                 return;
             }
 
-            // Check User Pass
-            var user = Program.Database.GetAccount(packet.Name);
-            if (user != null)
+            // Retrieve User information of Database
+            try
             {
-                session.accountName = packet.Name;
-                session.Srp = new SRP(user.username.ToUpper(), user.password.ToUpper());
-                session.sendData(new PSAuthLogonChallange(session.Srp, AuthenticationResult.Success));
-                return;
+                _user = Program.DatabaseManager.GetAccount(packet.Name);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("deu erro aqui");
+                Console.WriteLine(ex);  
             }
 
             // Error Unknow Account
-            session.Srp = new SRP(packet.Name.ToUpper(), packet.Name.ToUpper());
-            session.sendData(new PSAuthLogonChallange(session.Srp, AuthenticationResult.UnknownAccount));
+            if (_user == null)
+            {
+                session.Srp = new SRP(packet.Name.ToUpper(), packet.Name.ToUpper());
+                session.sendData(new PsAuthLogonChallange(session.Srp, AuthServerResult.UnknownAccount));
+                return;
+            }
+
+            // Check Ban
+            if (_user.bannet_at != null)
+            {
+                session.Srp = new SRP(_user.username.ToUpper(), _user.password.ToUpper());
+                session.sendData(new PsAuthLogonChallange(session.Srp, AuthServerResult.AccountBanned));
+            }
+
+            // Check User Pass
+            session.AccountName = packet.Name;
+            session.Srp = new SRP(_user.username.ToUpper(), _user.password.ToUpper());
+            session.sendData(new PsAuthLogonChallange(session.Srp, AuthServerResult.Success));
             return;
         }
 
-        private static void OnLogonProof(AuthSession session, PCAuthLogonProof packet)
+        private static async void OnLogonProof(AuthSession session, PcAuthLogonProof packet)
         {
             session.Srp.ClientEphemeral = packet.A.ToPositiveBigInteger();
             session.Srp.ClientProof = packet.M1.ToPositiveBigInteger();
 
             // Causa Warning aqui tem que dar uma olhada nessa merda
-            Program.Database.SetSessionKey(session.accountName, session.Srp.SessionKey.ToProperByteArray());
+            await Program.DatabaseManager.SetSessionKey(session.AccountName, session.Srp.SessionKey.ToProperByteArray());
 
-            session.sendData(new PSAuthLogonProof(session.Srp, AuthenticationResult.Success));
-        }
-
-        private static void OnAuthReconnectChallenge(AuthSession Session, PCAuthReconnectChallenge packet)
-        {
-            Log.Print("OnAuthReconnectChallenge");
-            Log.Print(packet.OptCode); // 2
-            Log.Print(packet.ClientProof);
-            Log.Print(packet.ProofData);
-            //throw new NotImplementedException();
+            session.sendData(new PsAuthLogonProof(session.Srp, AuthServerResult.Success));
         }
 
         private static void OnRealmList(AuthSession session, byte[] packet)
         {
-            session.sendPacket(new PSRealmList());
+            // Get Realms
+            var realms = Program.DatabaseManager.GetRealms();
+            session.SendPacket(new PsRealmList(realms, session.AccountName));
         }
     }
 }

@@ -9,6 +9,8 @@ namespace Framework.Network
 {
     public class PacketWriter : BinaryWriter
     {
+        public PacketHeaderType HeaderType { get { return _headerType; } }
+
         private readonly PacketHeaderType _headerType;
 
         public PacketWriter(PacketHeaderType headerType) : this(headerType, new MemoryStream())

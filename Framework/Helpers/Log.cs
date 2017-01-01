@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Framework.Helpers
 {
@@ -17,40 +18,39 @@ namespace Framework.Helpers
     }
 
     public class Log
-    {
+    {               
         public static readonly Dictionary<LogType, ConsoleColor> TypeColour = new Dictionary<LogType, ConsoleColor>()
         {
-            { LogType.Debug,    ConsoleColor.DarkMagenta },
-            { LogType.Framework,   ConsoleColor.Green },
-            { LogType.Error,    ConsoleColor.Red },
-            { LogType.Status,   ConsoleColor.Blue },
-            { LogType.Database, ConsoleColor.Magenta },
-            { LogType.Map,      ConsoleColor.Cyan },
-            { LogType.Packet,   ConsoleColor.Cyan },
-            { LogType.Warning,  ConsoleColor.Yellow },
-            { LogType.Script,   ConsoleColor.Cyan }
+            { LogType.Debug,     ConsoleColor.DarkMagenta },
+            { LogType.Framework, ConsoleColor.Green },
+            { LogType.Error,     ConsoleColor.Red },
+            { LogType.Status,    ConsoleColor.Blue },
+            { LogType.Database,  ConsoleColor.Magenta },
+            { LogType.Map,       ConsoleColor.Cyan },
+            { LogType.Packet,    ConsoleColor.Cyan },
+            { LogType.Warning,   ConsoleColor.Yellow },
+            { LogType.Script,    ConsoleColor.Cyan },
         };
 
-        public static void Print(LogType _type, object _obj)
+        public static void Print(LogType type, object obj)
         {
-            Console.ForegroundColor = TypeColour[_type];
+            Console.ForegroundColor = TypeColour[type];
 
-            Console.Write("[" + _type.ToString() + "] ");
+            Console.Write($"{DateTime.Now:hh:mm:ss} [{type}] ");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(_obj.ToString());
+            Console.WriteLine(obj.ToString());
         }
 
-        public static void Print(string _subject, object _obj, ConsoleColor _colour)
+        public static void Print(string subject, object obj, ConsoleColor colour)
         {
-            Console.Write("[" + _subject + "] ");
-            Console.ForegroundColor = _colour;
-            Console.WriteLine(_obj.ToString());
+            Console.Write($"{DateTime.Now:hh:mm:ss} [{subject}] ");
+            Console.ForegroundColor = colour;
+            Console.WriteLine(obj.ToString());
         }
 
         public static void Print(object obj)
         {
-            Console.WriteLine("[Framework] " + obj.ToString());
+            Console.WriteLine($"{DateTime.Now:hh:mm:ss} [Framework] {obj}");
         }
-
     }
 }

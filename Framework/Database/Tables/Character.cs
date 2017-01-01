@@ -17,6 +17,9 @@ namespace Framework.Database.Tables
         [PersistedMember]
         public abstract Users Users { get; set; }
 
+        [PersistedMember]
+        public abstract Realms Realms { get; set; }
+
         [PersistedMember, Unique]
         public abstract string Name { get; set; }
         

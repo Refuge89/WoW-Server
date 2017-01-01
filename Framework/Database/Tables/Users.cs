@@ -28,6 +28,9 @@ namespace Framework.Database.Tables
         public abstract byte[] sessionkey { get; set; }
 
         [PersistedMember]
+        public abstract DateTime? bannet_at { get; set; }
+
+        [PersistedMember]
         public abstract DateTime? created_at { get; set; }
 
         [PersistedMember]

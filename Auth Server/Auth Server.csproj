@@ -71,16 +71,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Handlers\AuthDataRouter.cs" />
-    <Compile Include="Handlers\Logon\PCAuthLogonProof.cs" />
-    <Compile Include="Handlers\Logon\PCAuthLogonChallenge.cs" />
-    <Compile Include="Handlers\Reconnect\PCAuthReconnectChallenge.cs" />
-    <Compile Include="Handlers\Logon\PSAuthLogonChallange.cs" />
-    <Compile Include="Handlers\Logon\PSAuthLogonProof.cs" />
-    <Compile Include="Handlers\Realm\PSRealmList.cs" />
+    <Compile Include="Handlers\AuthLogonChallange.cs" />
+    <Compile Include="Handlers\AuthLogonProof.cs" />
+    <Compile Include="Handlers\AuthReconnectChallenge.cs" />
+    <Compile Include="Handlers\AuthReconnectProof.cs" />
+    <Compile Include="Handlers\RealmList.cs" />
     <Compile Include="Managers\AuthManager.cs" />
+    <Compile Include="Managers\DatabaseManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Router\AuthRouter.cs" />
     <Compile Include="Sessions\AuthSession.cs" />
   </ItemGroup>
   <ItemGroup>

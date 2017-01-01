@@ -14,7 +14,7 @@ namespace Framework.Network
 
         public ServerPacket(WorldOpcodes worldOpcode) : this((int)worldOpcode) { }
 
-        public ServerPacket(AuthServerOpCode opcode) : this((byte)opcode) { }
+        public ServerPacket(AuthServerOpcode opcode) : this((byte)opcode) { }
 
         public byte[] Packet
         {

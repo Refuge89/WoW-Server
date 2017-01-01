@@ -8,6 +8,7 @@ namespace Framework.Sessions
     public abstract class Session
     {
         public const int BUFFER_SIZE = 2048 * 2;
+        public const int TIMEOUT = 1000;
 
         public int connectionID { get; private set; }
         public Socket connectionSocket { get; private set; }
@@ -21,7 +22,14 @@ namespace Framework.Sessions
             connectionSocket = _connectionSocket;
             dataBuffer = new byte[BUFFER_SIZE];
 
-            connectionSocket.BeginReceive(dataBuffer, 0, dataBuffer.Length, SocketFlags.None, new AsyncCallback(dataArrival), null);
+            try
+            {
+                connectionSocket.BeginReceive(dataBuffer, 0, dataBuffer.Length, SocketFlags.None, new AsyncCallback(dataArrival), null);
+            }
+            catch (SocketException)
+            {
+                Disconnect();
+            }
         }
 
         public virtual void Disconnect(object _obj = null)
@@ -49,7 +57,7 @@ namespace Framework.Sessions
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error dataArrival: " + e.ToString());
+                Console.WriteLine("DataArrival: " + e.ToString());
             }
 
             if (bytesRecived != 0)
