@@ -32,8 +32,35 @@ namespace Auth_Server.Handlers
         {
             Write((byte)1);
             Write((byte)result);
-            Write(srp.ServerProof.ToByteArray().Pad(20));
-            this.WriteNullByte(4);
+            /*
+            The rest of the packet is different depending on whether an error occured (error != 0) or not. If there was an error, 
+            two fields unk1 and unk2 are sent, with value 3 and 0, respectively. The use of those fields is unknown. 
+            These fields are not sent on Vanilla client, except maybe for 1.12.3 Chinese client 
+            (according to a condition in the Mangos server -- I didn't verify as I don't have a Chinese client).
+
+            error != 0 && !vanilla
+                uint8   unk1
+                uint8   unk2
+            */
+
+            if (result == AuthServerResult.Success /* check if is Vanilla */)
+            {
+                Write(srp.ServerProof.ToByteArray().Pad(20));
+                this.WriteNullByte(4);
+            }
+
+            /*
+            other
+                uint32  account_flags
+                uint32  survey_id
+                uint16  unk_flags
+
+                account_flags
+                    1: ACCOUNT_FLAG_GM: game master account
+                    8: ACCOUNT_FLAG_TRIAL: for trial accounts
+                    0x00800000: ACCOUNT_FLAG_PROPASS: enables the arena tournament for the account
+            */
+            
         }
     }
 }

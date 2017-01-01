@@ -65,7 +65,7 @@ namespace World_Server.Sessions
             sendData(((MemoryStream)writer.BaseStream).ToArray());
         }
 
-        public override void onPacket(byte[] data)
+        public override void OnPacket(byte[] data)
         {
             for (int index = 0; index < data.Length; index++)
             {

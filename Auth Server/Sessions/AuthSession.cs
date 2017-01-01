@@ -21,7 +21,7 @@ namespace Auth_Server.Sessions
         {
         }
 
-        public override void onPacket(byte[] data)
+        public override void OnPacket(byte[] data)
         {
             short opcode = BitConverter.ToInt16(data, 0);
             Log.Print("Auth Battle.NET", $"Data Received: {opcode.ToString("X2")} ({(AuthServerOpcode) opcode})",
@@ -45,7 +45,7 @@ namespace Auth_Server.Sessions
             writer.Write(data);
 
             Log.Print("Auth Battle.NET",
-                $"Con ({connectionID}) Server -> Client [" + (AuthServerOpcode) opcode + "] [0x" + opcode.ToString("X") +
+                $"Con ({ConnectionId}) Server -> Client [" + (AuthServerOpcode) opcode + "] [0x" + opcode.ToString("X") +
                 "]", ConsoleColor.Green);
 
             sendData(((MemoryStream) writer.BaseStream).ToArray());

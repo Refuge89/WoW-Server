@@ -7,24 +7,24 @@ namespace Framework.Sessions
 {
     public abstract class Session
     {
-        public const int BUFFER_SIZE = 2048 * 2;
-        public const int TIMEOUT = 1000;
+        public const int BufferSize = 2048 * 2;
+        public const int Timeout = 1000;
 
-        public int connectionID { get; private set; }
-        public Socket connectionSocket { get; private set; }
-        public byte[] dataBuffer { get; private set; }
+        public int ConnectionId { get; private set; }
+        public Socket ConnectionSocket { get; private set; }
+        public byte[] DataBuffer { get; private set; }
 
-        public string ConnectionRemoteIP { get { return connectionSocket.RemoteEndPoint.ToString(); } }
+        public string ConnectionRemoteIp => ConnectionSocket.RemoteEndPoint.ToString();
 
-        public Session(int _connectionID, Socket _connectionSocket)
+        protected Session(int connectionId, Socket connectionSocket)
         {
-            connectionID = _connectionID;
-            connectionSocket = _connectionSocket;
-            dataBuffer = new byte[BUFFER_SIZE];
+            ConnectionId = connectionId;
+            ConnectionSocket = connectionSocket;
+            DataBuffer = new byte[BufferSize];
 
             try
             {
-                connectionSocket.BeginReceive(dataBuffer, 0, dataBuffer.Length, SocketFlags.None, new AsyncCallback(dataArrival), null);
+                ConnectionSocket.BeginReceive(DataBuffer, 0, DataBuffer.Length, SocketFlags.None, new AsyncCallback(DataArrival), null);
             }
             catch (SocketException)
             {
@@ -32,13 +32,13 @@ namespace Framework.Sessions
             }
         }
 
-        public virtual void Disconnect(object _obj = null)
+        public virtual void Disconnect()
         {
             try
             {
                 Log.Print(LogType.Framework, "User Disconnected");
-                connectionSocket.Shutdown(SocketShutdown.Both);
-                connectionSocket.Close();
+                ConnectionSocket.Shutdown(SocketShutdown.Both);
+                ConnectionSocket.Close();
             }
             catch (Exception socketException)
             {
@@ -46,34 +46,34 @@ namespace Framework.Sessions
             }
         }
 
-        public abstract void onPacket(byte[] data);
+        public abstract void OnPacket(byte[] data);
 
-        public virtual void dataArrival(IAsyncResult _asyncResult)
+        public virtual void DataArrival(IAsyncResult asyncResult)
         {
             int bytesRecived = 0;
 
             try {
-                bytesRecived = connectionSocket.EndReceive(_asyncResult);
+                bytesRecived = ConnectionSocket.EndReceive(asyncResult);
             }
             catch (Exception e)
             {
-                Console.WriteLine("DataArrival: " + e.ToString());
+                Console.WriteLine("DataArrival Exception: " + e);
             }
 
             if (bytesRecived != 0)
             {
                 byte[] data = new byte[bytesRecived];
-                Array.Copy(dataBuffer, data, bytesRecived);
+                Array.Copy(DataBuffer, data, bytesRecived);
 
-                onPacket(data);
+                OnPacket(data);
 
                 try
                 {
-                    connectionSocket.BeginReceive(dataBuffer, 0, dataBuffer.Length, SocketFlags.None, new AsyncCallback(dataArrival), null);
+                    ConnectionSocket.BeginReceive(DataBuffer, 0, DataBuffer.Length, SocketFlags.None, new AsyncCallback(DataArrival), null);
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Error2 dataArrival: " +  e.ToString());
+                    Console.WriteLine("DataArrival Error: " +  e);
                 }
             }
             else
@@ -94,7 +94,7 @@ namespace Framework.Sessions
 
             try
             {
-                connectionSocket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, delegate (IAsyncResult result) { }, null);
+                ConnectionSocket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, delegate (IAsyncResult result) { }, null);
             }
             catch (SocketException)
             {
