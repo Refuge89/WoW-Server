@@ -3,11 +3,8 @@ using Framework.Network;
 using Framework.Sessions;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using World_Server.Managers;
 using World_Server.Sessions;
 
@@ -44,9 +41,15 @@ namespace World_Server
                 // Iniciando Database
                 Database = new DatabaseManager();
 
-                // Iniciando Sequencia
+                // Autenticadores
                 AuthManager.Boot();
+                // Char realm
                 CharManager.Boot();
+                // Internal Transactions
+                InternalManager.Boot();
+                // Player 
+                PlayerManager.Boot();
+
                 //RealmManager.Boot();
                 //CharacterManager.Boot();
                 //ChatManager.Boot();

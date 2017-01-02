@@ -53,7 +53,7 @@ namespace World_Server.Handlers.World
         }
 
 
-        public static PSUpdateObject CreateOwnCharacterUpdate(Character character, PCPlayerLogin packet)
+        public static PSUpdateObject CreateOwnCharacterUpdate(Character character, CMSG_PLAYER_LOGIN packet)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);

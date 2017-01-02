@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<race id="1"> 
+	<health>10</health>
+	<stats>
+		<strength>17</strength>
+		<agility>25</agility>
+		<stamina>19</stamina>
+		<intellect>20</intellect>
+		<spirit>21</spirit>
+	</stats>
+	<leveling>
+		<strength>0.052</strength>
+		<agility>0.244</agility>
+		<stamina>0.081</stamina>
+		<intellect>0.100</intellect>
+		<spirit>0.100</spirit>	
+	</leveling>
+	<spells>
+		<spell id="81" />		<!-- Dodge -->
+		<spell id="203" /> 		<!-- Unarmed -->
+		<spell id="668" />		<!-- Language: Common -->
+		<spell id="671" />		<!-- Language: Darnassian -->
+		<spell id="3365" />		<!-- Opening -->
+		<spell id="6478" />		<!-- Opening -->
+		<spell id="6603" /> 	<!-- Attack -->		
+		<spell id="20580" />	<!-- Shadowmeld -->
+		<spell id="20582" />	<!-- Quickness -->
+		<spell id="20583" />	<!-- Nature Resistance -->
+		<spell id="20585" />	<!-- Wisp Spirit -->
+	</spells>
+	<skills>
+		<skill id="98"> 		<!-- Language: Common -->
+			<min>300</min>
+			<max>300</max>
+		</skill>
+		<skill id="113"> 		<!-- Language: Darnassian -->
+			<min>300</min>
+			<max>300</max>
+		</skill>
+		<skill id="162"> 		<!-- Unarmed -->
+			<min>1</min>
+			<max>300</max>
+		</skill>
+		<skill id="126"> 		<!-- Human Night Elf -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+	</skills>
+</race>

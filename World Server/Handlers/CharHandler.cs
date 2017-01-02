@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using Framework.Contants;
 using Framework.Database.Tables;
 using Framework.Network;
-using Platform;
+using World_Server.Helpers;
 
 namespace World_Server.Handlers
 {
@@ -71,39 +70,6 @@ namespace World_Server.Handlers
     }
     #endregion
 
-    public enum WoWEquipSlot : byte
-    {
-        None,
-        Head,
-        Neck,
-        Shoulders,
-        Shirt,
-        Vest,
-        Waist,
-        Legs,
-        Feet,
-        Wrist,
-        Hands,
-        Ring,
-        Trinket,
-        Onehand,
-        Shield,
-        Bow,
-        Back,
-        Twohand,
-        Bag,
-        Tabbard,
-        Robe,
-        Mainhand,
-        Offhand,
-        Held,
-        Ammo,
-        Thrown,
-        Ranged,
-        Ranged2,
-        Relic
-    }
-
     #region SMSG_CHAR_ENUM
     public sealed class SmsgCharEnum : PacketWriter
     {
@@ -115,10 +81,10 @@ namespace World_Server.Handlers
             {
                 var skin = Program.Database.GetSkin(character);
 
-                Write((ulong) character.Id); // Int64
+                Write((ulong) character.Id);
                 WriteCString(character.Name);
 
-                Write((byte) character.Race); // Int8
+                Write((byte) character.Race);
                 Write((byte) character.Class);
                 Write((byte) character.Gender);
 
@@ -144,16 +110,14 @@ namespace World_Server.Handlers
                 Write(0); // Pet Level
                 Write(0); // Pet FamilyID
 
-                
-
-                WorldItems[] equipment = GenerateInventoryByIDs(character.Equipment);
+                WorldItems[] equipment = InventoryHelper.GenerateInventoryByIDs(character.Equipment);
 
                 for (int i = 0; i < 19; i++)
                 {
                     if (equipment != null && equipment[i] != null)
                     {
-                        Write(equipment[i].displayId); // Item DisplayID
-                        Write((byte)equipment[i].InventoryType); // Item Inventory Type
+                        Write(equipment[i].displayId);
+                        Write((byte)equipment[i].InventoryType);
                     }
                     else
                     {
@@ -165,73 +129,6 @@ namespace World_Server.Handlers
                 Write((int)0); // first bag display id
                 Write((byte)0); // first bag inventory type
             }
-        }
-
-        public static WorldItems[] GenerateInventoryByIDs(string ids)
-        {
-            if (ids == null) return null;
-
-            string[] ItemList = ids.Split(",");
-
-            WorldItems[] inventory = new WorldItems[19];
-            for (int i = 0; i < ItemList.Length; i++)
-            {
-                if (ItemList[i].Length > 0)
-                {
-                    var itemEntry = ItemList[i];
-                    WorldItems item = Program.Database.GetItem(Int32.Parse(itemEntry));
-                    if (item != null)
-                    {
-                        Console.WriteLine(item.name);
-                        switch ((WoWEquipSlot) item.InventoryType)
-                        {
-                            case WoWEquipSlot.Head:
-                                inventory[0] = item;
-                                break;
-                            case WoWEquipSlot.Shirt:
-                                inventory[3] = item;
-                                break;
-                            case WoWEquipSlot.Vest:
-                            case WoWEquipSlot.Robe:
-                                inventory[4] = item;
-                                break;
-                            case WoWEquipSlot.Waist:
-                                inventory[5] = item;
-                                break;
-                            case WoWEquipSlot.Legs:
-                                inventory[6] = item;
-                                break;
-                            case WoWEquipSlot.Feet:
-                                inventory[7] = item;
-                                break;
-                            case WoWEquipSlot.Wrist:
-                                inventory[8] = item;
-                                break;
-                            case WoWEquipSlot.Hands:
-                                inventory[9] = item;
-                                break;
-                            case WoWEquipSlot.Ring:
-                                inventory[10] = item;
-                                break;
-                            case WoWEquipSlot.Trinket:
-                                inventory[12] = item;
-                                break;
-                            case WoWEquipSlot.Mainhand:
-                            case WoWEquipSlot.Onehand:
-                            case WoWEquipSlot.Twohand:
-                                inventory[15] = item;
-                                break;
-                            case WoWEquipSlot.Offhand:
-                            case WoWEquipSlot.Shield:
-                            case WoWEquipSlot.Bow:
-                                inventory[16] = item;
-                                break;
-
-                        }
-                    }
-                }
-            }
-            return inventory;
         }
 
         public byte[] Packet => (BaseStream as MemoryStream)?.ToArray();

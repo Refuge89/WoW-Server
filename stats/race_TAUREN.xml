@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<race id="1"> 
+	<health>30</health>
+	<stats>
+		<strength>25</strength>
+		<agility>15</agility>
+		<stamina>22</stamina>
+		<intellect>15</intellect>
+		<spirit>22</spirit>
+	</stats>
+	<leveling>
+		<strength>0.244</strength>
+		<agility>0.032</agility>
+		<stamina>0.146</stamina>
+		<intellect>0.032</intellect>
+		<spirit>0.146</spirit>	
+	</leveling>
+	<spells>
+		<spell id="81" />		<!-- Dodge -->
+		<spell id="203" /> 		<!-- Unarmed -->
+		<spell id="669" />		<!-- Language: Orcish -->
+		<spell id="670" />		<!-- Language: Taurahe -->
+		<spell id="3365" />		<!-- Opening -->
+		<spell id="6478" />		<!-- Opening -->
+		<spell id="6603" /> 	<!-- Attack -->		
+		<spell id="20549" />	<!-- War Stomp -->
+		<spell id="20550" />	<!-- Endurance -->
+		<spell id="20551" />	<!-- Nature Resistance -->
+		<spell id="20552" />	<!-- Cultivation -->
+	</spells>
+	<skills>
+		<skill id="109"> 		<!-- Language: Orcish -->
+			<min>1</min>
+			<max>300</max>
+		</skill>
+		<skill id="115"> 		<!-- Language: Taurahe -->
+			<min>300</min>
+			<max>300</max>
+		</skill>
+		<skill id="162"> 		<!-- Unarmed -->
+			<min>1</min>
+			<max>300</max>
+		</skill>
+		<skill id="124"> 		<!-- Tauren Racial -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+	</skills>
+</race>

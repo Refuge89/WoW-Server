@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<race id="2"> 
+	<health>30</health>
+	<stats>
+		<strength>23</strength>
+		<agility>17</agility>
+		<stamina>22</stamina>
+		<intellect>17</intellect>
+		<spirit>23</spirit>
+	</stats>
+	<leveling>
+		<strength>0.175</strength>
+		<agility>0.052</agility>
+		<stamina>0.146</stamina>
+		<intellect>0.052</intellect>
+		<spirit>0.175</spirit>	
+	</leveling>
+	<spells>
+		<spell id="81" />		<!-- Dodge -->
+		<spell id="203" /> 		<!-- Unarmed -->
+		<spell id="669" />		<!-- Language: Orcish -->
+		<spell id="3365" />		<!-- Opening -->
+		<spell id="6478" />		<!-- Opening -->
+		<spell id="6603" /> 	<!-- Attack -->		
+		<spell id="20572" />	<!-- Blood Fury -->
+		<spell id="20573" />	<!-- Hardiness -->
+		<spell id="20574" />	<!-- Axe Specialization -->
+		<spell id="20575" />	<!-- Command -->
+	</spells>
+	<skills>
+		<skill id="109"> 		<!-- Language: Orcish -->
+			<min>300</min>
+			<max>300</max>
+		</skill>
+		<skill id="162"> 		<!-- Unarmed -->
+			<min>1</min>
+			<max>300</max>
+		</skill>
+		<skill id="125"> 		<!-- Orcish Racial -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+	</skills>
+</race>

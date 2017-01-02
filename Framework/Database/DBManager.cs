@@ -12,6 +12,9 @@ namespace Framework.Database
     {
         public void Boot()
         {
+            if (File.Exists("database.sqlite"))
+                return;
+
             // Recria a base inteira
             this.model.Create(DatabaseCreationOptions.DeleteExistingDatabase);
 
@@ -66,7 +69,7 @@ namespace Framework.Database
                     CharInfoHuman.MapX = -8949.95f;
                     CharInfoHuman.MapY = -132.493f;
                     CharInfoHuman.MapZ = 83.5312f;
-                    CharInfoHuman.MapRotation = 0f;
+                    CharInfoHuman.MapRotation = 1.0f;
                     CharInfoHuman.FactionId = 1;
                     CharInfoHuman.ModelM = 49;
                     CharInfoHuman.ModelF = 50;
@@ -81,7 +84,7 @@ namespace Framework.Database
                     CharInfoOrc.MapX = -618.518f;
                     CharInfoOrc.MapY = -4251.67f;
                     CharInfoOrc.MapZ = 38.718f;
-                    CharInfoOrc.MapRotation = 0f;
+                    CharInfoOrc.MapRotation = 1.0f;
                     CharInfoOrc.FactionId = 2;
                     CharInfoOrc.ModelM = 51;
                     CharInfoOrc.ModelF = 52;
@@ -123,9 +126,9 @@ namespace Framework.Database
                     CharInfoUndead.Cinematic = 2;
                     CharInfoUndead.MapID = 0;
                     CharInfoUndead.MapZone = 85;
-                    CharInfoUndead.MapX = 1676.71f;
-                    CharInfoUndead.MapY = 1678.31f;
-                    CharInfoUndead.MapZ = 121.67f;
+                    CharInfoUndead.MapX = 1676.35f; //1676.71f;
+                    CharInfoUndead.MapY = 1677.45f; //1678.31f;
+                    CharInfoUndead.MapZ = 3.14f; //121.67f;
                     CharInfoUndead.MapRotation = 2.70526f;
                     CharInfoUndead.FactionId = 5;
                     CharInfoUndead.ModelM = 57;
@@ -134,6 +137,7 @@ namespace Framework.Database
                     CharInfoUndead.TaxiMask = 1024;
 
                 var CharInfoTauren = this.model.CharacterCreationInfo.Create();
+                // This char have model size diff 1.35
                     CharInfoTauren.Race = RaceID.TAUREN;
                     CharInfoTauren.Cinematic = 141;
                     CharInfoTauren.MapID = 1;
@@ -141,7 +145,7 @@ namespace Framework.Database
                     CharInfoTauren.MapX = -2917.58f;
                     CharInfoTauren.MapY = -257.98f;
                     CharInfoTauren.MapZ = 52.9968f;
-                    CharInfoTauren.MapRotation = 0f;
+                    CharInfoTauren.MapRotation = 1.0f;
                     CharInfoTauren.FactionId = 6;
                     CharInfoTauren.ModelM = 59;
                     CharInfoTauren.ModelF = 60;
@@ -192,30 +196,28 @@ namespace Framework.Database
                 var itemId = patItem.Matches(item);
                 var attrId = patAttr.Matches(item);
 
-                if (itemId[0].Groups[1].Value != null)
+                using (var scope = new DataAccessScope())
                 {
-                    using (var scope = new DataAccessScope())
+                    Console.WriteLine($"Inserindo Item [{itemId[0].Groups[1].Value}]");
+                    var itemSave = this.model.WorldItems.Create();
+                    itemSave.itemId = int.Parse(itemId[0].Groups[1].Value);
+                    itemSave.created_at = DateTime.Now;
+
+                    for (int i = 0; i < attrId.Count; i++)
                     {
-                        Console.WriteLine($"Inserindo Item [{itemId[0].Groups[1].Value}]");
-                        var itemSave = this.model.WorldItems.Create();
-                        itemSave.itemId = int.Parse(itemId[0].Groups[1].Value);
-                        itemSave.created_at = DateTime.Now;
+                        if (attrId[i].Groups[1].Value == "name")
+                            itemSave.name = attrId[i].Groups[2].Value;
 
-                        for (int i = 0; i < attrId.Count; i++)
-                        {
-                            if (attrId[i].Groups[1].Value == "name")
-                                itemSave.name = attrId[i].Groups[2].Value;
+                        if (attrId[i].Groups[1].Value == "inventorytype")
+                            itemSave.InventoryType = Convert.ToByte(attrId[i].Groups[2].Value);
 
-                            if (attrId[i].Groups[1].Value == "inventorytype")
-                                itemSave.InventoryType = Convert.ToByte(attrId[i].Groups[2].Value);
-
-                            if (attrId[i].Groups[1].Value == "model")
-                                itemSave.displayId = int.Parse(attrId[i].Groups[2].Value);
-                        }
-                        scope.CompleteAsync();
-                        ia++;
+                        if (attrId[i].Groups[1].Value == "model")
+                            itemSave.displayId = int.Parse(attrId[i].Groups[2].Value);
                     }
+                    scope.Complete();
+                    ia++;
                 }
+                
             }
             Console.WriteLine($"Inserido {ia} registros.");
         }

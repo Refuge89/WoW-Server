@@ -100,6 +100,9 @@
     <Compile Include="Database\Tables\Realms.cs" />
     <Compile Include="Database\Tables\Users.cs" />
     <Compile Include="Database\Tables\WorldItems.cs" />
+    <Compile Include="Database\XmlManager.cs" />
+    <Compile Include="Database\XML\classeXML.cs" />
+    <Compile Include="Database\XML\raceXML.cs" />
     <Compile Include="DBC\BinaryReaderExtensions.cs" />
     <Compile Include="DBC\DBHeader.cs" />
     <Compile Include="DBC\DBReader.cs" />

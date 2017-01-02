@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<race id="1"> 
+	<health>20</health>
+	<stats>
+		<strength>19</strength>
+		<agility>18</agility>
+		<stamina>21</stamina>
+		<intellect>18</intellect>
+		<spirit>25</spirit>
+	</stats>
+	<leveling>
+		<strength>0.081</strength>
+		<agility>0.066</agility>
+		<stamina>0.122</stamina>
+		<intellect>0.066</intellect>
+		<spirit>0.244</spirit>	
+	</leveling>
+	<spells>
+		<spell id="81" />		<!-- Dodge -->
+		<spell id="203" /> 		<!-- Unarmed -->
+		<spell id="669" />		<!-- Language: Orcish -->
+		<spell id="17737" />	<!-- Language: Gutterspeak -->
+		<spell id="3365" />		<!-- Opening -->
+		<spell id="6478" />		<!-- Opening -->
+		<spell id="6603" /> 	<!-- Attack -->		
+		<spell id="5227" />		<!-- Underwater Breathing -->
+		<spell id="7744" />		<!-- Will of The Forsaken -->
+		<spell id="20577" />	<!-- Cannibalize -->
+		<spell id="20579" />	<!-- Shadow Resistance -->
+	</spells>
+	<skills>
+		<skill id="109"> 		<!-- Language: Orcish -->
+			<min>1</min>
+			<max>300</max>
+		</skill>
+		<skill id="673"> 		<!-- Language: Gutterspeak -->
+			<min>300</min>
+			<max>300</max>
+		</skill>
+		<skill id="162"> 		<!-- Unarmed -->
+			<min>1</min>
+			<max>300</max>
+		</skill>
+		<skill id="220"> 		<!-- Undead Racial -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+	</skills>
+</race>

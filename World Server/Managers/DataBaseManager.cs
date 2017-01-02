@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using World_Server.Handlers.Char;
 using World_Server.Handlers;
 
 namespace World_Server.Managers
