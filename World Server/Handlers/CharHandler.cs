@@ -73,36 +73,36 @@ namespace World_Server.Handlers
 
     public enum WoWEquipSlot : byte
     {
-        //None = -1,
-        Head = 0,
+        None,
+        Head,
         Neck,
         Shoulders,
-        Body,
-        Chest,
+        Shirt,
+        Vest,
         Waist,
         Legs,
         Feet,
-        Wrists,
+        Wrist,
         Hands,
-        Finger1,
-        Finger2,
-        Trinket1,
-        Trinket2,
+        Ring,
+        Trinket,
+        Onehand,
+        Shield,
+        Bow,
         Back,
-        MainHand,
-        OffHand,
+        Twohand,
+        Bag,
+        Tabbard,
+        Robe,
+        Mainhand,
+        Offhand,
+        Held,
+        Ammo,
+        Thrown,
         Ranged,
-        Tabard,
-        Bag1,
-        Bag2,
-        Bag3,
-        Bag4,
-
-        Start = Head,
-        End = Bag4,
+        Ranged2,
+        Relic
     }
-
-
 
     #region SMSG_CHAR_ENUM
     public sealed class SmsgCharEnum : PacketWriter
@@ -113,22 +113,22 @@ namespace World_Server.Handlers
 
             foreach (Character character in characters)
             {
-                var skin = Program.Database.GetSking(character);
+                var skin = Program.Database.GetSkin(character);
 
-                Write((ulong)character.Id);         // Int64
+                Write((ulong) character.Id); // Int64
                 WriteCString(character.Name);
 
-                Write((byte)character.Race);        // Int8
-                Write((byte)character.Class);
-                Write((byte)character.Gender);
+                Write((byte) character.Race); // Int8
+                Write((byte) character.Class);
+                Write((byte) character.Gender);
 
-                Write((byte)skin.Skin);
-                Write((byte)skin.Face);
-                Write((byte)skin.HairStyle);
-                Write((byte)skin.HairColor);
-                Write((byte)skin.Accessory);
+                Write((byte) skin.Skin);
+                Write((byte) skin.Face);
+                Write((byte) skin.HairStyle);
+                Write((byte) skin.HairColor);
+                Write((byte) skin.Accessory);
 
-                Write((byte)character.Level);
+                Write((byte) character.Level);
 
                 Write(character.MapZone);
                 Write(character.MapID);
@@ -136,32 +136,102 @@ namespace World_Server.Handlers
                 Write(character.MapY);
                 Write(character.MapZ);
 
-                Write((int)0);          // Guild ID
-                Write((int)0);          // Character Flags
-                Write((byte)(character.firsttime ? 1 : 0));        //FirstLogin 
+                Write((int) 0); // Guild ID
+                Write((int) 0); // Character Flags
+                Write((byte) (character.firsttime ? 1 : 0)); //FirstLogin 
 
-                Write(0);               // Pet DisplayID
-                Write(0);               // Pet Level
-                Write(0);               // Pet FamilyID
+                Write(0); // Pet DisplayID
+                Write(0); // Pet Level
+                Write(0); // Pet FamilyID
 
-                string[] equipamento = character.Equipment.Split(",");
-                for (int i = (int) WoWEquipSlot.Head; i < (int) WoWEquipSlot.Tabard + 1; i++)
+                
+
+                WorldItems[] equipment = GenerateInventoryByIDs(character.Equipment);
+
+                for (int i = 0; i < 19; i++)
                 {
-                    //if (equipamento?[i] != null)
-                    //{
-                        //Write((int)0);
-                        //Write((byte)0);
-                    //}
-                    //else
-                    //{
+                    if (equipment != null && equipment[i] != null)
+                    {
+                        Write(equipment[i].displayId); // Item DisplayID
+                        Write((byte)equipment[i].InventoryType); // Item Inventory Type
+                    }
+                    else
+                    {
                         Write((int)0);
                         Write((byte)0);
-                    //}
+                    }
                 }
 
                 Write((int)0); // first bag display id
                 Write((byte)0); // first bag inventory type
             }
+        }
+
+        public static WorldItems[] GenerateInventoryByIDs(string ids)
+        {
+            if (ids == null) return null;
+
+            string[] ItemList = ids.Split(",");
+
+            WorldItems[] inventory = new WorldItems[19];
+            for (int i = 0; i < ItemList.Length; i++)
+            {
+                if (ItemList[i].Length > 0)
+                {
+                    var itemEntry = ItemList[i];
+                    WorldItems item = Program.Database.GetItem(Int32.Parse(itemEntry));
+                    if (item != null)
+                    {
+                        Console.WriteLine(item.name);
+                        switch ((WoWEquipSlot) item.InventoryType)
+                        {
+                            case WoWEquipSlot.Head:
+                                inventory[0] = item;
+                                break;
+                            case WoWEquipSlot.Shirt:
+                                inventory[3] = item;
+                                break;
+                            case WoWEquipSlot.Vest:
+                            case WoWEquipSlot.Robe:
+                                inventory[4] = item;
+                                break;
+                            case WoWEquipSlot.Waist:
+                                inventory[5] = item;
+                                break;
+                            case WoWEquipSlot.Legs:
+                                inventory[6] = item;
+                                break;
+                            case WoWEquipSlot.Feet:
+                                inventory[7] = item;
+                                break;
+                            case WoWEquipSlot.Wrist:
+                                inventory[8] = item;
+                                break;
+                            case WoWEquipSlot.Hands:
+                                inventory[9] = item;
+                                break;
+                            case WoWEquipSlot.Ring:
+                                inventory[10] = item;
+                                break;
+                            case WoWEquipSlot.Trinket:
+                                inventory[12] = item;
+                                break;
+                            case WoWEquipSlot.Mainhand:
+                            case WoWEquipSlot.Onehand:
+                            case WoWEquipSlot.Twohand:
+                                inventory[15] = item;
+                                break;
+                            case WoWEquipSlot.Offhand:
+                            case WoWEquipSlot.Shield:
+                            case WoWEquipSlot.Bow:
+                                inventory[16] = item;
+                                break;
+
+                        }
+                    }
+                }
+            }
+            return inventory;
         }
 
         public byte[] Packet => (BaseStream as MemoryStream)?.ToArray();

@@ -41,7 +41,7 @@ namespace World_Server.Managers
                 Char.MapY = charStarter.MapY;
                 Char.MapZ = charStarter.MapZ;
                 Char.MapRotation = charStarter.MapRotation;
-                Char.Equipment = String.Join(",", startItems.m_InventoryType);
+                Char.Equipment = String.Join(",", startItems.m_ItemID);
                 Char.firsttime = false;
 
                 // Salva Skin do Char              
@@ -76,9 +76,14 @@ namespace World_Server.Managers
             return this.model.Characters.Where(a => a.Users == account).ToList();
         }
 
-        public CharactersSkin GetSking(Character character)
+        public CharactersSkin GetSkin(Character character)
         {
             return this.model.CharactersSkin.FirstOrDefault(a => a.Character == character);
+        }
+
+        public WorldItems GetItem(int itemId)
+        {
+            return this.model.WorldItems.FirstOrDefault(a => a.itemId == itemId);
         }
 
         public async void DeleteCharacter(int charId)

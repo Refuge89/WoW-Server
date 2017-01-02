@@ -1,10 +1,13 @@
 ﻿using Framework.Contants.Character;
 using Shaolinq;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Framework.Contants;
+using Platform;
 
 namespace Framework.Database
 {
@@ -181,53 +184,34 @@ namespace Framework.Database
                 scope.Complete();
             }
 
-            // Lendo Items e inserindo na base de dados
+            string itemFile = File.ReadAllText("_test.txt");
+
             Regex patItem = new Regex(@"\[item (.*)\]");
-            Regex patAttr = new Regex(@"=");
+            Regex patAttr = new Regex(@"(.*)=(.*)");
 
-            string[] lines = File.ReadAllLines("_test.txt");
-
-            string id = null;
-            string name = null;
-            string type = null;
-
-            using (var scope = new DataAccessScope())
+            foreach (var item in itemFile.Split("\n\r\n"))
             {
-                foreach (string line in lines)
+                using (var scope = new DataAccessScope())
                 {
-                    var itemId = patItem.Matches(line);
-                    var attrId = patAttr.Matches(line);
+                    var itemId = patItem.Matches(item);
+                    var attrId = patAttr.Matches(item);
 
-                   
-                    if (itemId.Count == 1)
-                        id = itemId[0].Groups[1].Value;
+                    var itemSave = this.model.WorldItems.Create();
+                        itemSave.itemId = int.Parse(itemId[0].Groups[1].Value);
 
-                    if (attrId.Count == 1)
+                    for (int i = 0; i < attrId.Count; i++)
                     {
-                        var atributo = line.Split('=');
+                        if (attrId[i].Groups[1].Value == "name")
+                            itemSave.name = attrId[i].Groups[2].Value;
 
-                        if (atributo[0] == "name")
-                            name = atributo[1];
+                        if (attrId[i].Groups[1].Value == "inventorytype")
+                            itemSave.InventoryType = Convert.ToByte(attrId[i].Groups[2].Value);
 
-                        if (atributo[0] == "inventorytype")
-                            type = atributo[1];
-
+                        if (attrId[i].Groups[1].Value == "model")
+                            itemSave.displayId = int.Parse(attrId[i].Groups[2].Value);
                     }
-
-                    if (id != null && name != null && type != null)
-                    {
-                        var Item = this.model.WorldItems.Create();
-                            Item.itemId = Int32.Parse(id);
-                            Item.name = name;
-                            Item.InventoryType = Encoding.ASCII.GetBytes(type);
-
-                        id = null;
-                        name = null;
-                        type = null;
-                    }
+                    scope.Complete();
                 }
-
-                scope.Complete();
             }
         }
     }

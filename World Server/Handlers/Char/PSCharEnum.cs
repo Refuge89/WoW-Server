@@ -18,7 +18,7 @@ namespace World_Server.Handlers.Char
             
             foreach(Character character in characters)
             {
-                var Skin = Program.Database.GetSking(character);
+                var Skin = Program.Database.GetSkin(character);
 
                 Write((ulong)character.Id);         // Int64
                 WriteCString(character.Name);

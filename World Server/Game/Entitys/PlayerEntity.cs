@@ -16,7 +16,7 @@ namespace World_Server.Game.Entitys
 
         public PlayerEntity(Character character) : base((int)EUnitFields.PLAYER_END - 0x4)
         {
-            var Skin = Program.Database.GetSking(character);           
+            var Skin = Program.Database.GetSkin(character);           
 
             SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.Id);
 

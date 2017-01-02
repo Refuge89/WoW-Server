@@ -19,7 +19,10 @@ namespace Framework.Database.Tables
         public abstract int itemId { get; set; }
 
         [PersistedMember]
-        public abstract byte[] InventoryType { get; set; }
+        public abstract int displayId { get; set; }
+
+        [PersistedMember]
+        public abstract byte InventoryType { get; set; }
 
         [PersistedMember]
         public abstract DateTime? created_at { get; set; }
