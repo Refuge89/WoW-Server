@@ -8,66 +8,66 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using World_Server.Handlers.Char;
+using World_Server.Handlers;
 
 namespace World_Server.Managers
 {
     public class DatabaseManager : BaseModel<Models>
     {
-        public void CreateChar(PCCharCreate packet, Users User)
+        internal void CreateChar(CmsgCharCreate handler, Users users)
         {
             using (var scope = new DataAccessScope())
             {
                 //CharacterCreationInfo newCharacterInfo = DBCharacters.GetCreationInfo((RaceID)packet.Race, (ClassID)packet.Class);
                 // Selecting Starter Itens Equipament
-                CharStartOutfit startItems = DBCManager.CharStartOutfit.Values.FirstOrDefault(x => x.Match(packet.Race, packet.Class, packet.Gender));
+                CharStartOutfit startItems = DBCManager.CharStartOutfit.Values.FirstOrDefault(x => x.Match(handler.Race, handler.Class, handler.Gender));
 
                 // Selecting char data creation
-                CharacterCreationInfo CharStarter = this.GetCharStarter((RaceID)packet.Race);
+                CharacterCreationInfo charStarter = this.GetCharStarter((RaceID)handler.Race);
 
                 // Salva Char
                 var Char = this.model.Characters.Create();
-                    Char.Users = User;
-                    Char.Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(packet.Name);
-                    Char.Race = (RaceID)packet.Race;
-                    Char.Class = (ClassID)packet.Class;
-                    Char.Gender = (GenderID)packet.Gender;
-                    Char.Level = 1;
-                    Char.Money = 0;
-                    Char.Online = 0;
-                    Char.MapID = CharStarter.MapID;
-                    Char.MapZone = CharStarter.MapZone;
-                    Char.MapX = CharStarter.MapX;
-                    Char.MapY = CharStarter.MapY;
-                    Char.MapZ = CharStarter.MapZ;
-                    Char.MapRotation = CharStarter.MapRotation;
-                    Char.Equipment = String.Join(",", startItems.m_InventoryType);
-                    Char.firsttime = false;
-                
+                Char.Users = users;
+                Char.Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(handler.Name);
+                Char.Race = (RaceID)handler.Race;
+                Char.Class = (ClassID)handler.Class;
+                Char.Gender = (GenderID)handler.Gender;
+                Char.Level = 1;
+                Char.Money = 0;
+                Char.Online = 0;
+                Char.MapID = charStarter.MapID;
+                Char.MapZone = charStarter.MapZone;
+                Char.MapX = charStarter.MapX;
+                Char.MapY = charStarter.MapY;
+                Char.MapZ = charStarter.MapZ;
+                Char.MapRotation = charStarter.MapRotation;
+                Char.Equipment = String.Join(",", startItems.m_InventoryType);
+                Char.firsttime = false;
+
                 // Salva Skin do Char              
                 var Skin = this.model.CharactersSkin.Create();
-                    Skin.Character = Char;
-                    Skin.Face = packet.Face;
-                    Skin.HairStyle = packet.HairStyle;
-                    Skin.HairColor = packet.HairColor;
-                    Skin.Accessory = packet.Accessory;
+                Skin.Character = Char;
+                Skin.Face = handler.Face;
+                Skin.HairStyle = handler.HairStyle;
+                Skin.HairColor = handler.HairColor;
+                Skin.Accessory = handler.Accessory;
 
                 scope.Complete();
             }
             return;
         }
 
-        public CharacterCreationInfo GetCharStarter(RaceID Race)
+        public CharacterCreationInfo GetCharStarter(RaceID race)
         {
-            return this.model.CharacterCreationInfo.FirstOrDefault(a => a.Race == Race);
+            return this.model.CharacterCreationInfo.FirstOrDefault(a => a.Race == race);
         }
 
         // Pega conta do usuario baseado no login
         public Users GetAccount(string username) => !this.model.Users.Any() ? null : model.Users.FirstOrDefault(a => a.username.ToLower() == username.ToLower());
 
-
-        public Character GetCharacter(int CharId)
+        public Character GetCharacter(int charId)
         {
-            return this.model.Characters.FirstOrDefault(a => a.Id == CharId);
+            return this.model.Characters.FirstOrDefault(a => a.Id == charId);
         }
 
         public List<Character> GetCharacters(string username)
@@ -76,53 +76,49 @@ namespace World_Server.Managers
             return this.model.Characters.Where(a => a.Users == account).ToList();
         }
 
-        public CharactersSkin GetSking(Character Character)
+        public CharactersSkin GetSking(Character character)
         {
-            return this.model.CharactersSkin.FirstOrDefault(a => a.Character == Character);
+            return this.model.CharactersSkin.FirstOrDefault(a => a.Character == character);
         }
 
-        public async void DeleteCharacter(int CharId)
+        public async void DeleteCharacter(int charId)
         {
             using (var scope = new DataAccessScope())
             {
-                await this.model.Characters.Where(a => a.Id == CharId).DeleteAsync();
+                await this.model.Characters.Where(a => a.Id == charId).DeleteAsync();
                 await scope.CompleteAsync();
             }
-
-            return;
         }
 
-        public async void UpdateCharacter(int CharId, string Objeto, string Value = null)
+        public async void UpdateCharacter(int charId, string objeto, string value = null)
         {
             using (var scope = new DataAccessScope())
             {
-                var character = model.Characters.GetReference(CharId);
+                var character = model.Characters.GetReference(charId);
 
                 // Define Online/Offline
-                if(Objeto == "online" && character.Online == 1)
+                if(objeto == "online" && character.Online == 1)
                     character.Online = 0;
                  else
                     character.Online = 1;
 
                 // Define primeiro Login
-                if (Objeto == "firstlogin")
+                if (objeto == "firstlogin")
                     character.firsttime = true;
                     
                 await scope.CompleteAsync();
             }
-
-            return;
         }
 
-        public async void UpdateMovement(Character Character)
+        public async void UpdateMovement(Character character)
         {
             using (var scope = new DataAccessScope())
             {
-                var update = model.Characters.GetReference(Character.Id);
-                update.MapX = Character.MapX;
-                update.MapY = Character.MapY;
-                update.MapZ = Character.MapZ;
-                update.MapRotation = Character.MapRotation;
+                var update = model.Characters.GetReference(character.Id);
+                update.MapX = character.MapX;
+                update.MapY = character.MapY;
+                update.MapZ = character.MapZ;
+                update.MapRotation = character.MapRotation;
 
                 await scope.CompleteAsync();
             }

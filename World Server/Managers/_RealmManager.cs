@@ -1,6 +1,5 @@
 ﻿using Framework.Contants;
 using Framework.Crypt;
-using Framework.Helpers;
 using System;
 using Framework.Database.Tables;
 using World_Server.Handlers;
@@ -24,9 +23,9 @@ namespace World_Server.Managers
 
         private static void OnAuthSession(WorldSession session, PCAuthSession packet)
         {
-            session.users = Program.Database.GetAccount(packet.AccountName);
-            session.crypt = new VanillaCrypt();
-            session.crypt.init(session.users.sessionkey);
+            session.Users = Program.Database.GetAccount(packet.AccountName);
+            session.Crypt = new VanillaCrypt();
+            session.Crypt.Init(session.Users.sessionkey);
             session.sendPacket(new PSAuthResponse());
         }
 

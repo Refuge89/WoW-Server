@@ -7,7 +7,7 @@ namespace Framework.DBC
 {
     public static class BinaryReaderExtensions
     {
-        public static Dictionary<Type, Func<BinaryReader, object>> ReadValue = new Dictionary<Type, Func<BinaryReader, object>>()
+        public static Dictionary<Type, Func<BinaryReader, object>> ReadValue = new Dictionary<Type, Func<BinaryReader, object>>
         {
             {typeof(bool),   br => br.ReadBoolean()},
             {typeof(sbyte),  br => br.ReadSByte()},

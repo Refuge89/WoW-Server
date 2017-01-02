@@ -14,13 +14,14 @@ namespace World_Server.Sessions
 {
     public class WorldSession : Session
     {
-        public VanillaCrypt crypt;
+        public VanillaCrypt Crypt;
         public Character Character;
-        public Users users;
+        public Users Users;
 
-        public WorldSession(int _connectionID, Socket _connectionSocket) : base(_connectionID, _connectionSocket)
+        public WorldSession(int connectionId, Socket connectionSocket) : base(connectionId, connectionSocket)
         {
-            sendPacket(WorldOpcodes.SMSG_AUTH_CHALLENGE, new byte[] { 0x33, 0x18, 0x34, 0xC8 });
+            //sendPacket(WorldOpcodes.SMSG_AUTH_CHALLENGE, new byte[] { 0x33, 0x18, 0x34, 0xC8 });
+            sendPacket(WorldOpcodes.SMSG_AUTH_CHALLENGE, new byte[] { 0x31, 0x18, 0x34, 0xC8 });
         }
 
         public void sendPacket(ServerPacket packet)
@@ -102,22 +103,21 @@ namespace World_Server.Sessions
             header[index++] = (byte)(0xFF & opcode);
             header[index] = (byte)(0xFF & (opcode >> 8));
 
-
-            if (crypt != null) header = crypt.encrypt(header);
+            if (Crypt != null) header = Crypt.Encrypt(header);
 
             return header;
         }
 
         private void decode(byte[] header, out ushort length, out short opcode)
         {
-            if (crypt != null)
+            if (Crypt != null)
             {
-                crypt.decrypt(header, 6);
+                Crypt.Decrypt(header, 6);
             }
 
             PacketReader reader = new PacketReader(header);
 
-            if (crypt == null)
+            if (Crypt == null)
             {
                 length = BitConverter.ToUInt16(new byte[] { header[1], header[0] }, 0);
                 opcode = BitConverter.ToInt16(header, 2);

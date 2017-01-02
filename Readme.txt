@@ -1,3 +1,5 @@
+last item of vanilla 24102
+
 https://svn.code.sf.net/p/shadowmoses/code/
 
 http://wowmapview.sourceforge.net/

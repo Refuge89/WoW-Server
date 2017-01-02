@@ -11,9 +11,9 @@
         public int[] m_DisplayItemID = new int[12];
         public int[] m_InventoryType = new int[12];
 
-        public bool Match(byte _race, byte _class, byte _gender)
+        public bool Match(byte race, byte _class, byte gender)
         {
-            return this.Race == _race && this.Class == _class && this.Sex == _gender;
+            return this.Race == race && this.Class == _class && this.Sex == gender;
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using Framework.Contants.Character;
 using Shaolinq;
 using System;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 using Framework.Contants;
 
 namespace Framework.Database
@@ -174,6 +177,55 @@ namespace Framework.Database
                     CharInfoTroll.ModelF = 1479;
                     CharInfoTroll.TeamId = 7;
                     CharInfoTroll.TaxiMask = 32;
+
+                scope.Complete();
+            }
+
+            // Lendo Items e inserindo na base de dados
+            Regex patItem = new Regex(@"\[item (.*)\]");
+            Regex patAttr = new Regex(@"=");
+
+            string[] lines = File.ReadAllLines("_test.txt");
+
+            string id = null;
+            string name = null;
+            string type = null;
+
+            using (var scope = new DataAccessScope())
+            {
+                foreach (string line in lines)
+                {
+                    var itemId = patItem.Matches(line);
+                    var attrId = patAttr.Matches(line);
+
+                   
+                    if (itemId.Count == 1)
+                        id = itemId[0].Groups[1].Value;
+
+                    if (attrId.Count == 1)
+                    {
+                        var atributo = line.Split('=');
+
+                        if (atributo[0] == "name")
+                            name = atributo[1];
+
+                        if (atributo[0] == "inventorytype")
+                            type = atributo[1];
+
+                    }
+
+                    if (id != null && name != null && type != null)
+                    {
+                        var Item = this.model.WorldItems.Create();
+                            Item.itemId = Int32.Parse(id);
+                            Item.name = name;
+                            Item.InventoryType = Encoding.ASCII.GetBytes(type);
+
+                        id = null;
+                        name = null;
+                        type = null;
+                    }
+                }
 
                 scope.Complete();
             }

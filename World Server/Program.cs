@@ -1,13 +1,13 @@
-﻿using Framework.Database;
-using Framework.DBC.Structs;
-using Framework.Helpers;
+﻿using Framework.Helpers;
 using Framework.Network;
 using Framework.Sessions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using World_Server.Managers;
 using World_Server.Sessions;
 
@@ -15,23 +15,22 @@ namespace World_Server
 {
     class Program
     {
-        private static Assembly m_Assembly = Assembly.GetEntryAssembly();
+        private static readonly Assembly MAssembly = Assembly.GetEntryAssembly();
 
         public static WorldServer World { get; private set; }
 
         public static DatabaseManager Database;
-        public static DBManager DBManager;
 
-        static void Main(string[] args)
+        static void Main()
         {
             var time = Time.getMSTime();
 
-            Version ver = m_Assembly.GetName().Version;
+            Version ver = MAssembly.GetName().Version;
 
             Log.Print("World Server", $"Version {ver.Major}.{ver.Minor}.{ver.Build}.{ver.Revision}", ConsoleColor.Green);
             Log.Print("World Server", $"Running on .NET Framework Version {Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}", ConsoleColor.Green);
 
-            var WorldPoint = new IPEndPoint(IPAddress.Any, 1001);
+            var worldPoint = new IPEndPoint(IPAddress.Any, 1001);
 
             // First Load DBC Files
             DBCManager.Boot();
@@ -40,19 +39,20 @@ namespace World_Server
             World = new WorldServer();
 
             // Inicia Conexao
-            if (World.Start(WorldPoint))
+            if (World.Start(worldPoint))
             {
                 // Iniciando Database
                 Database = new DatabaseManager();
-                DBManager = new DBManager();
 
                 // Iniciando Sequencia
-                RealmManager.Boot();
-                CharacterManager.Boot();
-                ChatManager.Boot();
-                MovementManager.Boot();
+                AuthManager.Boot();
+                CharManager.Boot();
+                //RealmManager.Boot();
+                //CharacterManager.Boot();
+                //ChatManager.Boot();
+                //MovementManager.Boot();
 
-                Log.Print("World Server", $"Server is now listening at {WorldPoint.Address}:{WorldPoint.Port}", ConsoleColor.Green);
+                Log.Print("World Server", $"Server is now listening at {worldPoint.Address}:{worldPoint.Port}", ConsoleColor.Green);
                 Log.Print("World Server", $"Successfully started in {Time.getMSTimeDiff(time, Time.getMSTime()) / 1000}s", ConsoleColor.Green);
             }
 

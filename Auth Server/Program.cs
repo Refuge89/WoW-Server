@@ -44,7 +44,7 @@ namespace Auth_Server
                 Database = new DBManager();
 
                 // Insere Registros primarios
-                //Database.Boot();
+                Database.Boot();
 
                 // Database do Auth
                 DatabaseManager = new DatabaseManager();

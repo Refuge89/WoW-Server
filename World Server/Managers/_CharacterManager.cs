@@ -12,6 +12,7 @@ using World_Server.Sessions;
 
 namespace World_Server.Managers
 {
+    /*
     class CharacterManager
     {
         public static Dictionary<WorldSession, DateTime> logoutQueue;
@@ -34,7 +35,7 @@ namespace World_Server.Managers
 
         private static void OnCharEnum(WorldSession session, byte[] packet)
         {
-            List<Character> characters = Program.Database.GetCharacters(session.users.username);
+            List<Character> characters = Program.Database.GetCharacters(session.Users.username);
             session.sendPacket(WorldOpcodes.SMSG_CHAR_ENUM, new PSCharEnum(characters).PacketData);
         }
         
@@ -46,7 +47,7 @@ namespace World_Server.Managers
             // limite de char alcançado     CHAR_CREATE_ACCOUNT_LIMIT
             try
             {
-                Program.Database.CreateChar(packet, session.users);
+                Program.Database.CreateChar(packet, session.Users);
                 session.sendPacket(new PSCharCreate(LoginErrorCode.CHAR_CREATE_SUCCESS)); return;
             }
             catch (Exception ex)
@@ -114,4 +115,5 @@ namespace World_Server.Managers
         }
 
     }
+    */
 }

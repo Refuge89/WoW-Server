@@ -7,6 +7,9 @@ namespace Framework.Database
     public abstract class Models : DataAccessModel
     {
         [DataAccessObjects]
+        public abstract DataAccessObjects<WorldItems> WorldItems { get; }
+
+        [DataAccessObjects]
         public abstract DataAccessObjects<Users> Users { get; }
 
         [DataAccessObjects]
@@ -19,6 +22,6 @@ namespace Framework.Database
         public abstract DataAccessObjects<CharacterCreationInfo> CharacterCreationInfo { get; }
 
         [DataAccessObjects]
-        public abstract DataAccessObjects<CharactersSkin> CharactersSkin { get; }       
+        public abstract DataAccessObjects<CharactersSkin> CharactersSkin { get; }
     }
 }

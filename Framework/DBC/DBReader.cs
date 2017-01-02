@@ -9,19 +9,9 @@ namespace Framework.DBC
 {
     public class DBReader
     {
-        private static string AssemblyDirectory
+        private static DbHeader ExtractHeader(BinaryReader dbReader)
         {
-            get
-            {
-                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
-                string path = Uri.UnescapeDataString(new UriBuilder(codeBase).Path);
-                return Path.GetDirectoryName(path);
-            }
-        }
-
-        private static DBHeader ExtractHeader(BinaryReader dbReader)
-        {
-            return new DBHeader
+            return new DbHeader
             {
                 Signature = dbReader.ReadString(4),
                 RecordCount = dbReader.Read<uint>(),
@@ -39,7 +29,7 @@ namespace Framework.DBC
             {
                 using (var dbReader = new BinaryReader(new MemoryStream(File.ReadAllBytes("DBC/" + dbcFile))))
                 {
-                    DBHeader header = ExtractHeader(dbReader);
+                    DbHeader header = ExtractHeader(dbReader);
 
                     if (header.IsValidDbcFile || header.IsValidDb2File)
                     {
@@ -75,7 +65,7 @@ namespace Framework.DBC
             {
                 using (var dbReader = new BinaryReader(new MemoryStream(File.ReadAllBytes("DBC/" + dbcFile))))
                 {
-                    DBHeader header = ExtractHeader(dbReader);
+                    DbHeader header = ExtractHeader(dbReader);
 
                     if (header.IsValidDbcFile || header.IsValidDb2File)
                     {
@@ -104,7 +94,7 @@ namespace Framework.DBC
             return tempList;
         }
 
-        private static void ExtractFields<T>(FieldInfo f, ref string lastString, BinaryReader dbReader, ref T newObj, ref DBHeader header)
+        private static void ExtractFields<T>(FieldInfo f, ref string lastString, BinaryReader dbReader, ref T newObj, ref DbHeader header)
         {
             switch (f.FieldType.Name)
             {
