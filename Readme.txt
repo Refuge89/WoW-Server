@@ -1,5 +1,9 @@
 last item of vanilla 24102
 
+http://wow.gamepedia.com/ClassId
+
+http://www.ac-web.org/forums/showthread.php?58721-List-Every-Title-ID-Class-ID-Race-ID-and-lots-more!
+
 https://svn.code.sf.net/p/shadowmoses/code/
 
 http://wowmapview.sourceforge.net/
