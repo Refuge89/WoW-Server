@@ -1,10 +1,10 @@
-﻿using Framework.Contants;
-using Framework.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Framework.Contants;
+using Framework.Helpers;
 using World_Server.Sessions;
 
-namespace World_Server.Handlers
+namespace World_Server.Helpers
 {
     public delegate void ProcessWorldPacketCallback(WorldSession session, byte[] data);
     public delegate void ProcessWorldPacketCallbackTypes<T>(WorldSession session, T handler);

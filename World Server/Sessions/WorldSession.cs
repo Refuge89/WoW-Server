@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using World_Server.Handlers;
+using World_Server.Helpers;
 
 namespace World_Server.Sessions
 {
@@ -56,7 +57,7 @@ namespace World_Server.Sessions
         public void sendPacket(int opcode, byte[] data)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
-            byte[] header = encode(data.Length, (int)opcode);
+            byte[] header = Encode(data.Length, (int)opcode);
 
             writer.Write(header);
             writer.Write(data);
@@ -76,7 +77,7 @@ namespace World_Server.Sessions
                 ushort length = 0;
                 short opcode = 0;
 
-                decode(headerData, out length, out opcode);
+                Decode(headerData, out length, out opcode);
 
                 WorldOpcodes code = (WorldOpcodes)opcode;
 
@@ -90,7 +91,7 @@ namespace World_Server.Sessions
             }
         }
 
-        private byte[] encode(int size, int opcode)
+        private byte[] Encode(int size, int opcode)
         {
             int index = 0;
             int newSize = size + 2;
@@ -108,14 +109,11 @@ namespace World_Server.Sessions
             return header;
         }
 
-        private void decode(byte[] header, out ushort length, out short opcode)
+        private void Decode(byte[] header, out ushort length, out short opcode)
         {
-            if (Crypt != null)
-            {
-                Crypt.Decrypt(header, 6);
-            }
+            Crypt?.Decrypt(header, 6);
 
-            PacketReader reader = new PacketReader(header);
+            //PacketReader reader = new PacketReader(header);
 
             if (Crypt == null)
             {

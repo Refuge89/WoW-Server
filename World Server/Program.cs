@@ -41,23 +41,15 @@ namespace World_Server
                 // Iniciando Database
                 Database = new DatabaseManager();
 
-                // Autenticadores
-                AuthManager.Boot();
-                // Char realm
-                CharManager.Boot();
-                // Internal Transactions
-                InternalManager.Boot();
-                // Player 
-                PlayerManager.Boot();
-
-                //RealmManager.Boot();
-                //CharacterManager.Boot();
-                //ChatManager.Boot();
-                //MovementManager.Boot();
+                // Initilizing Handlers
+                HandlerManager.Boot();
 
                 Log.Print("World Server", $"Server is now listening at {worldPoint.Address}:{worldPoint.Port}", ConsoleColor.Green);
                 Log.Print("World Server", $"Successfully started in {Time.getMSTimeDiff(time, Time.getMSTime()) / 1000}s", ConsoleColor.Green);
             }
+
+            GC.Collect();
+            Log.Print(LogType.Status, $"Total Memory: {Convert.ToSingle(GC.GetTotalMemory(false) / 1024 / 1024)}MB");
 
             while (true) Console.ReadLine();
         }

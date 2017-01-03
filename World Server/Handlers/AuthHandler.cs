@@ -1,9 +1,13 @@
 ﻿using Framework.Contants;
+using Framework.Crypt;
 using Framework.Network;
+using World_Server.Sessions;
 
 namespace World_Server.Handlers
 {
-    sealed class CmsgAuthSession : PacketReader
+
+    #region CMSG_AUTH_SESSION
+    public sealed class CmsgAuthSession : PacketReader
     {
         public int ClientBuild { get; private set; }
         public int Unk2 { get; private set; }
@@ -16,12 +20,26 @@ namespace World_Server.Handlers
             AccountName = ReadCString();
         }
     }
-
+    #endregion
+    
+    #region SMSG_AUTH_RESPONSE
     sealed class SmsgAuthResponse : ServerPacket
     {
         public SmsgAuthResponse() : base(WorldOpcodes.SMSG_AUTH_RESPONSE)
         {
-            Write((byte)ResponseCodes.AUTH_OK);
+            Write((byte) ResponseCodes.AUTH_OK);
+        }
+    }
+    #endregion
+
+    public class AuthHandler
+    {
+        public static void OnAuthSession(WorldSession session, CmsgAuthSession handler)
+        {
+            session.Users = Program.Database.GetAccount(handler.AccountName);
+            session.Crypt = new VanillaCrypt();
+            session.Crypt.Init(session.Users.sessionkey);
+            session.sendPacket(new SmsgAuthResponse());
         }
     }
 }

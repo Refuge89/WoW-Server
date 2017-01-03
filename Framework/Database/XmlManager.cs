@@ -1,7 +1,7 @@
 ﻿using Framework.Contants.Character;
-using System;
 using System.IO;
 using System.Xml.Serialization;
+using Framework.Database.Xml;
 
 namespace Framework.Database
 {
@@ -9,11 +9,9 @@ namespace Framework.Database
     {
         public static Xml.race GetRaceStats(RaceID value)
         {
-            Console.WriteLine(value);
-            Xml.race raceStats = null;
-            XmlSerializer serializer = new XmlSerializer(typeof(Xml.race));
+            XmlSerializer serializer = new XmlSerializer(typeof(race));
             StreamReader reader = new StreamReader($"../../stats/race_{value}.xml");
-            raceStats = (Xml.race)serializer.Deserialize(reader);
+            var raceStats = (race)serializer.Deserialize(reader);
             reader.Close();
 
             return raceStats;
@@ -21,11 +19,9 @@ namespace Framework.Database
 
         public static Xml.classe GetClassStats(ClassID value)
         {
-            Console.WriteLine(value);
-            Xml.classe classeStats = null;
-            XmlSerializer serializer = new XmlSerializer(typeof(Xml.classe));
+            XmlSerializer serializer = new XmlSerializer(typeof(classe));
             StreamReader reader = new StreamReader($"../../stats/class_{value}.xml");
-            classeStats = (Xml.classe)serializer.Deserialize(reader);
+            var classeStats = (classe)serializer.Deserialize(reader);
             reader.Close();
 
             return classeStats;

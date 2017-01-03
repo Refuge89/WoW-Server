@@ -2,6 +2,7 @@
 using Framework.Database.Tables;
 using Framework.Extensions;
 using Framework.Network;
+using World_Server.Sessions;
 
 namespace World_Server.Handlers
 {
@@ -57,4 +58,11 @@ namespace World_Server.Handlers
     }
     #endregion
 
+    public class InternalHandler
+    {
+        public static void OnPingPacket(WorldSession session, CmsgPing packet)
+        {
+            session.sendPacket(new SmsgPong(packet.Ping));
+        }
+    }
 }
