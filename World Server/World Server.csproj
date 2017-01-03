@@ -94,6 +94,7 @@
     <Compile Include="Handlers\Movement\PSMovement.cs" />
     <Compile Include="Handlers\Objects\ObjectHandler.cs" />
     <Compile Include="Handlers\PlayerHandler.cs" />
+    <Compile Include="Handlers\SpellHandler.cs" />
     <Compile Include="Handlers\WorldDataRouter.cs" />
     <Compile Include="Handlers\World\PSUpdateObject.cs" />
     <Compile Include="Helpers\InventoryHelper.cs" />
@@ -121,7 +122,9 @@
       <Name>Framework</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Game\Objects\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.104.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.104.0\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

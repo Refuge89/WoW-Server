@@ -24,7 +24,7 @@ namespace World_Server.Managers
     {
         public static void Boot()
         {
-            WorldDataRouter.AddHandler<CMSG_PING>(WorldOpcodes.CMSG_PING, OnPingPacket);
+            WorldDataRouter.AddHandler<CmsgPing>(WorldOpcodes.CMSG_PING, OnPingPacket);
             WorldDataRouter.AddHandler<VaiBuceta>(WorldOpcodes.CMSG_UPDATE_ACCOUNT_DATA, OnUpdateAccountData);
         }
 
@@ -33,9 +33,9 @@ namespace World_Server.Managers
             Console.WriteLine("CMSG_UPDATE_ACCOUNT_DATA");
         }
 
-        public static void OnPingPacket(WorldSession session, CMSG_PING packet)
+        public static void OnPingPacket(WorldSession session, CmsgPing packet)
         {
-            session.sendPacket(new SMSG_PONG(packet.Ping));
+            session.sendPacket(new SmsgPong(packet.Ping));
         }
     }
 }

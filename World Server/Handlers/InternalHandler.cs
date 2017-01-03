@@ -7,12 +7,12 @@ namespace World_Server.Handlers
 {
 
     #region CMSG_PING
-    public class CMSG_PING : PacketReader
+    public sealed class CmsgPing : PacketReader
     {
         public uint Ping { get; private set; }
         public uint Latency { get; private set; }
 
-        public CMSG_PING(byte[] data) : base(data)
+        public CmsgPing(byte[] data) : base(data)
         {
             Ping = ReadUInt32();
             Latency = ReadUInt32();
@@ -21,9 +21,9 @@ namespace World_Server.Handlers
     #endregion
 
     #region SMSG_PONG
-    public class SMSG_PONG : ServerPacket
+    public sealed class SmsgPong : ServerPacket
     {
-        public SMSG_PONG(uint ping) : base(WorldOpcodes.SMSG_PONG)
+        public SmsgPong(uint ping) : base(WorldOpcodes.SMSG_PONG)
         {
             Write((ulong)ping);
         }
@@ -31,9 +31,9 @@ namespace World_Server.Handlers
     #endregion
 
     #region SMSG_BINDPOINTUPDATE
-    class SMSG_BINDPOINTUPDATE : ServerPacket
+    sealed class SmsgBindpointupdate : ServerPacket
     {
-        public SMSG_BINDPOINTUPDATE(Character character) : base(WorldOpcodes.SMSG_BINDPOINTUPDATE)
+        public SmsgBindpointupdate(Character character) : base(WorldOpcodes.SMSG_BINDPOINTUPDATE)
         {
             Write(character.MapX);
             Write(character.MapY);
@@ -45,9 +45,9 @@ namespace World_Server.Handlers
     #endregion
 
     #region SMSG_SERVER_MESSAGE
-    class SMSG_SERVER_MESSAGE : ServerPacket
+    sealed class SmsgServerMessage : ServerPacket
     {
-        public SMSG_SERVER_MESSAGE(int code, string msg) : base(WorldOpcodes.SMSG_SERVER_MESSAGE)
+        public SmsgServerMessage(int code, string msg) : base(WorldOpcodes.SMSG_SERVER_MESSAGE)
         {
             // 1 = Server Shutdown in {}
             // 2 = Server Restar in

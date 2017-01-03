@@ -1,6 +1,5 @@
 ﻿using Framework.Database.Tables;
 using Platform;
-using System;
 
 namespace World_Server.Helpers
 {
@@ -43,15 +42,15 @@ namespace World_Server.Helpers
         {
             if (ids == null) return null;
 
-            string[] ItemList = ids.Split(",");
+            string[] itemList = ids.Split(",");
 
             WorldItems[] inventory = new WorldItems[19];
-            for (int i = 0; i < ItemList.Length; i++)
+            for (int i = 0; i < itemList.Length; i++)
             {
-                if (ItemList[i].Length > 0)
+                if (itemList[i].Length > 0)
                 {
-                    var itemEntry = ItemList[i];
-                    WorldItems item = Program.Database.GetItem(Int32.Parse(itemEntry));
+                    var itemEntry = itemList[i];
+                    WorldItems item = Program.Database.GetItem(int.Parse(itemEntry));
                     if (item != null)
                     {
                         switch ((WoWEquipSlot)item.InventoryType)

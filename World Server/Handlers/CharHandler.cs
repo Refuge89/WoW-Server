@@ -114,7 +114,7 @@ namespace World_Server.Handlers
 
                 for (int i = 0; i < 19; i++)
                 {
-                    if (equipment != null && equipment[i] != null)
+                    if (equipment?[i] != null)
                     {
                         Write(equipment[i].displayId);
                         Write((byte)equipment[i].InventoryType);

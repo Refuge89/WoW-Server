@@ -12,7 +12,7 @@ using World_Server.Helpers;
 
 namespace World_Server.Handlers.Objects
 {
-    public class ObjectHandler : ServerPacket
+    public sealed class ObjectHandler : ServerPacket
     {
         public ObjectHandler(List<byte[]> blocks) : base(WorldOpcodes.SMSG_UPDATE_OBJECT)
         {
@@ -21,7 +21,7 @@ namespace World_Server.Handlers.Objects
             blocks.ForEach(b => Write(b));
         }
 
-        public static ObjectHandler CreateOwnCharacterUpdate(Character character, CMSG_PLAYER_LOGIN packet)
+        public static ObjectHandler CreateOwnCharacterUpdate(Character character, CmsgPlayerLogin packet)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
@@ -60,7 +60,7 @@ namespace World_Server.Handlers.Objects
 
             new PlayerEntity(character).WriteUpdateFields(writer);
 
-            return new ObjectHandler(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
+            return new ObjectHandler(new List<byte[]> { (writer.BaseStream as MemoryStream)?.ToArray() });
         }
 
     }

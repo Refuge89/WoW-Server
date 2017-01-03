@@ -7,28 +7,28 @@ namespace Framework.Database
 {
     public class XmlManager
     {
-        public static Xml.race getRaceStats(RaceID value)
+        public static Xml.race GetRaceStats(RaceID value)
         {
             Console.WriteLine(value);
-            Xml.race RaceStats = null;
+            Xml.race raceStats = null;
             XmlSerializer serializer = new XmlSerializer(typeof(Xml.race));
             StreamReader reader = new StreamReader($"../../stats/race_{value}.xml");
-            RaceStats = (Xml.race)serializer.Deserialize(reader);
+            raceStats = (Xml.race)serializer.Deserialize(reader);
             reader.Close();
 
-            return RaceStats;
+            return raceStats;
         }
 
-        public static Xml.classe getClassStats(ClassID value)
+        public static Xml.classe GetClassStats(ClassID value)
         {
             Console.WriteLine(value);
-            Xml.classe ClasseStats = null;
+            Xml.classe classeStats = null;
             XmlSerializer serializer = new XmlSerializer(typeof(Xml.classe));
             StreamReader reader = new StreamReader($"../../stats/class_{value}.xml");
-            ClasseStats = (Xml.classe)serializer.Deserialize(reader);
+            classeStats = (Xml.classe)serializer.Deserialize(reader);
             reader.Close();
 
-            return ClasseStats;
+            return classeStats;
         }
     }
 }

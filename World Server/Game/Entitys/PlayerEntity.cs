@@ -17,8 +17,8 @@ namespace World_Server.Game.Entitys
 
         public static int GetAttribute(Character character, string attribute)
         {
-            var AttRace = XmlManager.getRaceStats(character.Race);
-            var AttClas = XmlManager.getClassStats(character.Class);
+            var AttRace = XmlManager.GetRaceStats(character.Race);
+            var AttClas = XmlManager.GetClassStats(character.Class);
             //var AttChar = XmlManager.getRaceStats(race);
 
             if(attribute == "health")
