@@ -1,44 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<classe id="1">	<!-- Warrior -->
+<classe id="7">	<!-- Shaman -->
 	<health>10</health>
 	<atackspeed>2000-2000</atackspeed>
 	<stats>
-		<strength>3</strength>
+		<strength>1</strength>
 		<agility>0</agility>
-		<stamina>2</stamina>
-		<intellect>0</intellect>
-		<spirit>0</spirit>
+		<stamina>1</stamina>
+		<intellect>1</intellect>
+		<spirit>2</spirit>
 	</stats>
 	<leveling>
-		<strength>1.426 </strength>
-		<agility>0.916</agility>
-		<stamina>3.918</stamina>
-		<intellect>0.070</intellect>
-		<spirit>0.324</spirit>	
+		<strength>0.985</strength>
+		<agility>0.494</agility>
+		<stamina>2.750</stamina>
+		<intellect>2.952</intellect>
+		<spirit>1.036</spirit>	
 	</leveling>
 	<modificadores>
 		<stamina>
-			<base>40</base>		<!-- HP -->
+			<base>47</base>		<!-- HP -->
 			<mod>10</mod>		<!-- Stamina -->
 		</stamina>
 		<intellect>
-			<base>0</base>		<!-- MANA -->
-			<mod>0</mod>		<!-- Intellect -->
+			<base>75</base>		<!-- MANA -->
+			<mod>15</mod>		<!-- Intellect -->
 		</intellect>		
 	</modificadores>
 	<powers>
-		<mana>0</mana>
-		<rage>1000</rage>
+		<mana>75</mana>
+		<rage>0</rage>
 		<energy>0</energy>
 	</powers>
 	<spells>
 		<spell id="9078" />		<!-- Cloth -->
 		<spell id="9077" /> 	<!-- Leather -->
-		<spell id="8737" />		<!-- Mail-->
 		<spell id="9116" />		<!-- Shield -->
 		<spell id="107" />		<!-- Block -->
-		<spell id="78" /> 		<!-- Heroic Strike -->		
-		<spell id="2457" />		<!-- Battle Stance -->
+		<spell id="331" /> 		<!-- Healing Wave -->		
+		<spell id="403" />		<!-- Lightning Bolt -->
 	</spells>
 	<skills>
 		<skill id="415"> 		<!-- Cloth -->
@@ -46,10 +45,6 @@
 			<max>1</max>
 		</skill>
 		<skill id="414"> 		<!-- Leather -->
-			<min>1</min>
-			<max>1</max>
-		</skill>
-		<skill id="413"> 		<!-- Mail -->
 			<min>1</min>
 			<max>1</max>
 		</skill>
@@ -61,15 +56,15 @@
 			<min>1</min>
 			<max>300</max>
 		</skill>
-		<skill id="26"> 		<!-- Arms -->
+		<skill id="373"> 		<!-- Enchantment -->
 			<min>1</min>
 			<max>1</max>
 		</skill>
-		<skill id="256"> 		<!-- Fury -->
+		<skill id="374"> 		<!-- Restoration -->
 			<min>1</min>
 			<max>1</max>
 		</skill>
-		<skill id="257"> 		<!-- Protection -->
+		<skill id="375"> 		<!-- Elemental -->
 			<min>1</min>
 			<max>1</max>
 		</skill>		

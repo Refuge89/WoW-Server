@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classe id="8">	<!-- Mage -->
+	<health>10</health>
+	<atackspeed>2000-2000</atackspeed>
+	<stats>
+		<strength>0</strength>
+		<agility>0</agility>
+		<stamina>0</stamina>
+		<intellect>3</intellect>
+		<spirit>2</spirit>
+	</stats>
+	<leveling>
+		<strength>0.155</strength>
+		<agility>2.870</agility>
+		<stamina>1.562</stamina>
+		<intellect>2.253</intellect>
+		<spirit>0.017</spirit>	
+	</leveling>
+	<modificadores>
+		<stamina>
+			<base>52</base>		<!-- HP -->
+			<mod>10</mod>		<!-- Stamina -->
+		</stamina>
+		<intellect>
+			<base>120</base>	<!-- MANA -->
+			<mod>15</mod>		<!-- Intellect -->
+		</intellect>		
+	</modificadores>
+	<powers>
+		<mana>120</mana>
+		<rage>0</rage>
+		<energy>0</energy>
+	</powers>
+	<spells>
+		<spell id="9078" />		<!-- Cloth -->
+		<spell id="133" /> 		<!-- Fireball -->		
+		<spell id="168" />		<!-- Frost Armor -->
+	</spells>
+	<skills>
+		<skill id="415"> 		<!-- Cloth -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+		<skill id="95"> 		<!-- Defense -->
+			<min>1</min>
+			<max>300</max>
+		</skill>
+		<skill id="6"> 			<!-- Frost -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+		<skill id="8"> 			<!-- Fire -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+		<skill id="237"> 		<!-- Arcane -->
+			<min>1</min>
+			<max>1</max>
+		</skill>		
+	</skills>	
+</classe>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classe id="11">	<!-- Druid -->
+	<health>10</health>
+	<atackspeed>2000-2000</atackspeed>
+	<stats>
+		<strength>1</strength>
+		<agility>0</agility>
+		<stamina>0</stamina>
+		<intellect>2</intellect>
+		<spirit>2</spirit>
+	</stats>
+	<leveling>
+		<strength>0.646</strength>
+		<agility>0.494</agility>
+		<stamina>2.965</stamina>
+		<intellect>2.538</intellect>
+		<spirit>1.223</spirit>	
+	</leveling>
+	<modificadores>
+		<stamina>
+			<base>54</base>		<!-- HP -->
+			<mod>10</mod>		<!-- Stamina -->
+		</stamina>
+		<intellect>
+			<base>70</base>		<!-- MANA -->
+			<mod>15</mod>		<!-- Intellect -->
+		</intellect>		
+	</modificadores>
+	<powers>
+		<mana>70</mana>
+		<rage>1000</rage>
+		<energy>100</energy>
+	</powers>
+	<spells>
+		<spell id="9078" />		<!-- Cloth -->
+		<spell id="9077" /> 	<!-- Leather -->
+		<spell id="5176" /> 		<!-- Wrath -->		
+		<spell id="5185" />		<!-- Healing Touch -->
+	</spells>
+	<skills>
+		<skill id="415"> 		<!-- Cloth -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+		<skill id="414"> 		<!-- Leather -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+		<skill id="95"> 		<!-- Defense-->
+			<min>1</min>
+			<max>300</max>
+		</skill>
+		<skill id="134"> 		<!-- Feral Combat -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+		<skill id="573"> 		<!-- Restoration -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+		<skill id="574"> 		<!-- Balance -->
+			<min>1</min>
+			<max>1</max>
+		</skill>		
+	</skills>	
+</classe>

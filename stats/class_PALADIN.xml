@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<classe id="1">	<!-- Warrior -->
+<classe id="2">	<!-- Paladin -->
 	<health>10</health>
 	<atackspeed>2000-2000</atackspeed>
 	<stats>
-		<strength>3</strength>
+		<strength>2</strength>
 		<agility>0</agility>
 		<stamina>2</stamina>
 		<intellect>0</intellect>
-		<spirit>0</spirit>
+		<spirit>1</spirit>
 	</stats>
 	<leveling>
-		<strength>1.426 </strength>
-		<agility>0.916</agility>
-		<stamina>3.918</stamina>
-		<intellect>0.070</intellect>
-		<spirit>0.324</spirit>	
+		<strength>1.256</strength>
+		<agility>0.663</agility>
+		<stamina>3.423</stamina>
+		<intellect>2.412</intellect>
+		<spirit>0.816</spirit>	
 	</leveling>
 	<modificadores>
 		<stamina>
-			<base>40</base>		<!-- HP -->
+			<base>38</base>		<!-- HP -->
 			<mod>10</mod>		<!-- Stamina -->
 		</stamina>
 		<intellect>
-			<base>0</base>		<!-- MANA -->
-			<mod>0</mod>		<!-- Intellect -->
+			<base>80</base>		<!-- MANA -->
+			<mod>15</mod>		<!-- Intellect -->
 		</intellect>		
 	</modificadores>
 	<powers>
-		<mana>0</mana>
-		<rage>1000</rage>
+		<mana>80</mana>
+		<rage>0</rage>
 		<energy>0</energy>
 	</powers>
 	<spells>
@@ -37,8 +37,8 @@
 		<spell id="8737" />		<!-- Mail-->
 		<spell id="9116" />		<!-- Shield -->
 		<spell id="107" />		<!-- Block -->
-		<spell id="78" /> 		<!-- Heroic Strike -->		
-		<spell id="2457" />		<!-- Battle Stance -->
+		<spell id="635" /> 		<!-- Holy Light -->		
+		<spell id="21084" />	<!-- Seal of Righteousness -->
 	</spells>
 	<skills>
 		<skill id="415"> 		<!-- Cloth -->
@@ -61,15 +61,15 @@
 			<min>1</min>
 			<max>300</max>
 		</skill>
-		<skill id="26"> 		<!-- Arms -->
+		<skill id="184"> 		<!-- Retribution -->
 			<min>1</min>
 			<max>1</max>
 		</skill>
-		<skill id="256"> 		<!-- Fury -->
+		<skill id="267"> 		<!-- Protection -->
 			<min>1</min>
 			<max>1</max>
 		</skill>
-		<skill id="257"> 		<!-- Protection -->
+		<skill id="594"> 		<!-- Holy -->
 			<min>1</min>
 			<max>1</max>
 		</skill>		

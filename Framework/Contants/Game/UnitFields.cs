@@ -59,7 +59,7 @@
         UNIT_FIELD_POWER3 = 0x13 + EObjectFields.OBJECT_END, // Size:1
         UNIT_FIELD_POWER4 = 0x14 + EObjectFields.OBJECT_END, // Size:1
         UNIT_FIELD_POWER5 = 0x15 + EObjectFields.OBJECT_END, // Size:1
-        UNIT_FIELD_MAXHEALTH = 0x16 + EObjectFields.OBJECT_END, // Size:1
+        UNIT_FIELD_MAXHEALTH = 0x16 + EObjectFields.OBJECT_END, // Size:1 
         UNIT_FIELD_MAXPOWER1 = 0x17 + EObjectFields.OBJECT_END, // Size:1
         UNIT_FIELD_MAXPOWER2 = 0x18 + EObjectFields.OBJECT_END, // Size:1
         UNIT_FIELD_MAXPOWER3 = 0x19 + EObjectFields.OBJECT_END, // Size:1
@@ -194,6 +194,8 @@
         PLAYER_XP = 0x210 + EUnitFields.UNIT_END, // Size:1
         PLAYER_NEXT_LEVEL_XP = 0x211 + EUnitFields.UNIT_END, // Size:1
         PLAYER_SKILL_INFO_1_1 = 0x212 + EUnitFields.UNIT_END, // Size:384
+        PLAYER_SKILL_PROP_1_1 = 0x213 + EUnitFields.UNIT_END, // Size:384
+
         PLAYER_CHARACTER_POINTS1 = 0x392 + EUnitFields.UNIT_END, // Size:1
         PLAYER_CHARACTER_POINTS2 = 0x393 + EUnitFields.UNIT_END, // Size:1
         PLAYER_TRACK_CREATURES = 0x394 + EUnitFields.UNIT_END, // Size:1

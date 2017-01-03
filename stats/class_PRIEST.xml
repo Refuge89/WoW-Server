@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classe id="5">	<!-- Priest -->
+	<health>10</health>
+	<atackspeed>2000-2000</atackspeed>
+	<stats>
+		<strength>0</strength>
+		<agility>0</agility>
+		<stamina>0</stamina>
+		<intellect>2</intellect>
+		<spirit>3</spirit>
+	</stats>
+	<leveling>
+		<strength>0.155</strength>
+		<agility>0.239</agility>
+		<stamina>2.384</stamina>
+		<intellect>3.042</intellect>
+		<spirit>1.629</spirit>	
+	</leveling>
+	<modificadores>
+		<stamina>
+			<base>52</base>		<!-- HP -->
+			<mod>10</mod>		<!-- Stamina -->
+		</stamina>
+		<intellect>
+			<base>130</base>	<!-- MANA -->
+			<mod>15</mod>		<!-- Intellect -->
+		</intellect>		
+	</modificadores>
+	<powers>
+		<mana>130</mana>
+		<rage>0</rage>
+		<energy>0</energy>
+	</powers>
+	<spells>
+		<spell id="9078" />		<!-- Cloth -->
+		<spell id="585" /> 		<!-- Smite -->		
+		<spell id="2050" />		<!-- Lesser Heal -->
+	</spells>
+	<skills>
+		<skill id="415"> 		<!-- Cloth -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+		<skill id="95"> 		<!-- Defense -->
+			<min>1</min>
+			<max>300</max>
+		</skill>
+		<skill id="56"> 		<!-- Holy -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+		<skill id="613"> 		<!-- Discipline -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+		<skill id="78"> 		<!-- ShadowMagic -->
+			<min>1</min>
+			<max>1</max>
+		</skill>		
+	</skills>	
+</classe>

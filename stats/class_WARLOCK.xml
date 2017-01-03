@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classe id="9">	<!-- Warlock -->
+	<health>10</health>
+	<atackspeed>1600-2000</atackspeed>
+	<stats>
+		<strength>0</strength>
+		<agility>0</agility>
+		<stamina>1</stamina>
+		<intellect>2</intellect>
+		<spirit>2</spirit>
+	</stats>
+	<leveling>
+		<strength>0.324</strength>
+		<agility>0.409</agility>
+		<stamina>2.594</stamina>
+		<intellect>2.842</intellect>
+		<spirit>1.392</spirit>	
+	</leveling>
+	<modificadores>
+		<stamina>
+			<base>43</base>		<!-- HP -->
+			<mod>10</mod>		<!-- Stamina -->
+		</stamina>
+		<intellect>
+			<base>110</base>	<!-- MANA -->
+			<mod>15</mod>		<!-- Intellect -->
+		</intellect>		
+	</modificadores>
+	<powers>
+		<mana>0</mana>
+		<rage>1000</rage>
+		<energy>0</energy>
+	</powers>
+	<spells>
+		<spell id="9078" />		<!-- Cloth -->
+		<spell id="686" /> 		<!-- Shadow Bolt -->		
+		<spell id="687" />		<!-- Demon Skin -->
+	</spells>
+	<skills>
+		<skill id="415"> 		<!-- Cloth -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+		<skill id="95"> 		<!-- Defense -->
+			<min>1</min>
+			<max>300</max>
+		</skill>
+		<skill id="354"> 		<!-- Demonology -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+		<skill id="355"> 		<!-- Affliction -->
+			<min>1</min>
+			<max>1</max>
+		</skill>
+		<skill id="593"> 		<!-- Destruction -->
+			<min>1</min>
+			<max>1</max>
+		</skill>		
+	</skills>	
+</classe>

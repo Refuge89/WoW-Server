@@ -160,7 +160,7 @@ namespace Framework.Database
                     CharInfoGnome.MapX = -6240.32f;
                     CharInfoGnome.MapY = 331.033f;
                     CharInfoGnome.MapZ = 382.758f;
-                    CharInfoGnome.MapRotation = 0f;
+                    CharInfoGnome.MapRotation = 1.0f;
                     CharInfoGnome.FactionId = 115;
                     CharInfoGnome.ModelM = 1563;
                     CharInfoGnome.ModelF = 1564;
@@ -175,7 +175,7 @@ namespace Framework.Database
                     CharInfoTroll.MapX = -618.518f;
                     CharInfoTroll.MapY = -4251.67f;
                     CharInfoTroll.MapZ = 38.718f;
-                    CharInfoTroll.MapRotation = 0f;
+                    CharInfoTroll.MapRotation = 1.0f;
                     CharInfoTroll.FactionId = 116;
                     CharInfoTroll.ModelM = 1478;
                     CharInfoTroll.ModelF = 1479;

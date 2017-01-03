@@ -4,19 +4,23 @@ using Framework.Contants.Game;
 using Framework.Database;
 using Framework.Database.Tables;
 using World_Server.Helpers;
+using Framework.Database.Xml;
+using System.ComponentModel;
 
 namespace World_Server.Game.Entitys
 {
     public class PlayerEntity : WorldObject
     {
-        private static int GetModel(Character character)
+        public Character character;
+
+        private int GetModel(Character character)
         {
             var charModel = Program.Database.GetCharStarter(character.Race);
 
             return character.Gender == GenderID.MALE ? charModel.ModelM : charModel.ModelF;
         }
 
-        private static int GetAttribute(Character character, string attribute)
+        private int GetAttribute(Character character, string attribute)
         {
             var attRace = XmlManager.GetRaceStats(character.Race);
             var attClas = XmlManager.GetClassStats(character.Class);
@@ -43,7 +47,7 @@ namespace World_Server.Game.Entitys
             return 1;
         }
 
-        private static float GetScale(Character character)
+        private float GetScale(Character character)
         {
             if (character.Race == RaceID.TAUREN)
             {
@@ -54,7 +58,34 @@ namespace World_Server.Game.Entitys
 
             return 1f;
         }
-                        
+
+        private int GetHealth(Character character)
+        {
+            // Base do HP (Classe + Race) + Char
+            var baseHealth = GetAttribute(character, "health");
+            
+            // Base de Stamina (Classe + Race) + Char
+            var baseStamina = GetAttribute(character, "stamina");
+
+            int StaminaCalc = 0;
+
+            if (baseStamina <= 20)
+                StaminaCalc = (baseStamina * (int)1.55); 
+            else
+                StaminaCalc = ((baseStamina - 20) * 10) + 20;
+            
+            return (baseHealth + StaminaCalc); // ainda vem os multiplicadores
+        }
+
+        private void UpdateMana()
+        {
+            /*
+            uint baseMana = (character.Intellect.Current < 20 ? character.Intellect.Current : 20);
+            uint moreMana = character.Intellect.Current - baseMana;
+            character.Mana.Maximum = character.Mana.BaseAmount + baseMana + (moreMana * 15);
+            */
+        }
+
         public PlayerEntity(Character character) : base((int)EUnitFields.PLAYER_END - 0x4)
         {
             var skin = Program.Database.GetSkin(character);
@@ -89,7 +120,7 @@ namespace World_Server.Game.Entitys
             SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0,                 (byte)character.Race, 0);
             SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0,                 (byte)character.Class, 1);
             SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0,                 (byte)character.Gender, 2);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)1, 3); // [mana 0] [rage 1] [focus 2] [energy 3]
+            SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0,                 (byte)1, 3); // [mana 0] [rage 1] [focus 2] [energy 3]
 
             SetUpdateField((int)EUnitFields.UNIT_FIELD_DISPLAYID,               GetModel(character));
             SetUpdateField((int)EUnitFields.UNIT_FIELD_NATIVEDISPLAYID,         GetModel(character));
@@ -99,28 +130,61 @@ namespace World_Server.Game.Entitys
             SetUpdateField((int)EUnitFields.PLAYER_BYTES,                       skin.HairColor, 3);
 
             // Items Equipamento
-
             WorldItems[] equipment = InventoryHelper.GenerateInventoryByIDs(character.Equipment);
 
             for (int i = 0; i < 19; i++)
             {
-                WorldItems entry = equipment[i];
-
                 if (equipment?[i] != null)
                 {
-                    int visualBase = (int) EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (i * 14);
+                    int visualBase = (int) EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (i * 12);
                     Console.WriteLine(equipment[i].name);
                     SetUpdateField(visualBase, (byte)equipment[i].itemId);
                 }
-
-                if (entry != null)
-                {
-                    //int visualBase = (int)EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (i * 12);
-                    //Console.WriteLine(equipment[i].name);
-                    //SetUpdateField(visualBase, (byte)equipment[i].itemId);
-                }
             }
 
+            SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES_2, 0, 0);
+
+            SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1, 26);
+            // sdfs
+            SetUpdateField<Int32>((int)719, 65537);
+            SetUpdateField<Int32>((int)721, 43);
+            SetUpdateField<Int32>((int)722, 327681);
+            SetUpdateField<Int32>((int)724, 55);
+            SetUpdateField<Int32>((int)725, 327681);
+            SetUpdateField<Int32>((int)727, 95);
+            SetUpdateField<Int32>((int)728, 327681);
+            SetUpdateField<Int32>((int)730, 109);
+            SetUpdateField<Int32>((int)731, 19661100);
+            SetUpdateField<Int32>((int)733, 162);
+            SetUpdateField<Int32>((int)734, 327681);
+            SetUpdateField<Int32>((int)736, 173);
+            SetUpdateField<Int32>((int)737, 327681);
+            SetUpdateField<Int32>((int)739, 413);
+            SetUpdateField<Int32>((int)740, 65537);
+            SetUpdateField<Int32>((int)742, 414);
+            SetUpdateField<Int32>((int)743, 65537);
+            SetUpdateField<Int32>((int)745, 415);
+            SetUpdateField<Int32>((int)746, 65537);
+            SetUpdateField<Int32>((int)748, 433);
+            SetUpdateField<Int32>((int)749, 65537);
+            SetUpdateField<Int32>((int)751, 673);
+            SetUpdateField<Int32>((int)752, 19661100);
+
+            SetUpdateField<Int32>((int)EUnitFields.PLAYER_CHARACTER_POINTS2, 2);
+            SetUpdateField<Int32>((int)EUnitFields.PLAYER_BLOCK_PERCENTAGE, 1083892040);
+            SetUpdateField<Int32>((int)EUnitFields.PLAYER_DODGE_PERCENTAGE, 1060991140);
+            SetUpdateField<Int32>((int)EUnitFields.PLAYER_CRIT_PERCENTAGE, 1060991140);
+            SetUpdateField<Int32>((int)EUnitFields.PLAYER_RANGED_CRIT_PERCENTAGE, 1060320051);
+            SetUpdateField<Int32>((int)1192, 10);
+            SetUpdateField<Int32>((int)EUnitFields.PLAYER_FIELD_MOD_DAMAGE_DONE_PCT, 1065353216);
+            SetUpdateField<Int32>((int)1216, 1065353216);
+            SetUpdateField<Int32>((int)1217, 1065353216);
+            SetUpdateField<Int32>((int)1218, 1065353216);
+            SetUpdateField<Int32>((int)1219, 1065353216);
+            SetUpdateField<Int32>((int)1220, 1065353216);
+            SetUpdateField<Int32>((int)1221, 1065353216);
+            SetUpdateField<Int32>((int)EUnitFields.PLAYER_FIELD_WATCHED_FACTION_INDEX, -1);
+            SetUpdateField<Int32>((int)EUnitFields.PLAYER_FIELD_COINAGE, character.Money);
         }
     }
 }

@@ -1,43 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<race id="1"> 
+<race id="7"> 
 	<health>10</health>
 	<stats>
-		<strength>20</strength>
-		<agility>20</agility>
-		<stamina>20</stamina>
-		<intellect>20</intellect>
-		<spirit>21</spirit>
+		<strength>15</strength>
+		<agility>23</agility>
+		<stamina>19</stamina>
+		<intellect>24</intellect>
+		<spirit>20</spirit>
 	</stats>
 	<leveling>
-		<strength>0.100</strength>
-		<agility>0.100</agility>
-		<stamina>0.100</stamina>
-		<intellect>0.100</intellect>
+		<strength>0.032</strength>
+		<agility>0.175</agility>
+		<stamina>0.081</stamina>
+		<intellect>0.175</intellect>
 		<spirit>0.100</spirit>	
 	</leveling>
 	<spells>
 		<spell id="81" />		<!-- Dodge -->
 		<spell id="203" /> 		<!-- Unarmed -->
 		<spell id="668" />		<!-- Language: Common -->
+		<spell id="7340" />		<!-- Language: Gnomish -->
 		<spell id="3365" />		<!-- Opening -->
 		<spell id="6478" />		<!-- Opening -->
 		<spell id="6603" /> 	<!-- Attack -->		
-		<spell id="20597" />	<!-- Sword Specialization -->
-		<spell id="20598" />	<!-- The Human Spirit -->
-		<spell id="20599" />	<!-- Diplomacy -->
-		<spell id="20600" />	<!-- Perception -->
-		<spell id="20864" />	<!-- Mace Specialization -->
+		<spell id="20589" />	<!-- Escape Artist -->
+		<spell id="20591" />	<!-- Expansive Mind -->
+		<spell id="20592" />	<!-- Arcane Resistance -->
+		<spell id="20593" />	<!-- Engineering Specialization -->
 	</spells>
 	<skills>
 		<skill id="98"> 		<!-- Language: Common -->
-			<min>300</min>
+			<min>1</min>
 			<max>300</max>
 		</skill>
+		<skill id="313"> 		<!-- Language: Gnomish -->
+			<min>300</min>
+			<max>300</max>
+		</skill>		
 		<skill id="162"> 		<!-- Unarmed -->
 			<min>1</min>
 			<max>300</max>
 		</skill>
-		<skill id="754"> 		<!-- Human Racial -->
+		<skill id="753"> 		<!-- Gnomish Racial -->
 			<min>1</min>
 			<max>1</max>
 		</skill>

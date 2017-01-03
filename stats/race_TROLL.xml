@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<race id="1"> 
-	<health>10</health>
+<race id="8"> 
+	<health>20</health>
 	<stats>
-		<strength>20</strength>
-		<agility>20</agility>
-		<stamina>20</stamina>
-		<intellect>20</intellect>
+		<strength>21</strength>
+		<agility>22</agility>
+		<stamina>21</stamina>
+		<intellect>16</intellect>
 		<spirit>21</spirit>
 	</stats>
 	<leveling>
-		<strength>0.100</strength>
-		<agility>0.100</agility>
-		<stamina>0.100</stamina>
-		<intellect>0.100</intellect>
-		<spirit>0.100</spirit>	
+		<strength>0.122</strength>
+		<agility>0.146</agility>
+		<stamina>0.122</stamina>
+		<intellect>0.041</intellect>
+		<spirit>0.122</spirit>	
 	</leveling>
 	<spells>
 		<spell id="81" />		<!-- Dodge -->
 		<spell id="203" /> 		<!-- Unarmed -->
-		<spell id="668" />		<!-- Language: Common -->
+		<spell id="669" />		<!-- Language: Orcish -->
+		<spell id="7341" />		<!-- Language: Trollish -->
 		<spell id="3365" />		<!-- Opening -->
 		<spell id="6478" />		<!-- Opening -->
 		<spell id="6603" /> 	<!-- Attack -->		
-		<spell id="20597" />	<!-- Sword Specialization -->
-		<spell id="20598" />	<!-- The Human Spirit -->
-		<spell id="20599" />	<!-- Diplomacy -->
-		<spell id="20600" />	<!-- Perception -->
-		<spell id="20864" />	<!-- Mace Specialization -->
+		<spell id="20554" />	<!-- Berserking -->
+		<spell id="20555" />	<!-- Regeneration -->
+		<spell id="20557" />	<!-- Beast Slaying -->
+		<spell id="20558" />	<!-- Throwing Specialization -->
 	</spells>
 	<skills>
-		<skill id="98"> 		<!-- Language: Common -->
+		<skill id="109"> 		<!-- Language: Orcish -->
+			<min>1</min>
+			<max>300</max>
+		</skill>
+		<skill id="315"> 		<!-- Language: Trollish -->
 			<min>300</min>
 			<max>300</max>
 		</skill>
@@ -37,7 +41,7 @@
 			<min>1</min>
 			<max>300</max>
 		</skill>
-		<skill id="754"> 		<!-- Human Racial -->
+		<skill id="733"> 		<!-- Troll Racial -->
 			<min>1</min>
 			<max>1</max>
 		</skill>

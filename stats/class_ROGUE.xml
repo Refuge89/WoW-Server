@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<classe id="1">	<!-- Warrior -->
+<classe id="4">	<!-- Rogue -->
 	<health>10</health>
 	<atackspeed>2000-2000</atackspeed>
 	<stats>
-		<strength>3</strength>
-		<agility>0</agility>
-		<stamina>2</stamina>
+		<strength>1</strength>
+		<agility>3</agility>
+		<stamina>1</stamina>
 		<intellect>0</intellect>
 		<spirit>0</spirit>
 	</stats>
 	<leveling>
-		<strength>1.426 </strength>
-		<agility>0.916</agility>
-		<stamina>3.918</stamina>
-		<intellect>0.070</intellect>
-		<spirit>0.324</spirit>	
+		<strength>0.901 </strength>
+		<agility>1.714</agility>
+		<stamina>3.273</stamina>
+		<intellect>0.155</intellect>
+		<spirit>0.409</spirit>	
 	</leveling>
 	<modificadores>
 		<stamina>
-			<base>40</base>		<!-- HP -->
+			<base>45</base>		<!-- HP -->
 			<mod>10</mod>		<!-- Stamina -->
 		</stamina>
 		<intellect>
@@ -28,17 +28,14 @@
 	</modificadores>
 	<powers>
 		<mana>0</mana>
-		<rage>1000</rage>
-		<energy>0</energy>
+		<rage>0</rage>
+		<energy>100</energy>
 	</powers>
 	<spells>
 		<spell id="9078" />		<!-- Cloth -->
 		<spell id="9077" /> 	<!-- Leather -->
-		<spell id="8737" />		<!-- Mail-->
-		<spell id="9116" />		<!-- Shield -->
-		<spell id="107" />		<!-- Block -->
-		<spell id="78" /> 		<!-- Heroic Strike -->		
-		<spell id="2457" />		<!-- Battle Stance -->
+		<spell id="1752" /> 	<!-- Sinister Strike -->		
+		<spell id="2098" />		<!-- Eviscerate -->
 	</spells>
 	<skills>
 		<skill id="415"> 		<!-- Cloth -->
@@ -49,27 +46,19 @@
 			<min>1</min>
 			<max>1</max>
 		</skill>
-		<skill id="413"> 		<!-- Mail -->
-			<min>1</min>
-			<max>1</max>
-		</skill>
-		<skill id="433"> 		<!-- Shield -->
-			<min>1</min>
-			<max>1</max>
-		</skill>
-		<skill id="95"> 		<!-- Defense -->
+		<skill id="95"> 		<!-- Defense-->
 			<min>1</min>
 			<max>300</max>
 		</skill>
-		<skill id="26"> 		<!-- Arms -->
+		<skill id="38"> 		<!-- Combat -->
 			<min>1</min>
 			<max>1</max>
 		</skill>
-		<skill id="256"> 		<!-- Fury -->
+		<skill id="39"> 		<!-- Subtlety -->
 			<min>1</min>
 			<max>1</max>
 		</skill>
-		<skill id="257"> 		<!-- Protection -->
+		<skill id="253"> 		<!-- Assassination -->
 			<min>1</min>
 			<max>1</max>
 		</skill>		
