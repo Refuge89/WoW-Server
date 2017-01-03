@@ -144,6 +144,24 @@ namespace World_Server.Game.Entitys
 
             SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES_2, 0, 0);
 
+            var SkillRace = XmlManager.GetRaceStats(character.Race);
+            var SkillClass = XmlManager.GetClassStats(character.Class);
+            int a = 0;
+            foreach (raceSkill spellid in SkillRace.skills)
+            {
+                SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3), spellid.id);
+                SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 1, 327681);
+                a++;
+            }
+
+            foreach (classeSkill spellid in SkillClass.skills)
+            {
+                SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3), spellid.id);
+                SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 1, 327681);
+                a++;
+            }
+
+            /*
             SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1, 26);
             // sdfs
             SetUpdateField<Int32>((int)719, 65537);
@@ -185,6 +203,7 @@ namespace World_Server.Game.Entitys
             SetUpdateField<Int32>((int)1221, 1065353216);
             SetUpdateField<Int32>((int)EUnitFields.PLAYER_FIELD_WATCHED_FACTION_INDEX, -1);
             SetUpdateField<Int32>((int)EUnitFields.PLAYER_FIELD_COINAGE, character.Money);
+            */
         }
     }
 }
