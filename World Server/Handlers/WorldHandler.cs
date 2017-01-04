@@ -77,6 +77,8 @@ namespace World_Server.Handlers
 
         internal static void OnLogoutRequest(WorldSession session, PacketReader handler)
         {
+            LogoutQueue = new Dictionary<WorldSession, DateTime>();
+
             if (LogoutQueue.ContainsKey(session)) LogoutQueue.Remove(session);
 
             session.sendPacket(new SmsgLogoutResponse());
@@ -143,6 +145,4 @@ namespace World_Server.Handlers
             }
         }
     }
-
-
 }

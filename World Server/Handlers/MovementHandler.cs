@@ -3,15 +3,10 @@ using Framework.Network;
 using World_Server.Sessions;
 using System.IO;
 using Framework.Contants.Character;
-using Framework.Extensions;
-using System.Linq;
-using World_Server.Game.Entitys;
 using Framework.Contants;
-using Framework.Helpers;
-using static World_Server.Program;
-using World_Server.Helpers;
 using Framework.Database.Tables;
 using World_Server.Handlers.World;
+using World_Server.Helpers;
 
 namespace World_Server.Handlers
 {
@@ -105,51 +100,55 @@ namespace World_Server.Handlers
         {
             session.OutOfSyncDelay = handler.OutOfSyncDelay;
         }
-
-        internal static void HandleMovementStatus(WorldSession session, MsgMoveInfo handler)
+        
+        internal static ProcessWorldPacketCallbackTypes<MsgMoveInfo> GenerateResponse(WorldOpcodes code)
         {
-            if (session.Character == null)
-                return;
+            return delegate (WorldSession session, MsgMoveInfo handler) { TransmitMovement(session, handler, code); };
+        }
 
-            //Console.WriteLine($"Opcode [{handler.moveFlags}] Timer [{handler.time}] Postion X {handler.MapX} @ Y {handler.MapY} @ Z {handler.MapZ} @ R {handler.MapR} [{session.Character.Name}]");
-
+        private static void TransmitMovement(WorldSession session, MsgMoveInfo handler, WorldOpcodes code)
+        {
             session.Character.MapX = handler.MapX;
             session.Character.MapY = handler.MapY;
             session.Character.MapZ = handler.MapZ;
             session.Character.MapRotation = handler.MapR;
-            Database.UpdateMovement(session.Character);
-
-            // Transmitindo a todos os players
-            TransmitMovement(session, handler);
-        }
-
-        private static void TransmitMovement(WorldSession session, MsgMoveInfo handler)
-        {
-            if(handler.moveFlags == MovementFlags.MOVEFLAG_FALLING)
-            {
-                opcode = WorldOpcodes.MSG_MOVE_JUMP;
-            } else
-            {
-                opcode = WorldOpcodes.MSG_MOVE_HEARTBEAT;
-            }
-            WorldServer.Sessions.FindAll(s => s != session)
-                .ForEach(s => s.sendPacket(new PSMovement(session.Character, handler, opcode)));
+            Program.Database.UpdateMovement(session.Character);
+            Program.WorldServer.Sessions.FindAll(s => s != session)
+                .ForEach(s => s.sendPacket(new PSMovement(session, handler, code)));
         }
     }
 
     internal class PSMovement : ServerPacket
     {
-        public PSMovement(Character character, MsgMoveInfo handler , WorldOpcodes opcode) : base(opcode)
+        public PSMovement(WorldSession session, MsgMoveInfo handler , WorldOpcodes opcode) : base(opcode)
         {
-            var packedGUID = PSUpdateObject.GenerateGuidBytes((ulong)character.Id);
+            Console.WriteLine(handler.moveFlags);
+
+            var packedGUID = PSUpdateObject.GenerateGuidBytes((ulong)session.Character.Id);
             PSUpdateObject.WriteBytes(this, packedGUID);
-            Write((uint)handler.moveFlags);
-            Write((uint)1);
-            Write(handler.MapX);
-            Write(handler.MapY);
-            Write(handler.MapZ);
-            Write(handler.MapR);
-            Write((uint)0); // ?
+
+            if (handler.moveFlags == MovementFlags.MOVEFLAG_NONE)
+            {
+                Write((uint)handler.moveFlags);
+                Write((uint)session.OutOfSyncDelay);
+                Write(handler.MapX);
+                Write(handler.MapY);
+                Write(handler.MapZ);
+                Write(handler.MapR);
+                Write((uint)0); // ?
+            }
+            else
+            {
+                Write((uint)handler.moveFlags);
+                Write((uint)1);
+                Write(handler.MapX);
+                Write(handler.MapY);
+                Write(handler.MapZ);
+                Write(handler.MapR);
+                Write((uint)0); // ?
+            }
+
+            //System.Threading.Thread.Sleep(1000);
         }
     }
 }
