@@ -21,7 +21,7 @@ namespace World_Server.Handlers
             Type = ReadInt32();
             Time = ReadInt32();
             Size = ReadInt32();
-            Data = ReadByte().ToString();
+            //Data = ReadByte().ToString();
         }
     }
 

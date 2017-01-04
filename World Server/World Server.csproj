@@ -88,6 +88,7 @@
     <Compile Include="Handlers\Objects\ObjectHandler.cs" />
     <Compile Include="Handlers\PlayerHandler.cs" />
     <Compile Include="Handlers\SpellHandler.cs" />
+    <Compile Include="Helpers\CharHelper.cs" />
     <Compile Include="Helpers\PlayerHelper.cs" />
     <Compile Include="Helpers\WorldDataRouter.cs" />
     <Compile Include="Handlers\WorldHandler.cs" />

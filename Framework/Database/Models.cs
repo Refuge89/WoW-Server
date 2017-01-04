@@ -23,5 +23,11 @@ namespace Framework.Database
 
         [DataAccessObjects]
         public abstract DataAccessObjects<CharactersSkin> CharactersSkin { get; }
+
+        [DataAccessObjects]
+        public abstract DataAccessObjects<CharactersSpells> CharactersSpells { get; }
+
+        [DataAccessObjects]
+        public abstract DataAccessObjects<CharactersSkill> CharactersSkill { get; }           
     }
 }

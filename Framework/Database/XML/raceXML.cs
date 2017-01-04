@@ -16,6 +16,8 @@
 
         private raceSkill[] skillsField;
 
+        private raceClass[] classesField;
+
         private byte idField;
 
         /// <remarks/>
@@ -82,6 +84,20 @@
             set
             {
                 this.skillsField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("class", IsNullable = false)]
+        public raceClass[] classes
+        {
+            get
+            {
+                return this.classesField;
+            }
+            set
+            {
+                this.classesField = value;
             }
         }
 
@@ -336,5 +352,169 @@
         }
     }
 
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class raceClass
+    {
 
+        private raceClassSpell[] spellsField;
+
+        private raceClassSkill[] skillsField;
+
+        private raceClassItem[] itemsField;
+
+        private string idField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("spell", IsNullable = false)]
+        public raceClassSpell[] spells
+        {
+            get
+            {
+                return this.spellsField;
+            }
+            set
+            {
+                this.spellsField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("skill", IsNullable = false)]
+        public raceClassSkill[] skills
+        {
+            get
+            {
+                return this.skillsField;
+            }
+            set
+            {
+                this.skillsField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("item", IsNullable = false)]
+        public raceClassItem[] items
+        {
+            get
+            {
+                return this.itemsField;
+            }
+            set
+            {
+                this.itemsField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string id
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class raceClassSpell
+    {
+
+        private ushort idField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public ushort id
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class raceClassSkill
+    {
+
+        private byte minField;
+
+        private ushort maxField;
+
+        private byte idField;
+
+        /// <remarks/>
+        public byte min
+        {
+            get
+            {
+                return this.minField;
+            }
+            set
+            {
+                this.minField = value;
+            }
+        }
+
+        /// <remarks/>
+        public ushort max
+        {
+            get
+            {
+                return this.maxField;
+            }
+            set
+            {
+                this.maxField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte id
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class raceClassItem
+    {
+
+        private ushort idField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public ushort id
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
+        }
+    }
 }

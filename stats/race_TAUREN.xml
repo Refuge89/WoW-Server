@@ -46,4 +46,101 @@
 			<max>1</max>
 		</skill>
 	</skills>
+	<classes>
+		<class id="WARRIOR">
+			<spells>
+				<spell id="196" />		<!-- Axes -->
+				<spell id="198" /> 		<!-- Maces -->
+				<spell id="199" />		<!-- Two-Handed Maces -->
+			</spells>
+			<skills>
+				<skill id="44"> 		<!-- Axes -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+				<skill id="54"> 		<!-- Maces -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+				<skill id="160"> 		<!-- Two-Handed Maces -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+			</skills>
+			<items>
+				<item id="6948" /> 		<!-- Hearthstone -->
+				<item id="117" /> 		<!-- Tough Jerky -->
+				<item id="14650" /> 	<!-- Camp Narache Gift Voucher -->
+			</items>
+		</class>
+		<class id="HUNTER">
+			<spells>
+				<spell id="196" />		<!-- Axes -->
+				<spell id="266" /> 		<!-- Guns -->
+			</spells>
+			<skills>
+				<skill id="44"> 		<!-- Axes -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+				<skill id="46"> 		<!--  -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+			</skills>
+			<items>
+				<item id="6948" /> 		<!-- Hearthstone -->
+				<item id="117" /> 		<!-- Tough Jerky -->
+				<item id="14650" /> 	<!-- Camp Narache Gift Voucher -->
+				<item id="2508" /> 		<!-- Old Blunderbuss -->
+				<item id="159" /> 		<!-- Refreshing Spring Water -->
+				<item id="2516" /> 		<!-- Light Shot -->
+				<item id="2102" /> 		<!-- Small Ammo Pouch -->
+			</items>
+		</class>	
+		<class id="DRUID">
+			<spells>
+				<spell id="198" />		<!-- Maces -->
+				<spell id="227" /> 		<!-- Staves -->
+			</spells>
+			<skills>
+				<skill id="54"> 		<!-- Maces -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+				<skill id="136"> 		<!-- Staves -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+			</skills>
+			<items>
+				<item id="6948" /> 		<!-- Hearthstone -->
+				<item id="159" /> 		<!-- Refreshing Spring Water -->
+				<item id="4536" /> 		<!-- Shiny Red Apple -->
+				<item id="14650" /> 	<!-- Camp Narache Gift Voucher -->
+			</items>
+		</class>
+		<class id="SHAMAN">
+			<spells>
+				<spell id="198" />		<!-- Maces -->
+				<spell id="227" /> 		<!-- Staves -->
+			</spells>
+			<skills>
+				<skill id="54"> 		<!-- Maces -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+				<skill id="136"> 		<!-- Staves -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+			</skills>
+			<items>
+				<item id="6948" /> 		<!-- Hearthstone -->
+				<item id="159" /> 		<!-- Refreshing Spring Water -->
+				<item id="4604" /> 		<!-- Forest Mushroom Cap -->
+				<item id="14650" /> 	<!-- Camp Narache Gift Voucher -->
+			</items>
+		</class>
+	</classes>
 </race>

@@ -142,21 +142,14 @@ namespace World_Server.Game.Entitys
             SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES_2, 0, 0);
 
             int a = 0;
-            foreach (raceSkill spellid in XmlManager.GetRaceStats(character.Race).skills)
+            foreach (CharactersSkill Skill in Program.Database.GetSkills(character))
             {
-                SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3), spellid.id);
-                SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 1, (Int16) 1 + 1);
-                SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 2, 3); // Bonus de Skill
+                SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3), Skill.skill);
+                SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 1, (Int16) Skill.value + Skill.Max);
+                //SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 2, 3); // Bonus de Skill
                 a++;
             }
 
-            foreach (classeSkill spellid in XmlManager.GetClassStats(character.Class).skills)
-            {
-                SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3), spellid.id);
-                SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 1, (Int16) 1 + 1);
-                SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 2, 3); // Bonus de Skill
-                a++;
-            }
         }
     }
 }

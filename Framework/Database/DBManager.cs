@@ -137,7 +137,6 @@ namespace Framework.Database
                     CharInfoUndead.TaxiMask = 1024;
 
                 var CharInfoTauren = this.model.CharacterCreationInfo.Create();
-                // This char have model size diff 1.35
                     CharInfoTauren.Race = RaceID.TAUREN;
                     CharInfoTauren.Cinematic = 141;
                     CharInfoTauren.MapID = 1;
@@ -185,6 +184,7 @@ namespace Framework.Database
                 scope.Complete();
             }
 
+            
             string itemFile = File.ReadAllText("_test.txt");
 
             Regex patItem = new Regex(@"\[item (.*)\]");
@@ -217,7 +217,6 @@ namespace Framework.Database
                     scope.Complete();
                     ia++;
                 }
-                
             }
             Console.WriteLine($"Inserido {ia} registros.");
         }

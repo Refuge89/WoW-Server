@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using World_Server.Handlers;
+using World_Server.Helpers;
 
 namespace World_Server.Managers
 {
@@ -17,7 +18,6 @@ namespace World_Server.Managers
         {
             using (var scope = new DataAccessScope())
             {
-                //CharacterCreationInfo newCharacterInfo = DBCharacters.GetCreationInfo((RaceID)packet.Race, (ClassID)packet.Class);
                 // Selecting Starter Itens Equipament
                 CharStartOutfit startItems = DBCManager.CharStartOutfit.Values.FirstOrDefault(x => x.Match(handler.Race, handler.Class, handler.Gender));
 
@@ -26,33 +26,41 @@ namespace World_Server.Managers
 
                 // Salva Char
                 var Char = this.model.Characters.Create();
-                Char.Users = users;
-                Char.Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(handler.Name);
-                Char.Race = (RaceID)handler.Race;
-                Char.Class = (ClassID)handler.Class;
-                Char.Gender = (GenderID)handler.Gender;
-                Char.Level = 1;
-                Char.Money = 0;
-                Char.Online = 0;
-                Char.MapID = charStarter.MapID;
-                Char.MapZone = charStarter.MapZone;
-                Char.MapX = charStarter.MapX;
-                Char.MapY = charStarter.MapY;
-                Char.MapZ = charStarter.MapZ;
-                Char.MapRotation = charStarter.MapRotation;
-                Char.Equipment = String.Join(",", startItems.m_ItemID);
-                Char.firsttime = false;
+                    Char.Users = users;
+                    Char.Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(handler.Name);
+                    Char.Race = (RaceID)handler.Race;
+                    Char.Class = (ClassID)handler.Class;
+                    Char.Gender = (GenderID)handler.Gender;
+                    Char.Level = 1;
+                    Char.Money = 0;
+                    Char.Online = 0;
+                    Char.MapID = charStarter.MapID;
+                    Char.MapZone = charStarter.MapZone;
+                    Char.MapX = charStarter.MapX;
+                    Char.MapY = charStarter.MapY;
+                    Char.MapZ = charStarter.MapZ;
+                    Char.MapRotation = charStarter.MapRotation;
+                    Char.Equipment = String.Join(",", startItems.m_ItemID);
+                    Char.firsttime = false;
 
                 // Salva Skin do Char              
                 var Skin = this.model.CharactersSkin.Create();
-                Skin.Character = Char;
-                Skin.Face = handler.Face;
-                Skin.HairStyle = handler.HairStyle;
-                Skin.HairColor = handler.HairColor;
-                Skin.Accessory = handler.Accessory;
+                    Skin.Character = Char;
+                    Skin.Face = handler.Face;
+                    Skin.HairStyle = handler.HairStyle;
+                    Skin.HairColor = handler.HairColor;
+                    Skin.Accessory = handler.Accessory;
+
+                // Helper Skill + Spell + Inventory
+                CharHelper Helper = new CharHelper();
+                Helper.GeraSpells(Char);
+                Helper.GeraSkills(Char);
 
                 scope.Complete();
             }
+
+
+
             return;
         }
 
@@ -126,6 +134,16 @@ namespace World_Server.Managers
 
                 await scope.CompleteAsync();
             }
+        }
+
+        internal List<CharactersSkill> GetSkills(Character character)
+        {
+            return this.model.CharactersSkill.Where(a => a.character == character).ToList();
+        }
+
+        internal List<CharactersSpells> GetSpells(Character character)
+        {
+            return this.model.CharactersSpells.Where(a => a.character == character).ToList();
         }
     }
 }

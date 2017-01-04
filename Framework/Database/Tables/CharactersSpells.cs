@@ -8,9 +8,9 @@ namespace Framework.Database.Tables
     {
         [AutoIncrement]
         [PersistedMember]
-#pragma warning disable CS0114 // Member hides inherited member; missing override keyword
+        #pragma warning disable CS0114 // Member hides inherited member; missing override keyword
         public abstract int Id { get; set; }
-#pragma warning restore CS0114 // Member hides inherited member; missing override keyword
+        #pragma warning restore CS0114 // Member hides inherited member; missing override keyword
 
         [PersistedMember]
         public abstract Character character { get; set; }

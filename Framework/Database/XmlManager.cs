@@ -7,7 +7,7 @@ namespace Framework.Database
 {
     public class XmlManager
     {
-        public static Xml.race GetRaceStats(RaceID value)
+        public static race GetRaceStats(RaceID value)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(race));
             StreamReader reader = new StreamReader($"../../stats/race_{value}.xml");
@@ -17,7 +17,7 @@ namespace Framework.Database
             return raceStats;
         }
 
-        public static Xml.classe GetClassStats(ClassID value)
+        public static classe GetClassStats(ClassID value)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(classe));
             StreamReader reader = new StreamReader($"../../stats/class_{value}.xml");

@@ -46,4 +46,123 @@
 			<max>1</max>
 		</skill>
 	</skills>
+	<classes>
+		<class id="WARRIOR">
+			<spells>
+				<spell id="1180" />		<!-- Daggers -->
+				<spell id="198" /> 		<!-- Maces -->
+				<spell id="201" />		<!-- Swords -->
+			</spells>
+			<skills>
+				<skill id="173"> 		<!-- Daggers -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+				<skill id="54"> 		<!-- Maces -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+				<skill id="43"> 		<!-- Swords -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+			</skills>
+			<items>
+				<item id="6948" /> 		<!-- Hearthstone -->
+				<item id="117" /> 		<!-- Tough Jerky -->
+				<item id="14646" /> 	<!-- Shadowglen Gift Voucher -->
+			</items>
+		</class>
+		<class id="HUNTER">
+			<spells>
+				<spell id="1180" />		<!-- Daggers -->
+				<spell id="264" /> 		<!-- Bows -->
+			</spells>
+			<skills>
+				<skill id="45"> 		<!-- Bows -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+				<skill id="173"> 		<!-- Daggers -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+			</skills>
+			<items>
+				<item id="159" /> 		<!-- Refreshing Spring Water -->
+				<item id="2512" /> 		<!-- Rough Arrow -->
+				<item id="2101" /> 		<!-- Light Quiver -->
+				<item id="6948" /> 		<!-- Hearthstone -->
+				<item id="117" /> 		<!-- Tough Jerky -->
+				<item id="14646" /> 	<!-- Shadowglen Gift Voucher -->
+			</items>
+		</class>
+		<class id="ROGUE">
+			<spells>
+				<spell id="1180" />		<!-- Daggers -->
+				<spell id="2567" /> 	<!-- Thrown -->
+				<spell id="2764" /> 	<!-- Throw -->
+			</spells>
+			<skills>
+				<skill id="176"> 		<!-- Thrown -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+				<skill id="173"> 		<!-- Daggers -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+			</skills>
+			<items>
+				<item id="6948" /> 		<!-- Hearthstone -->
+				<item id="4540" /> 		<!-- Tough Hunk of Bread -->
+				<item id="14646" /> 	<!-- Shadowglen Gift Voucher -->
+			</items>
+		</class>
+		<class id="DRUID">
+			<spells>
+				<spell id="1180" />		<!-- Daggers -->
+				<spell id="227" /> 		<!-- Staves -->
+			</spells>
+			<skills>
+				<skill id="136"> 		<!-- Staves -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+				<skill id="173"> 		<!-- Daggers -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+			</skills>
+			<items>
+				<item id="6948" /> 		<!-- Hearthstone -->
+				<item id="159" /> 		<!-- Refreshing Spring Water -->
+				<item id="4536" /> 		<!-- Shiny Red Apple -->
+				<item id="14646" /> 	<!-- Shadowglen Gift Voucher -->
+			</items>
+		</class>
+		<class id="PRIEST">
+			<spells>
+				<spell id="198" />		<!-- Maces -->
+				<spell id="5009" /> 	<!-- Wands -->
+				<spell id="5019" /> 	<!-- Shoot -->
+			</spells>
+			<skills>
+				<skill id="54"> 		<!-- Maces -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+				<skill id="228"> 		<!-- Wands -->
+					<min>1</min>
+					<max>300</max>
+				</skill>
+			</skills>
+			<items>
+				<item id="6948" /> 		<!-- Hearthstone -->
+				<item id="159" /> 		<!-- Refreshing Spring Water -->
+				<item id="2070" /> 		<!-- Darnassian Bleu -->
+				<item id="14646" /> 	<!-- Shadowglen Gift Voucher -->
+			</items>
+		</class>	
+	</classes>
 </race>
