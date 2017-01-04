@@ -2,6 +2,7 @@
 using Platform.Validation;
 using Shaolinq;
 using System;
+using Framework.Helpers;
 
 namespace Framework.Database.Tables
 {

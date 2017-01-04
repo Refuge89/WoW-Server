@@ -42,6 +42,7 @@ namespace World_Server.Managers
                     Char.MapRotation = charStarter.MapRotation;
                     Char.Equipment = String.Join(",", startItems.m_ItemID);
                     Char.firsttime = false;
+                    Char.created_at = DateTime.Now;
 
                 // Salva Skin do Char              
                 var Skin = this.model.CharactersSkin.Create();

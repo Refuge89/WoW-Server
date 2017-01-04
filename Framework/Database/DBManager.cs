@@ -128,8 +128,8 @@ namespace Framework.Database
                     CharInfoUndead.MapZone = 85;
                     CharInfoUndead.MapX = 1676.35f; //1676.71f;
                     CharInfoUndead.MapY = 1677.45f; //1678.31f;
-                    CharInfoUndead.MapZ = 3.14f; //121.67f;
-                    CharInfoUndead.MapRotation = 2.70526f;
+                    CharInfoUndead.MapZ = 121.67f;
+                    CharInfoUndead.MapRotation = 3.14f; // 2.70526f;
                     CharInfoUndead.FactionId = 5;
                     CharInfoUndead.ModelM = 57;
                     CharInfoUndead.ModelF = 58;

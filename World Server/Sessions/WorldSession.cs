@@ -19,6 +19,8 @@ namespace World_Server.Sessions
         public Character Character;
         public Users Users;
 
+        public uint OutOfSyncDelay { get; set; }
+
         public WorldSession(int connectionId, Socket connectionSocket) : base(connectionId, connectionSocket)
         {
             //sendPacket(WorldOpcodes.SMSG_AUTH_CHALLENGE, new byte[] { 0x33, 0x18, 0x34, 0xC8 });
@@ -28,7 +30,6 @@ namespace World_Server.Sessions
         public void sendPacket(ServerPacket packet)
         {
             sendPacket((int)packet.Opcode, packet.Packet);
-            return;
         }
 
         public void sendHexPacket(WorldOpcodes opcde, string hex)
@@ -112,8 +113,6 @@ namespace World_Server.Sessions
         private void Decode(byte[] header, out ushort length, out short opcode)
         {
             Crypt?.Decrypt(header, 6);
-
-            //PacketReader reader = new PacketReader(header);
 
             if (Crypt == null)
             {

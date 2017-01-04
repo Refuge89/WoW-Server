@@ -8,7 +8,6 @@ namespace World_Server.Handlers
 {
 
     #region CMSG_UPDATE_ACCOUNT_DATA
-
     public sealed class CmsgUpdateAccountData : PacketReader
     {
         public int Type { get; private set; }
@@ -24,7 +23,6 @@ namespace World_Server.Handlers
             //Data = ReadByte().ToString();
         }
     }
-
     #endregion
 
     #region SMSG_UPDATE_ACCOUNT_DATA

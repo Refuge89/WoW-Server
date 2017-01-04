@@ -28,6 +28,23 @@ namespace World_Server.Managers
             // Chat opcodes
             WorldDataRouter.AddHandler<CmsgJoinChannel>(WorldOpcodes.CMSG_JOIN_CHANNEL, ChatHandler.OnJoinChannel);
 
+            //Movement opcodes
+            WorldDataRouter.AddHandler<CmsgMoveTimeSkipped>(WorldOpcodes.CMSG_MOVE_TIME_SKIPPED, MovementHandler.OnMoveTimeSkipped);
+            WorldDataRouter.AddHandler<MsgMoveInfo>(WorldOpcodes.MSG_MOVE_FALL_LAND, MovementHandler.HandleMovementStatus);
+            WorldDataRouter.AddHandler<MsgMoveInfo>(WorldOpcodes.MSG_MOVE_SET_FACING, MovementHandler.HandleMovementStatus);
+            WorldDataRouter.AddHandler<MsgMoveInfo>(WorldOpcodes.MSG_MOVE_START_FORWARD, MovementHandler.HandleMovementStatus);
+            WorldDataRouter.AddHandler<MsgMoveInfo>(WorldOpcodes.MSG_MOVE_STOP, MovementHandler.HandleMovementStatus);
+            WorldDataRouter.AddHandler<MsgMoveInfo>(WorldOpcodes.MSG_MOVE_JUMP, MovementHandler.HandleMovementStatus);
+            WorldDataRouter.AddHandler<MsgMoveInfo>(WorldOpcodes.MSG_MOVE_START_STRAFE_LEFT, MovementHandler.HandleMovementStatus);
+            WorldDataRouter.AddHandler<MsgMoveInfo>(WorldOpcodes.MSG_MOVE_START_STRAFE_RIGHT, MovementHandler.HandleMovementStatus);
+            WorldDataRouter.AddHandler<MsgMoveInfo>(WorldOpcodes.MSG_MOVE_STOP_STRAFE, MovementHandler.HandleMovementStatus);
+            WorldDataRouter.AddHandler<MsgMoveInfo>(WorldOpcodes.MSG_MOVE_STOP_TURN, MovementHandler.HandleMovementStatus);
+            WorldDataRouter.AddHandler<MsgMoveInfo>(WorldOpcodes.MSG_MOVE_HEARTBEAT, MovementHandler.HandleMovementStatus);
+            WorldDataRouter.AddHandler<MsgMoveInfo>(WorldOpcodes.MSG_MOVE_START_TURN_LEFT, MovementHandler.HandleMovementStatus);
+            WorldDataRouter.AddHandler<MsgMoveInfo>(WorldOpcodes.MSG_MOVE_START_TURN_RIGHT, MovementHandler.HandleMovementStatus);
+            WorldDataRouter.AddHandler<MsgMoveInfo>(WorldOpcodes.MSG_MOVE_START_BACKWARD, MovementHandler.HandleMovementStatus);
+            
+
             // CMSG_REQUEST_RAID_INFO => Aqui verifica se esta em raid group
 
             /*      CMSG_GMTICKET_GETTICKET

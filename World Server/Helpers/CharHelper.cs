@@ -62,7 +62,7 @@ namespace World_Server.Helpers
 
         internal void GeraSkills(Character character)
         {
-            // Select skill of race
+            #region Select skill of race
             foreach (raceSkill skillId in XmlManager.GetRaceStats(character.Race).skills)
             {
                 using (var scope = new DataAccessScope())
@@ -76,8 +76,9 @@ namespace World_Server.Helpers
                     scope.Complete();
                 }
             }
+            #endregion
 
-            // Select skill of class
+            #region Select skill of class
             foreach (classeSkill skillId in XmlManager.GetClassStats(character.Class).skills)
             {
                 using (var scope = new DataAccessScope())
@@ -91,8 +92,9 @@ namespace World_Server.Helpers
                     scope.Complete();
                 }
             }
+            #endregion
 
-            // Select skill combo (race + class)
+            #region Select skill combo (race + class)
             foreach (raceClass skillId in XmlManager.GetRaceStats(character.Race).classes)
             {
                 if (skillId.id == character.Class.ToString())
@@ -112,6 +114,7 @@ namespace World_Server.Helpers
                     }
                 }
             }
+            #endregion
 
             return;
         }

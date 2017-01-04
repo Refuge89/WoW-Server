@@ -156,7 +156,6 @@ namespace World_Server.Handlers
             try
             {
                 Program.Database.CreateChar(handler, session.Users);
-                // Gera Tabela de Skills + Spells + Inventario + Stats
                 session.sendPacket(new SmsgCharCreate(LoginErrorCode.CHAR_CREATE_SUCCESS)); return;
             }
             catch (Exception ex)

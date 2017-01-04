@@ -3,7 +3,7 @@ using Framework.Database.Tables;
 using Framework.Extensions;
 using Framework.Network;
 using System;
-using System.Text;
+using World_Server.Sessions;
 
 namespace World_Server.Handlers
 {
@@ -84,9 +84,11 @@ namespace World_Server.Handlers
     #region SMSG_TRIGGER_CINEMATIC
     public sealed class SmsgTriggerCinematic : ServerPacket
     {
-        public SmsgTriggerCinematic(int cinematicId) : base(WorldOpcodes.SMSG_TRIGGER_CINEMATIC)
+        public SmsgTriggerCinematic(WorldSession session, int cinematicId) : base(WorldOpcodes.SMSG_TRIGGER_CINEMATIC)
         {
-            Write((int)cinematicId);
+            Program.Database.UpdateCharacter(session.Character.Id, "firstlogin");
+
+            Write(cinematicId);
         }
     }
     #endregion

@@ -1,6 +1,4 @@
-﻿using Framework.Contants;
-using Framework.Crypt;
-using System;
+﻿using System;
 using Framework.Database.Tables;
 using World_Server.Handlers.World;
 using World_Server.Sessions;
@@ -9,10 +7,6 @@ namespace World_Server.Managers
 {
     public class EntityManager
     {
-        public static void Boot()
-        {
-        }
-
         public static void SpawnPlayer(Character character)
         {
             Program.WorldServer.Sessions.FindAll(s => s.Character != character).ForEach(s =>

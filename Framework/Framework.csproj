@@ -115,8 +115,10 @@
     <Compile Include="DBC\Structs\AreaTable.cs" />
     <Compile Include="DBC\Structs\CharStartOutfit.cs" />
     <Compile Include="Extensions\BinaryWriterExtension.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Helpers\Log.cs" />
     <Compile Include="Helpers\Time.cs" />
+    <Compile Include="Helpers\Vector.cs" />
     <Compile Include="Network\PacketReader.cs" />
     <Compile Include="Network\PacketWriter.cs" />
     <Compile Include="Network\Server.cs" />
