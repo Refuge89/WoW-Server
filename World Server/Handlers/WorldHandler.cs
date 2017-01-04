@@ -77,21 +77,13 @@ namespace World_Server.Handlers
 
         internal static void OnLogoutRequest(WorldSession session, PacketReader handler)
         {
-            try
-            {
-                if (LogoutQueue.ContainsKey(session)) LogoutQueue.Remove(session);
-            }catch(Exception ex)
-            {
-                Console.WriteLine("Fudeu: " + ex);
-            }
-
-            LogoutQueue = new Dictionary<WorldSession, DateTime>();
-
-            Thread thread = new Thread(Update);
-            thread.Start();
+            if (LogoutQueue.ContainsKey(session)) LogoutQueue.Remove(session);
 
             session.sendPacket(new SmsgLogoutResponse());
             LogoutQueue.Add(session, DateTime.Now);
+
+            Thread thread = new Thread(Update);
+            thread.Start();
         }
 
         internal static void OnLogoutCancel(WorldSession session, PacketReader handler)

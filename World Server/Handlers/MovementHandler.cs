@@ -96,6 +96,8 @@ namespace World_Server.Handlers
 
         internal static void HandleZoneUpdate(WorldSession session, CmsgZoneupdate handler)
         {
+            session.Character.MapZone = (int)handler.ZoneId;
+
             Console.WriteLine($"[ZoneUpdate] ID: {handler.ZoneId}");
         }
 
