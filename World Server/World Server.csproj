@@ -81,10 +81,14 @@
     <Compile Include="Game\World.cs" />
     <Compile Include="Handlers\AuthHandler.cs" />
     <Compile Include="Handlers\CharHandler.cs" />
+    <Compile Include="Handlers\ChatHandler.cs" />
     <Compile Include="Handlers\InternalHandler.cs" />
+    <Compile Include="Handlers\MiscHandler.cs" />
+    <Compile Include="Handlers\MovementHandler.cs" />
     <Compile Include="Handlers\Objects\ObjectHandler.cs" />
     <Compile Include="Handlers\PlayerHandler.cs" />
     <Compile Include="Handlers\SpellHandler.cs" />
+    <Compile Include="Helpers\PlayerHelper.cs" />
     <Compile Include="Helpers\WorldDataRouter.cs" />
     <Compile Include="Handlers\WorldHandler.cs" />
     <Compile Include="Handlers\World\PSUpdateObject.cs" />
