@@ -38,10 +38,5 @@ namespace World_Server.Helpers
                 Log.Print(LogType.Warning, "Missing handler: " + opcode);
             }
         }
-
-        internal static void AddHandler<T>(WorldOpcodes mSG_MOVE_FALL_LAND, object handleMovementStatus)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

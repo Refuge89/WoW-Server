@@ -92,6 +92,8 @@ namespace World_Server.Handlers
     
     public class MovementHandler
     {
+        public static WorldOpcodes opcode { get; private set; }
+
         internal static void HandleZoneUpdate(WorldSession session, CmsgZoneupdate handler)
         {
             Console.WriteLine($"[ZoneUpdate] ID: {handler.ZoneId}");
@@ -113,31 +115,38 @@ namespace World_Server.Handlers
             session.Character.MapY = handler.MapY;
             session.Character.MapZ = handler.MapZ;
             session.Character.MapRotation = handler.MapR;
-
             Database.UpdateMovement(session.Character);
 
+            // Transmitindo a todos os players
             TransmitMovement(session, handler);
         }
 
         private static void TransmitMovement(WorldSession session, MsgMoveInfo handler)
         {
+            if(handler.moveFlags == MovementFlags.MOVEFLAG_FALLING)
+            {
+                opcode = WorldOpcodes.MSG_MOVE_JUMP;
+            } else
+            {
+                opcode = WorldOpcodes.MSG_MOVE_HEARTBEAT;
+            }
             WorldServer.Sessions.FindAll(s => s != session)
-                .ForEach(s => s.sendPacket(new PSMovement(session.Character, handler)));
+                .ForEach(s => s.sendPacket(new PSMovement(session.Character, handler, opcode)));
         }
     }
 
-    public class PSMovement : ServerPacket
+    internal class PSMovement : ServerPacket
     {
-        public PSMovement(Character character, MsgMoveInfo moveinfo) : base(WorldOpcodes.MSG_MOVE_HEARTBEAT)
+        public PSMovement(Character character, MsgMoveInfo handler , WorldOpcodes opcode) : base(opcode)
         {
             var packedGUID = PSUpdateObject.GenerateGuidBytes((ulong)character.Id);
             PSUpdateObject.WriteBytes(this, packedGUID);
-            Write((uint)moveinfo.moveFlags);
-            Write((uint)1); // Time
-            Write(moveinfo.MapX);
-            Write(moveinfo.MapY);
-            Write(moveinfo.MapZ);
-            Write(moveinfo.MapR);
+            Write((uint)handler.moveFlags);
+            Write((uint)1);
+            Write(handler.MapX);
+            Write(handler.MapY);
+            Write(handler.MapZ);
+            Write(handler.MapR);
             Write((uint)0); // ?
         }
     }
