@@ -1,3 +1,8 @@
+## Based ON 
+
+https://github.com/andrewmunro/Vanilla
+https://github.com/barncastle/Alpha-WoW
+
 ## CMSG_SET_ACTIVE_MOVER
 
 http://wowemu.net/forum/?forum=1&mpage=1&theme=1c4e6a4d15d9eac381eb6548ffed2a5f
