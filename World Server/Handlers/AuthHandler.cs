@@ -61,6 +61,7 @@ namespace World_Server.Handlers
 
     public class AuthHandler
     {
+
         public static void OnAuthSession(WorldSession session, CmsgAuthSession handler)
         {
             session.Users = Program.Database.GetAccount(handler.AccountName);

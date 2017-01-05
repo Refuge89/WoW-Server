@@ -170,7 +170,7 @@ namespace World_Server.Handlers
 
             try
             {
-                Program.Database.CreateChar(handler, session.Users);
+                Database.CreateChar(handler, session.Users);
                 session.sendPacket(new SmsgCharCreate(LoginErrorCode.CHAR_CREATE_SUCCESS)); return;
             }
             catch (Exception ex)

@@ -50,8 +50,9 @@ namespace World_Server.Handlers.Objects
 
             // Movement speeds
             writer.Write(0f);     // ????
+
             writer.Write(2.5f);  // MOVE_WALK
-            writer.Write(7f * 10);     // MOVE_RUN
+            writer.Write(7f);     // MOVE_RUN
             writer.Write(4.5f);  // MOVE_RUN_BACK
             writer.Write(4.72f); // MOVE_SWIM
             writer.Write(2.5f);  // MOVE_SWIM_BACK

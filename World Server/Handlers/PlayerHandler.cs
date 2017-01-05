@@ -57,12 +57,15 @@ namespace World_Server.Handlers
     #endregion
 
     #region SMSG_TUTORIAL_FLAGS
-    class SmsgTutorialFlags : ServerPacket
+    sealed class SmsgTutorialFlags : ServerPacket
     {
         //TODO Write the uint ids of 8 tutorial values
         public SmsgTutorialFlags() : base(WorldOpcodes.SMSG_TUTORIAL_FLAGS)
         {
-            this.WriteNullUInt(8);
+            for (int i = 0; i < 8; i++)
+            {
+                Write((byte)0xff);
+            }
         }
     }
     #endregion
@@ -73,7 +76,7 @@ namespace World_Server.Handlers
         public SmsgLoginSettimespeed() : base(WorldOpcodes.SMSG_LOGIN_SETTIMESPEED)
         {
             Write((uint)SecsToTimeBitFields(DateTime.Now)); // Time
-            Write((float)0.01666667f); // Speed
+            Write(0.01666667f); // Speed
         }
 
         public static int SecsToTimeBitFields(DateTime dateTime)

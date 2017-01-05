@@ -24,6 +24,8 @@ namespace World_Server
 
             Version ver = MAssembly.GetName().Version;
 
+            Log.Print("World Server", $"World of Warcraft (Realm Server/World Server)", ConsoleColor.Green);
+            Log.Print("World Server", $"Supported WoW Client 1.2.1", ConsoleColor.Green);
             Log.Print("World Server", $"Version {ver.Major}.{ver.Minor}.{ver.Build}.{ver.Revision}", ConsoleColor.Green);
             Log.Print("World Server", $"Running on .NET Framework Version {Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}", ConsoleColor.Green);
 

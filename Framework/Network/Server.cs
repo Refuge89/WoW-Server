@@ -17,11 +17,10 @@ namespace Framework.Network
         {
             get
             {
-                return this.activeConnections.Count;
+                return activeConnections.Count;
             }
         }
-
-
+        
         public bool Start(IPEndPoint authPoint)
         {
             activeConnections = new Dictionary<int, Session>();
@@ -32,15 +31,13 @@ namespace Framework.Network
             try
             {
                 socketHandler.Bind(new IPEndPoint(authPoint.Address, authPoint.Port));
-                socketHandler.Listen(25);
+                socketHandler.Listen(100);
                 socketHandler.BeginAccept(new AsyncCallback(ConnectionRequest), socketHandler);
-
                 return true;
             }
             catch (Exception e)
             {
-                Log.Print(LogType.Error, e.ToString());
-
+                Log.Print(LogType.Error, $"Failled to list on port {authPoint.Port}\n{e.Message}");
                 return false;
             }
         }

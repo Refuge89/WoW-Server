@@ -80,7 +80,6 @@ namespace Framework.Extensions
 
         public static byte[] HexToByteArray(string hex)
         {
-            // Cleanup string
             hex = hex.Replace(" ", "").Replace("\n", "").Replace("\r", "");
 
             return Enumerable.Range(0, hex.Length)

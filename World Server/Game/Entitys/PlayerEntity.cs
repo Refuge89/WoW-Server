@@ -135,9 +135,10 @@ namespace World_Server.Game.Entitys
             {
                 if (equipment?[i] != null)
                 {
-                    SetUpdateField((int)EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (i * 12), equipment[i].itemId);
-                    //SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_PROPERTIES + (i * 12), 0);
-                }
+                    SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (i * 12), equipment[i].itemId);
+                } 
+                else
+                    SetUpdateField((int)EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (i * 12), 0);
             }
 
             SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES_2, 0, 0);
@@ -147,7 +148,7 @@ namespace World_Server.Game.Entitys
             {
                 SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3), Skill.skill);
                 SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 1, (Int16)Skill.value + Skill.Max);
-                //SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 2, 3); // Bonus de Skill
+                SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 2, 3); // Bonus de Skill
                 a++;
             }
 
