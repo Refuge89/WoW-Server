@@ -76,7 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game\Entitys\PlayerEntity.cs" />
-    <Compile Include="Game\Entitys\WorldObject.cs" />
+    <Compile Include="Game\Entitys\WorldEntity.cs" />
     <Compile Include="Game\Update\ObjectGuid.cs" />
     <Compile Include="Game\World.cs" />
     <Compile Include="Handlers\AuthHandler.cs" />

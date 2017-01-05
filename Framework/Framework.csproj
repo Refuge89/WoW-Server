@@ -96,7 +96,7 @@
     <Compile Include="Database\Models.cs" />
     <Compile Include="Database\Tables\Character.cs" />
     <Compile Include="Database\Tables\CharacterCreationInfo.cs" />
-    <Compile Include="Database\Tables\CharactersAction.cs" />
+    <Compile Include="Database\Tables\CharactersActionBar.cs" />
     <Compile Include="Database\Tables\CharactersInventory.cs" />
     <Compile Include="Database\Tables\CharactersSkill.cs" />
     <Compile Include="Database\Tables\CharactersSkin.cs" />

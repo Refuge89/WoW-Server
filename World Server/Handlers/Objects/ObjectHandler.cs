@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using World_Server.Game.Entitys;
+using World_Server.Game.Update;
 using World_Server.Helpers;
 
 namespace World_Server.Handlers.Objects
@@ -21,7 +22,7 @@ namespace World_Server.Handlers.Objects
             blocks.ForEach(b => Write(b));
         }
 
-        public static ObjectHandler CreateOwnCharacterUpdate(Character character, CmsgPlayerLogin packet)
+        public static ObjectHandler CreateOwnCharacterUpdate(Character character, out PlayerEntity entity) //CmsgPlayerLogin packet)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
@@ -42,26 +43,29 @@ namespace World_Server.Handlers.Objects
             writer.Write((UInt32)Environment.TickCount);
 
             // Position
-            writer.Write((float)character.MapX);
-            writer.Write((float)character.MapY);
-            writer.Write((float)character.MapZ);
-            writer.Write((float)character.MapRotation);
+            writer.Write(character.MapX);
+            writer.Write(character.MapY);
+            writer.Write(character.MapZ);
+            writer.Write(character.MapRotation);
 
             // Movement speeds
-            writer.Write((float)0);     // ????
-            writer.Write((float)2.5f);  // MOVE_WALK
-            writer.Write((float)7);     // MOVE_RUN
-            writer.Write((float)4.5f);  // MOVE_RUN_BACK
-            writer.Write((float)4.72f); // MOVE_SWIM
-            writer.Write((float)2.5f);  // MOVE_SWIM_BACK
-            writer.Write((float)3.14f); // MOVE_TURN_RATE
+            writer.Write(0f);     // ????
+            writer.Write(2.5f);  // MOVE_WALK
+            writer.Write(7f * 10);     // MOVE_RUN
+            writer.Write(4.5f);  // MOVE_RUN_BACK
+            writer.Write(4.72f); // MOVE_SWIM
+            writer.Write(2.5f);  // MOVE_SWIM_BACK
+            writer.Write(3.14f); // MOVE_TURN_RATE
 
             writer.Write(0x1); // Unkown...
 
-            new PlayerEntity(character).WriteUpdateFields(writer);
+            //new PlayerEntity(character).WriteUpdateFields(writer);
+
+            entity = new PlayerEntity(character);
+            entity.GUID = new ObjectGuid((ulong)character.Id);
+            entity.WriteUpdateFields(writer);
 
             return new ObjectHandler(new List<byte[]> { (writer.BaseStream as MemoryStream)?.ToArray() });
         }
-
     }
 }

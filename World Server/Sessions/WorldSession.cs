@@ -19,7 +19,7 @@ namespace World_Server.Sessions
         public VanillaCrypt Crypt;
         public Character Character;
         public Users Users;
-        public PlayerEntity Entity;
+        public Character Target;
 
         public uint OutOfSyncDelay { get; set; }
 

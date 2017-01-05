@@ -26,5 +26,4 @@ namespace World_Server.Handlers
             session.sendPacket(new SmsgQueryTimeResponse());
         }
     }
-
 }

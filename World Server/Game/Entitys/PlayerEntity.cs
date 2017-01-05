@@ -7,10 +7,12 @@ using World_Server.Helpers;
 
 namespace World_Server.Game.Entitys
 {
-    public class PlayerEntity : WorldObject
+    public class PlayerEntity : WorldEntity
     {
         public Character character;
-        public PlayerEntity Target;
+        public Character Target;
+
+        public float X, Y, Z;
 
         private int GetModel(Character character)
         {

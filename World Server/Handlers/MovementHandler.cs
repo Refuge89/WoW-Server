@@ -4,7 +4,6 @@ using World_Server.Sessions;
 using System.IO;
 using Framework.Contants.Character;
 using Framework.Contants;
-using Framework.Extensions;
 using World_Server.Handlers.World;
 using World_Server.Helpers;
 
@@ -80,7 +79,24 @@ namespace World_Server.Handlers
         }
     }
     #endregion
-    
+
+    #region PS Movement handler
+    internal sealed class PsMovement : ServerPacket
+    {
+        public PsMovement(WorldSession session, MsgMoveInfo handler, WorldOpcodes opcode) : base(opcode)
+        {
+            var correctedMoveTime = (uint)Environment.TickCount;
+            var packedGuid = PSUpdateObject.GenerateGuidBytes((ulong)session.Character.Id);
+
+            PSUpdateObject.WriteBytes(this, packedGuid);
+            PSUpdateObject.WriteBytes(this, (handler.BaseStream as MemoryStream)?.ToArray());
+            // We then overwrite the original moveTime (sent from the client) with ours
+            ((MemoryStream)BaseStream).Position = 4 + packedGuid.Length;
+            PSUpdateObject.WriteBytes(this, BitConverter.GetBytes(handler.Time));
+        }
+    }
+    #endregion
+
     public class MovementHandler
     {
         public static WorldOpcodes Opcode { get; set; }
@@ -107,24 +123,11 @@ namespace World_Server.Handlers
             session.Character.MapX = handler.MapX;
             session.Character.MapY = handler.MapY;
             session.Character.MapZ = handler.MapZ;
+
             Program.Database.UpdateMovement(session.Character);
+
             Program.WorldServer.Sessions.FindAll(s => s != session)
                 .ForEach(s => s.sendPacket(new PsMovement(session, handler, code)));
-        }
-    }
-
-    internal sealed class PsMovement : ServerPacket
-    {
-        public PsMovement(WorldSession session, MsgMoveInfo handler , WorldOpcodes opcode) : base(opcode)
-        {
-            var correctedMoveTime = (uint)Environment.TickCount;
-            var packedGuid = PSUpdateObject.GenerateGuidBytes((ulong)session.Character.Id);
-
-            PSUpdateObject.WriteBytes(this, packedGuid);
-            PSUpdateObject.WriteBytes(this, (handler.BaseStream as MemoryStream)?.ToArray());
-            // We then overwrite the original moveTime (sent from the client) with ours
-            ((MemoryStream) BaseStream).Position = 4 + packedGuid.Length;
-            PSUpdateObject.WriteBytes(this, BitConverter.GetBytes(handler.Time));
         }
     }
 }

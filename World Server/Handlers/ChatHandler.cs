@@ -4,6 +4,7 @@ using Framework.Contants;
 using Framework.Contants.Game;
 using Framework.Network;
 using World_Server.Sessions;
+using System.Globalization;
 
 namespace World_Server.Handlers
 {
@@ -125,6 +126,12 @@ namespace World_Server.Handlers
             session.sendPacket(new SmsgChannelNotify(ChatChannelNotify.CHAT_YOU_JOINED_NOTICE, (ulong)session.Character.Id, handler.ChannelName));
         }
 
+        internal static void OnLeaveChannel(WorldSession session, CmsgJoinChannel handler)
+        {
+            // remove da base que saiu do canal
+            session.sendPacket(new SmsgChannelNotify(ChatChannelNotify.CHAT_YOU_LEFT_NOTICE, (ulong)session.Character.Id, handler.ChannelName));
+        }
+
         internal static void OnTextEmote(WorldSession session, CmsgTextEmote handler)
         {
             // Implementar alguns emotes na unha ?!?!?!?!?!?
@@ -141,8 +148,10 @@ namespace World_Server.Handlers
                     if (splitMessage.Length == 2)
                     {
                         if (splitMessage[0].ToLower() == "spell")
-                            session.sendPacket(new PSLearnSpell((uint)int.Parse(splitMessage[1])));
+                            session.sendPacket(new SmsgLearnedSpell((uint)int.Parse(splitMessage[1])));
 
+                        if (splitMessage[0].ToLower() == "sound")
+                            session.sendPacket(new SmsgPlaySound((uint)int.Parse(splitMessage[1])));
                     }
 
                     Program.WorldServer.TransmitToAll(new SmsgMessagechat(handler.Type, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.Id, handler.Message));
@@ -165,181 +174,5 @@ namespace World_Server.Handlers
                     break;
             }
         }
-    }
-
-    class PSLearnSpell : ServerPacket
-    {
-        public PSLearnSpell(uint spellID) : base(WorldOpcodes.SMSG_LEARNED_SPELL)
-        {
-            Write((uint) spellID);
-            Write((UInt16) 0);
-        }
-    }
-
-    public enum StandState
-    {
-        UNIT_STANDING = 0x0,
-        UNIT_SITTING = 0x1,
-        UNIT_SITTINGCHAIR = 0x2,
-        UNIT_SLEEPING = 0x3,
-        UNIT_SITTINGCHAIRLOW = 0x4,
-        UNIT_FIRSTCHAIRSIT = 0x4,
-        UNIT_SITTINGCHAIRMEDIUM = 0x5,
-        UNIT_SITTINGCHAIRHIGH = 0x6,
-        UNIT_LASTCHAIRSIT = 0x6,
-        UNIT_DEAD = 0x7,
-        UNIT_KNEEL = 0x8,
-        UNIT_NUMSTANDSTATES = 0x9,
-        UNIT_NUMCHAIRSTATES = 0x3,
-    }
-
-
-    public enum Emotes
-    {
-        NONE = 0,
-        AGREE = 1,
-        AMAZE = 2,
-        ANGRY = 3,
-        APOLOGIZE = 4,
-        APPLAUD = 5,
-        BASHFUL = 6,
-        BECKON = 7,
-        BEG = 8,
-        BITE = 9,
-        BLEED = 10,
-        BLINK = 11,
-        BLUSH = 12,
-        BONK = 13,
-        BORED = 14,
-        BOUNCE = 15,
-        BRB = 16,
-        BOW = 17,
-        BURP = 18,
-        BYE = 19,
-        CACKLE = 20,
-        CHEER = 21,
-        CHICKEN = 22,
-        CHUCKLE = 23,
-        CLAP = 24,
-        CONFUSED = 25,
-        CONGRATULATE = 26,
-        COUGH = 27,
-        COWER = 28,
-        CRACK = 29,
-        CRINGE = 30,
-        CRY = 31,
-        CURIOUS = 32,
-        CURTSEY = 33,
-        DANCE = 34,
-        DRINK = 35,
-        DROOL = 36,
-        EAT = 37,
-        EYE = 38,
-        FART = 39,
-        FIDGET = 40,
-        FLEX = 41,
-        FROWN = 42,
-        GASP = 43,
-        GAZE = 44,
-        GIGGLE = 45,
-        GLARE = 46,
-        GLOAT = 47,
-        GREET = 48,
-        GRIN = 49,
-        GROAN = 50,
-        GROVEL = 51,
-        GUFFAW = 52,
-        HAIL = 53,
-        HAPPY = 54,
-        HELLO = 55,
-        HUG = 56,
-        HUNGRY = 57,
-        KISS = 58,
-        KNEEL = 59,
-        LAUGH = 60,
-        LAYDOWN = 61,
-        MASSAGE = 62,
-        MOAN = 63,
-        MOON = 64,
-        MOURN = 65,
-        NO = 66,
-        NOD = 67,
-        NOSEPICK = 68,
-        PANIC = 69,
-        PEER = 70,
-        PLEAD = 71,
-        POINT = 72,
-        POKE = 73,
-        PRAY = 74,
-        ROAR = 75,
-        ROFL = 76,
-        RUDE = 77,
-        SALUTE = 78,
-        SCRATCH = 79,
-        SEXY = 80,
-        SHAKE = 81,
-        SHOUT = 82,
-        SHRUG = 83,
-        SHY = 84,
-        SIGH = 85,
-        SIT = 86,
-        SLEEP = 87,
-        SNARL = 88,
-        SPIT = 89,
-        STARE = 90,
-        SURPRISED = 91,
-        SURRENDER = 92,
-        TALK = 93,
-        TALKEX = 94,
-        TALKQ = 95,
-        TAP = 96,
-        THANK = 97,
-        THREATEN = 98,
-        TIRED = 99,
-        VICTORY = 100,
-        WAVE = 101,
-        WELCOME = 102,
-        WHINE = 103,
-        WHISTLE = 104,
-        WORK = 105,
-        YAWN = 106,
-        BOGGLE = 107,
-        CALM = 108,
-        COLD = 109,
-        COMFORT = 110,
-        CUDDLE = 111,
-        DUCK = 112,
-        INSULT = 113,
-        INTRODUCE = 114,
-        JK = 115,
-        LICK = 116,
-        LISTEN = 117,
-        LOST = 118,
-        MOCK = 119,
-        PONDER = 120,
-        POUNCE = 121,
-        PRAISE = 122,
-        PURR = 123,
-        PUZZLE = 124,
-        RAISE = 125,
-        READY = 126,
-        SHIMMY = 127,
-        SHIVER = 128,
-        SHOO = 129,
-        SLAP = 130,
-        SMIRK = 131,
-        SNIFF = 132,
-        SNUB = 133,
-        SOOTHE = 134,
-        STINK = 135,
-        TAUNT = 136,
-        TEASE = 137,
-        THIRSTY = 138,
-        VETO = 139,
-        SNICKER = 140,
-        STAND = 141,
-        TICKLE = 142,
-        VIOLIN = 143,
-        SMILE = 163,
     }
 }

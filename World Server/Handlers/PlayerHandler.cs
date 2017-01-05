@@ -3,6 +3,8 @@ using Framework.Database.Tables;
 using Framework.Extensions;
 using Framework.Network;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using World_Server.Sessions;
 
 namespace World_Server.Handlers
@@ -93,4 +95,82 @@ namespace World_Server.Handlers
     }
     #endregion
 
+    #region SMSG_PLAY_SOUND
+    internal class SmsgPlaySound : ServerPacket
+    {
+        public SmsgPlaySound(uint soundID) : base(WorldOpcodes.SMSG_PLAY_SOUND)
+        {
+            Write(soundID);
+        }
+    }
+    #endregion
+
+    #region SMSG_ACTION_BUTTONS
+    class SmsgActionButtons : ServerPacket
+    {
+        public SmsgActionButtons(Character character) : base(WorldOpcodes.SMSG_ACTION_BUTTONS)
+        {
+            List<CharactersActionBar> savedButtons = Program.Database.GetActionBar(character);
+
+            for (int button = 0; button < 120; button++)
+            {
+                int index = savedButtons.FindIndex(b => b.Button == button);
+
+                CharactersActionBar currentButton = index != -1 ? savedButtons[index] : null;
+
+                if (currentButton != null)
+                {
+                    UInt32 packedData = (UInt32)currentButton.Action | (UInt32)currentButton.Type << 24;
+                    Write((UInt32)packedData);
+                }
+                else
+                {
+                    Write((UInt32)0);
+                }
+            }
+        }
+    }
+    #endregion
+
+    public class Weather : BinaryWriter
+    {
+        public Weather(WeatherState state, float grad, WeatherSounds sound) : base(new MemoryStream())
+        {
+            Write((uint)state);
+            Write(grad);
+            Write((uint)sound);
+        }
+
+        public byte[] Packet { get { return (BaseStream as MemoryStream).ToArray(); } }
+    }
+
+    public enum WeatherState : uint
+    {
+        WEATHER_STATE_FINE = 0,
+        WEATHER_STATE_LIGHT_RAIN = 3,
+        WEATHER_STATE_MEDIUM_RAIN = 4,
+        WEATHER_STATE_HEAVY_RAIN = 5,
+        WEATHER_STATE_LIGHT_SNOW = 6,
+        WEATHER_STATE_MEDIUM_SNOW = 7,
+        WEATHER_STATE_HEAVY_SNOW = 8,
+        WEATHER_STATE_LIGHT_SANDSTORM = 22,
+        WEATHER_STATE_MEDIUM_SANDSTORM = 41,
+        WEATHER_STATE_HEAVY_SANDSTORM = 42,
+        WEATHER_STATE_THUNDERS = 86,
+        WEATHER_STATE_BLACKRAIN = 90
+    };
+
+    public enum WeatherSounds : uint
+    {
+        WEATHER_NOSOUND = 0,
+        WEATHER_RAINLIGHT = 8533,
+        WEATHER_RAINMEDIUM = 8534,
+        WEATHER_RAINHEAVY = 8535,
+        WEATHER_SNOWLIGHT = 8536,
+        WEATHER_SNOWMEDIUM = 8537,
+        WEATHER_SNOWHEAVY = 8538,
+        WEATHER_SANDSTORMLIGHT = 8556,
+        WEATHER_SANDSTORMMEDIUM = 8557,
+        WEATHER_SANDSTORMHEAVY = 8558
+    };
 }

@@ -146,5 +146,10 @@ namespace World_Server.Managers
         {
             return this.model.CharactersSpells.Where(a => a.character == character).ToList();
         }
+
+        internal List<CharactersActionBar> GetActionBar(Character character)
+        {
+            return this.model.CharactersActionBar.Where(a => a.character == character).ToList();
+        }
     }
 }

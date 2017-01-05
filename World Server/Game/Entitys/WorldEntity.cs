@@ -6,7 +6,7 @@ using World_Server.Game.Update;
 
 namespace World_Server.Game.Entitys
 {
-    public class WorldObject
+    public class WorldEntity
     {
         //public UInt64 GUID;
         public ObjectGuid GUID;
@@ -15,7 +15,7 @@ namespace World_Server.Game.Entitys
         public BitArray Mask;
         public Hashtable UpdateData;
 
-        public WorldObject(int dataLength)
+        public WorldEntity(int dataLength)
         {
             MaskSize = ((dataLength) + 32) / 32;
             Mask = new BitArray(dataLength, false);

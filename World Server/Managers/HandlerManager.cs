@@ -56,6 +56,7 @@ namespace World_Server.Managers
 
             // Chat opcodes
             WorldDataRouter.AddHandler<CmsgJoinChannel>(WorldOpcodes.CMSG_JOIN_CHANNEL, ChatHandler.OnJoinChannel);
+            WorldDataRouter.AddHandler<CmsgJoinChannel>(WorldOpcodes.CMSG_LEAVE_CHANNEL, ChatHandler.OnLeaveChannel);
             WorldDataRouter.AddHandler<CmsgMessagechat>(WorldOpcodes.CMSG_MESSAGECHAT, ChatHandler.OnMessageChat);
             WorldDataRouter.AddHandler<CmsgTextEmote>(WorldOpcodes.CMSG_TEXT_EMOTE, ChatHandler.OnTextEmote);
 

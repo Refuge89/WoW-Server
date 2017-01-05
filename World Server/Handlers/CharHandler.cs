@@ -8,6 +8,7 @@ using Framework.Network;
 using World_Server.Game.Entitys;
 using World_Server.Helpers;
 using World_Server.Sessions;
+using static World_Server.Program;
 
 namespace World_Server.Handlers
 {
@@ -205,6 +206,15 @@ namespace World_Server.Handlers
         internal static void OnSetSelectionPacket(WorldSession session, CmsgSetSelection handler)
         {
             Console.WriteLine($"Estou Selecionando: {handler.Guid}");
+            if (handler.Guid == 0)
+            {
+                session.Target = null;
+                return;
+            }
+
+            session.Target = WorldServer.Sessions.FirstOrDefault(s => s.Character.Id == (int)handler.Guid).Character;
+            ChatHandler.SendSytemMessage(session, $"Targeted: {session.Target.Name}");
+
         }
     }
 }
