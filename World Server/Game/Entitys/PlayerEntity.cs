@@ -4,14 +4,13 @@ using Framework.Contants.Game;
 using Framework.Database;
 using Framework.Database.Tables;
 using World_Server.Helpers;
-using Framework.Database.Xml;
-using System.ComponentModel;
 
 namespace World_Server.Game.Entitys
 {
     public class PlayerEntity : WorldObject
     {
         public Character character;
+        public PlayerEntity Target;
 
         private int GetModel(Character character)
         {
@@ -26,7 +25,7 @@ namespace World_Server.Game.Entitys
             var attClas = XmlManager.GetClassStats(character.Class);
             //var AttChar = XmlManager.getRaceStats(race);
 
-            if(attribute == "health")
+            if (attribute == "health")
                 return (character.Level == 1) ? attRace.health + attClas.health : 1500;
 
             if (attribute == "strength")
@@ -63,17 +62,17 @@ namespace World_Server.Game.Entitys
         {
             // Base do HP (Classe + Race) + Char
             var baseHealth = GetAttribute(character, "health");
-            
+
             // Base de Stamina (Classe + Race) + Char
             var baseStamina = GetAttribute(character, "stamina");
 
             int staminaCalc = 0;
 
             if (baseStamina <= 20)
-                staminaCalc = (baseStamina * (int)1.55); 
+                staminaCalc = (baseStamina * (int)1.55);
             else
                 staminaCalc = ((baseStamina - 20) * 10) + 20;
-            
+
             return (baseHealth + staminaCalc); // ainda vem os multiplicadores
         }
 
@@ -91,10 +90,10 @@ namespace World_Server.Game.Entitys
             var skin = Program.Database.GetSkin(character);
 
             // Object Fields
-            SetUpdateField((int)EObjectFields.OBJECT_FIELD_GUID,                character.Id);          // Id do Objeto
-            SetUpdateField((int)EObjectFields.OBJECT_FIELD_TYPE,                25);                    // 0x19 Player + Unit + Object
-            SetUpdateField((int)EObjectFields.OBJECT_FIELD_ENTRY,               0);
-            SetUpdateField((int)EObjectFields.OBJECT_FIELD_SCALE_X,             GetScale(character));   // Escala do objeto
+            SetUpdateField((int)EObjectFields.OBJECT_FIELD_GUID, character.Id);          // Id do Objeto
+            SetUpdateField((int)EObjectFields.OBJECT_FIELD_TYPE, 25);                    // 0x19 Player + Unit + Object
+            SetUpdateField((int)EObjectFields.OBJECT_FIELD_ENTRY, 0);
+            SetUpdateField((int)EObjectFields.OBJECT_FIELD_SCALE_X, GetScale(character));   // Escala do objeto
 
             // Unit Fields
             SetUpdateField((int)EUnitFields.UNIT_CHANNEL_SPELL, 0);
@@ -111,21 +110,21 @@ namespace World_Server.Game.Entitys
             SetUpdateField((int)EUnitFields.UNIT_FIELD_MAXPOWER2, 1000);
             //SetUpdateField((int)EUnitFields.UNIT_FIELD_MAXPOWER3, this.Focus.Maximum);
             //SetUpdateField((int)EUnitFields.UNIT_FIELD_MAXPOWER4, this.Energy.Maximum);
-            
-            SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_LEVEL,              character.Level);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_FACTIONTEMPLATE,         5);
 
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0,                 (byte)character.Race, 0);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0,                 (byte)character.Class, 1);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0,                 (byte)character.Gender, 2);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0,                 (byte)1, 3); // [mana 0] [rage 1] [focus 2] [energy 3]
+            SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_LEVEL, character.Level);
+            SetUpdateField((int)EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, 5);
 
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_DISPLAYID,               GetModel(character));
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_NATIVEDISPLAYID,         GetModel(character));
-            SetUpdateField((int)EUnitFields.PLAYER_BYTES,                       skin.Skin, 0);
-            SetUpdateField((int)EUnitFields.PLAYER_BYTES,                       skin.Face, 1);
-            SetUpdateField((int)EUnitFields.PLAYER_BYTES,                       skin.HairStyle, 2);
-            SetUpdateField((int)EUnitFields.PLAYER_BYTES,                       skin.HairColor, 3);
+            SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Race, 0);
+            SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Class, 1);
+            SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Gender, 2);
+            SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)1, 3); // [mana 0] [rage 1] [focus 2] [energy 3]
+
+            SetUpdateField((int)EUnitFields.UNIT_FIELD_DISPLAYID, GetModel(character));
+            SetUpdateField((int)EUnitFields.UNIT_FIELD_NATIVEDISPLAYID, GetModel(character));
+            SetUpdateField((int)EUnitFields.PLAYER_BYTES, skin.Skin, 0);
+            SetUpdateField((int)EUnitFields.PLAYER_BYTES, skin.Face, 1);
+            SetUpdateField((int)EUnitFields.PLAYER_BYTES, skin.HairStyle, 2);
+            SetUpdateField((int)EUnitFields.PLAYER_BYTES, skin.HairColor, 3);
 
             // Items Equipamento
             WorldItems[] equipment = InventoryHelper.GenerateInventoryByIDs(character.Equipment);
@@ -134,7 +133,7 @@ namespace World_Server.Game.Entitys
             {
                 if (equipment?[i] != null)
                 {
-                    SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (i * 12), equipment[i].itemId);
+                    SetUpdateField((int)EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (i * 12), equipment[i].itemId);
                     //SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_PROPERTIES + (i * 12), 0);
                 }
             }
@@ -145,7 +144,7 @@ namespace World_Server.Game.Entitys
             foreach (CharactersSkill Skill in Program.Database.GetSkills(character))
             {
                 SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3), Skill.skill);
-                SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 1, (Int16) Skill.value + Skill.Max);
+                SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 1, (Int16)Skill.value + Skill.Max);
                 //SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 2, 3); // Bonus de Skill
                 a++;
             }

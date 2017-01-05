@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Framework.Contants.Game;
 
 namespace World_Server.Game.Update
 {
@@ -32,26 +34,39 @@ namespace World_Server.Game.Update
 
     public class ObjectGuid
     {
-        public ObjectGuid(ulong low, ulong id, HighGUID highType)
+        private static readonly Dictionary<TypeID, uint> Indexes = new Dictionary<TypeID, uint>();
+
+        public static ObjectGuid GetGameObjectGuid()
         {
-            Guid = low | (id << 32) | ((ulong)highType << 52);
+            return new ObjectGuid(TypeID.TYPEID_OBJECT, HighGUID.HIGHGUID_MO_TRANSPORT);
         }
 
-        public ulong Guid { get; set; }
-
-        public static HighGUID GetGuidType(ulong guid)
+        private static uint GetIndex(TypeID type)
         {
-            return (HighGUID)(guid >> 52);
+            if (!Indexes.ContainsKey(type)) Indexes.Add(type, 0);
+
+            return Indexes[type]++;
         }
 
-        public static int GetId(ulong guid)
+        // ----------------------------------------------------------------------------
+
+        public ulong RawGuid { get; private set; }
+        public uint Low => (uint) (RawGuid & (ulong) 0x0000000000FFFFFF);
+
+        public ObjectGuid(ulong guid)
         {
-            return (int)((guid >> 32) & 0xFFFFF);
+            RawGuid = guid;
         }
 
-        public static ulong GetGuid(ulong guid)
+        public ObjectGuid(uint index, TypeID type, HighGUID high)
         {
-            return guid & 0xFFFFFFF;
+            RawGuid = index | ((ulong) type << 24) | ((ulong) high << 48);
         }
+
+        public ObjectGuid(TypeID type, HighGUID high) : this(GetIndex(type), type, high)
+        {
+
+        }
+
     }
 }

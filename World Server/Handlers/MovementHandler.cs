@@ -4,7 +4,7 @@ using World_Server.Sessions;
 using System.IO;
 using Framework.Contants.Character;
 using Framework.Contants;
-using Framework.Database.Tables;
+using Framework.Extensions;
 using World_Server.Handlers.World;
 using World_Server.Helpers;
 
@@ -26,13 +26,13 @@ namespace World_Server.Handlers
     #region CMSG_MOVE_TIME_SKIPPED
     public sealed class CmsgMoveTimeSkipped : PacketReader
     {
-        public ulong GUID;
+        public ulong Guid;
 
         public uint OutOfSyncDelay;
 
         public CmsgMoveTimeSkipped(byte[] data) : base(data)
         {
-            GUID = this.ReadPackedGuid(this);
+            Guid = this.ReadPackedGuid(this);
             OutOfSyncDelay = ReadUInt32();
         }
 
@@ -41,9 +41,7 @@ namespace World_Server.Handlers
             byte mask = reader.ReadByte();
 
             if (mask == 0)
-            {
                 return 0;
-            }
 
             ulong res = 0;
 
@@ -51,9 +49,7 @@ namespace World_Server.Handlers
             while (i < 8)
             {
                 if ((mask & 1 << i) != 0)
-                {
                     res += (ulong)reader.ReadByte() << (i * 8);
-                }
 
                 i++;
             }
@@ -64,19 +60,19 @@ namespace World_Server.Handlers
     #endregion
 
     #region MSG MOVE INFO
-    public class MsgMoveInfo : PacketReader
+    public sealed class MsgMoveInfo : PacketReader
     {
-        public MovementFlags moveFlags { get; set; }
+        public MovementFlags MoveFlags { get; set; }
         public float MapX { get; set; }
         public float MapY { get; set; }
         public float MapZ { get; set; }
         public float MapR { get; set; }       
-        public uint time { get; set; }
+        public uint Time { get; set; }
 
         public MsgMoveInfo(byte[] data) : base(data)
         {
-            moveFlags = (MovementFlags)this.ReadUInt32();
-            time = ReadUInt32();
+            MoveFlags = (MovementFlags)ReadUInt32();
+            Time = ReadUInt32();
             MapX = ReadSingle();
             MapY = ReadSingle();
             MapZ = ReadSingle();
@@ -87,7 +83,7 @@ namespace World_Server.Handlers
     
     public class MovementHandler
     {
-        public static WorldOpcodes opcode { get; private set; }
+        public static WorldOpcodes Opcode { get; set; }
 
         internal static void HandleZoneUpdate(WorldSession session, CmsgZoneupdate handler)
         {
@@ -111,44 +107,24 @@ namespace World_Server.Handlers
             session.Character.MapX = handler.MapX;
             session.Character.MapY = handler.MapY;
             session.Character.MapZ = handler.MapZ;
-            session.Character.MapRotation = handler.MapR;
             Program.Database.UpdateMovement(session.Character);
             Program.WorldServer.Sessions.FindAll(s => s != session)
-                .ForEach(s => s.sendPacket(new PSMovement(session, handler, code)));
+                .ForEach(s => s.sendPacket(new PsMovement(session, handler, code)));
         }
     }
 
-    internal class PSMovement : ServerPacket
+    internal sealed class PsMovement : ServerPacket
     {
-        public PSMovement(WorldSession session, MsgMoveInfo handler , WorldOpcodes opcode) : base(opcode)
+        public PsMovement(WorldSession session, MsgMoveInfo handler , WorldOpcodes opcode) : base(opcode)
         {
-            Console.WriteLine(handler.moveFlags);
+            var correctedMoveTime = (uint)Environment.TickCount;
+            var packedGuid = PSUpdateObject.GenerateGuidBytes((ulong)session.Character.Id);
 
-            var packedGUID = PSUpdateObject.GenerateGuidBytes((ulong)session.Character.Id);
-            PSUpdateObject.WriteBytes(this, packedGUID);
-
-            if (handler.moveFlags == MovementFlags.MOVEFLAG_NONE)
-            {
-                Write((uint)handler.moveFlags);
-                Write((uint)session.OutOfSyncDelay);
-                Write(handler.MapX);
-                Write(handler.MapY);
-                Write(handler.MapZ);
-                Write(handler.MapR);
-                Write((uint)0); // ?
-            }
-            else
-            {
-                Write((uint)handler.moveFlags);
-                Write((uint)1);
-                Write(handler.MapX);
-                Write(handler.MapY);
-                Write(handler.MapZ);
-                Write(handler.MapR);
-                Write((uint)0); // ?
-            }
-
-            //System.Threading.Thread.Sleep(1000);
+            PSUpdateObject.WriteBytes(this, packedGuid);
+            PSUpdateObject.WriteBytes(this, (handler.BaseStream as MemoryStream)?.ToArray());
+            // We then overwrite the original moveTime (sent from the client) with ours
+            ((MemoryStream) BaseStream).Position = 4 + packedGuid.Length;
+            PSUpdateObject.WriteBytes(this, BitConverter.GetBytes(handler.Time));
         }
     }
 }

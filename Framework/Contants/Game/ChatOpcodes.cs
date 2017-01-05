@@ -1,6 +1,7 @@
 ﻿namespace Framework.Contants.Game
 {
-    public enum ChatLanguage : byte
+
+    public enum ChatMessageLanguage : byte
     {
         LANG_UNIVERSAL = 0,
         LANG_ORCISH = 1,
@@ -15,10 +16,10 @@
         LANG_KALIMAG = 12,
         LANG_GNOMISH = 13,
         LANG_TROLL = 14,
-        LANG_GUTTERSPEAK = 33,
+        LANG_GUTTERSPEAK = 33
     }
 
-    public enum ChatMessage : byte
+    public enum ChatMessageType : byte
     {
         CHAT_MSG_SAY = 0x00,
         CHAT_MSG_PARTY = 0x01,
@@ -64,129 +65,44 @@
         // CHAT_MSG_COMBAT_HONOR_GAIN      = 0x22,
         // CHAT_MSG_COMBAT_FACTION_CHANGE  = 0x23,
         CHAT_MSG_RAID_BOSS_WHISPER = 0x29,
-        CHAT_MSG_RAID_BOSS_EMOTE = 0x2A,
+        CHAT_MSG_RAID_BOSS_EMOTE = 0x2A
         // CHAT_MSG_FILTERED               = 0x2B,
         // CHAT_MSG_RESTRICTED             = 0x2E,
     }
 
-    public enum Emote
+    public enum ChatChannelNotify
     {
-        EMOTE_ONESHOT_NONE = 0,
-        EMOTE_ONESHOT_TALK = 1,
-        EMOTE_ONESHOT_BOW = 2,
-        EMOTE_ONESHOT_WAVE = 3,
-        EMOTE_ONESHOT_CHEER = 4,
-        EMOTE_ONESHOT_EXCLAMATION = 5,
-        EMOTE_ONESHOT_QUESTION = 6,
-        EMOTE_ONESHOT_EAT = 7,
-        EMOTE_STATE_DANCE = 10,
-        EMOTE_ONESHOT_LAUGH = 11,
-        EMOTE_STATE_SLEEP = 12,
-        EMOTE_STATE_SIT = 13,
-        EMOTE_ONESHOT_RUDE = 14,
-        EMOTE_ONESHOT_ROAR = 15,
-        EMOTE_ONESHOT_KNEEL = 16,
-        EMOTE_ONESHOT_KISS = 17,
-        EMOTE_ONESHOT_CRY = 18,
-        EMOTE_ONESHOT_CHICKEN = 19,
-        EMOTE_ONESHOT_BEG = 20,
-        EMOTE_ONESHOT_APPLAUD = 21,
-        EMOTE_ONESHOT_SHOUT = 22,
-        EMOTE_ONESHOT_FLEX = 23,
-        EMOTE_ONESHOT_SHY = 24,
-        EMOTE_ONESHOT_POINT = 25,
-        EMOTE_STATE_STAND = 26,
-        EMOTE_STATE_READYUNARMED = 27,
-        EMOTE_STATE_WORK_SHEATHED = 28,
-        EMOTE_STATE_POINT = 29,
-        EMOTE_STATE_NONE = 30,
-        EMOTE_ONESHOT_WOUND = 33,
-        EMOTE_ONESHOT_WOUNDCRITICAL = 34,
-        EMOTE_ONESHOT_ATTACKUNARMED = 35,
-        EMOTE_ONESHOT_ATTACK1H = 36,
-        EMOTE_ONESHOT_ATTACK2HTIGHT = 37,
-        EMOTE_ONESHOT_ATTACK2HLOOSE = 38,
-        EMOTE_ONESHOT_PARRYUNARMED = 39,
-        EMOTE_ONESHOT_PARRYSHIELD = 43,
-        EMOTE_ONESHOT_READYUNARMED = 44,
-        EMOTE_ONESHOT_READY1H = 45,
-        EMOTE_ONESHOT_READYBOW = 48,
-        EMOTE_ONESHOT_SPELLPRECAST = 50,
-        EMOTE_ONESHOT_SPELLCAST = 51,
-        EMOTE_ONESHOT_BATTLEROAR = 53,
-        EMOTE_ONESHOT_SPECIALATTACK1H = 54,
-        EMOTE_ONESHOT_KICK = 60,
-        EMOTE_ONESHOT_ATTACKTHROWN = 61,
-        EMOTE_STATE_STUN = 64,
-        EMOTE_STATE_DEAD = 65,
-        EMOTE_ONESHOT_SALUTE = 66,
-        EMOTE_STATE_KNEEL = 68,
-        EMOTE_STATE_USESTANDING = 69,
-        EMOTE_ONESHOT_WAVE_NOSHEATHE = 70,
-        EMOTE_ONESHOT_CHEER_NOSHEATHE = 71,
-        EMOTE_ONESHOT_EAT_NOSHEATHE = 92,
-        EMOTE_STATE_STUN_NOSHEATHE = 93,
-        EMOTE_ONESHOT_DANCE = 94,
-        EMOTE_ONESHOT_SALUTE_NOSHEATH = 113,
-        EMOTE_STATE_USESTANDING_NOSHEATHE = 133,
-        EMOTE_ONESHOT_LAUGH_NOSHEATHE = 153,
-        EMOTE_STATE_WORK = 173,
-        EMOTE_STATE_SPELLPRECAST = 193,
-        EMOTE_ONESHOT_READYRIFLE = 213,
-        EMOTE_STATE_READYRIFLE = 214,
-        EMOTE_STATE_WORK_MINING = 233,
-        EMOTE_STATE_WORK_CHOPWOOD = 234,
-        EMOTE_STATE_APPLAUD = 253,
-        EMOTE_ONESHOT_LIFTOFF = 254,
-        EMOTE_ONESHOT_YES = 273,
-        EMOTE_ONESHOT_NO = 274,
-        EMOTE_ONESHOT_TRAIN = 275,
-        EMOTE_ONESHOT_LAND = 293,
-        EMOTE_STATE_AT_EASE = 313,
-        EMOTE_STATE_READY1H = 333,
-        EMOTE_STATE_SPELLKNEELSTART = 353,
-        EMOTE_STATE_SUBMERGED = 373,
-        EMOTE_ONESHOT_SUBMERGE = 374,
-        EMOTE_STATE_READY2H = 375,
-        EMOTE_STATE_READYBOW = 376,
-        EMOTE_ONESHOT_MOUNTSPECIAL = 377,
-        EMOTE_STATE_TALK = 378,
-        EMOTE_STATE_FISHING = 379,
-        EMOTE_ONESHOT_FISHING = 380,
-        EMOTE_ONESHOT_LOOT = 381,
-        EMOTE_STATE_WHIRLWIND = 382,
-        EMOTE_STATE_DROWNED = 383,
-        EMOTE_STATE_HOLD_BOW = 384,
-        EMOTE_STATE_HOLD_RIFLE = 385,
-        EMOTE_STATE_HOLD_THROWN = 386,
-        EMOTE_ONESHOT_DROWN = 387,
-        EMOTE_ONESHOT_STOMP = 388,
-        EMOTE_ONESHOT_ATTACKOFF = 389,
-        EMOTE_ONESHOT_ATTACKOFFPIERCE = 390,
-        EMOTE_STATE_ROAR = 391,
-        EMOTE_STATE_LAUGH = 392,
-        EMOTE_ONESHOT_CREATURE_SPECIAL = 393,
-        EMOTE_ONESHOT_JUMPLANDRUN = 394,
-        EMOTE_ONESHOT_JUMPEND = 395,
-        EMOTE_ONESHOT_TALK_NOSHEATHE = 396,
-        EMOTE_ONESHOT_POINT_NOSHEATHE = 397,
-        EMOTE_STATE_CANNIBALIZE = 398,
-        EMOTE_ONESHOT_JUMPSTART = 399,
-        EMOTE_STATE_DANCESPECIAL = 400,
-        EMOTE_ONESHOT_DANCESPECIAL = 401,
-        EMOTE_ONESHOT_CUSTOMSPELL01 = 402,
-        EMOTE_ONESHOT_CUSTOMSPELL02 = 403,
-        EMOTE_ONESHOT_CUSTOMSPELL03 = 404,
-        EMOTE_ONESHOT_CUSTOMSPELL04 = 405,
-        EMOTE_ONESHOT_CUSTOMSPELL05 = 406,
-        EMOTE_ONESHOT_CUSTOMSPELL06 = 407,
-        EMOTE_ONESHOT_CUSTOMSPELL07 = 408,
-        EMOTE_ONESHOT_CUSTOMSPELL08 = 409,
-        EMOTE_ONESHOT_CUSTOMSPELL09 = 410,
-        EMOTE_ONESHOT_CUSTOMSPELL10 = 411,
-        EMOTE_STATE_EXCLAIM = 412,
-        EMOTE_STATE_SIT_CHAIR_MED = 415,
-        EMOTE_STATE_SPELLEFFECT_HOLD = 422,
-        EMOTE_STATE_EAT_NO_SHEATHE = 423
+        CHAT_JOINED_NOTICE = 0x00, //+ "%s joined channel.";
+        CHAT_LEFT_NOTICE = 0x01, //+ "%s left channel.";
+        CHAT_YOU_JOINED_NOTICE = 0x02, //+ "Joined Channel: [%s]"; -- You joined
+        CHAT_YOU_LEFT_NOTICE = 0x03, //+ "Left Channel: [%s]"; -- You left
+        CHAT_WRONG_PASSWORD_NOTICE = 0x04, //+ "Wrong password for %s.";
+        CHAT_NOT_MEMBER_NOTICE = 0x05, //+ "Not on channel %s.";
+        CHAT_NOT_MODERATOR_NOTICE = 0x06, //+ "Not a moderator of %s.";
+        CHAT_PASSWORD_CHANGED_NOTICE = 0x07, //+ "[%s] Password changed by %s.";
+        CHAT_OWNER_CHANGED_NOTICE = 0x08, //+ "[%s] Owner changed to %s.";
+        CHAT_PLAYER_NOT_FOUND_NOTICE = 0x09, //+ "[%s] Player %s was not found.";
+        CHAT_NOT_OWNER_NOTICE = 0x0A, //+ "[%s] You are not the channel owner.";
+        CHAT_CHANNEL_OWNER_NOTICE = 0x0B, //+ "[%s] Channel owner is %s.";
+        CHAT_MODE_CHANGE_NOTICE = 0x0C, //?
+        CHAT_ANNOUNCEMENTS_ON_NOTICE = 0x0D, //+ "[%s] Channel announcements enabled by %s.";
+        CHAT_ANNOUNCEMENTS_OFF_NOTICE = 0x0E, //+ "[%s] Channel announcements disabled by %s.";
+        CHAT_MODERATION_ON_NOTICE = 0x0F, //+ "[%s] Channel moderation enabled by %s.";
+        CHAT_MODERATION_OFF_NOTICE = 0x10, //+ "[%s] Channel moderation disabled by %s.";
+        CHAT_MUTED_NOTICE = 0x11, //+ "[%s] You do not have permission to speak.";
+        CHAT_PLAYER_KICKED_NOTICE = 0x12, //? "[%s] Player %s kicked by %s.";
+        CHAT_BANNED_NOTICE = 0x13, //+ "[%s] You are banned from that channel.";
+        CHAT_PLAYER_BANNED_NOTICE = 0x14, //? "[%s] Player %s banned by %s.";
+        CHAT_PLAYER_UNBANNED_NOTICE = 0x15, //? "[%s] Player %s unbanned by %s.";
+        CHAT_PLAYER_NOT_BANNED_NOTICE = 0x16, //+ "[%s] Player %s is not banned.";
+        CHAT_PLAYER_ALREADY_MEMBER_NOTICE = 0x17, //+ "[%s] Player %s is already on the channel.";
+        CHAT_INVITE_NOTICE = 0x18, //+ "%2$s has invited you to join the channel '%1$s'.";
+        CHAT_INVITE_WRONG_FACTION_NOTICE = 0x19, //+ "Target is in the wrong alliance for %s.";
+        CHAT_WRONG_FACTION_NOTICE = 0x1A, //+ "Wrong alliance for %s.";
+        CHAT_INVALID_NAME_NOTICE = 0x1B, //+ "Invalid channel name";
+        CHAT_NOT_MODERATED_NOTICE = 0x1C, //+ "%s is not moderated";
+        CHAT_PLAYER_INVITED_NOTICE = 0x1D, //+ "[%s] You invited %s to join the channel";
+        CHAT_PLAYER_INVITE_BANNED_NOTICE = 0x1E, //+ "[%s] %s has been banned.";
+        CHAT_THROTTLED_NOTICE = 0x1F //+ "[%s] The number of messages that can be sent to this channel is limited, please wait to send another message.";
     }
 }

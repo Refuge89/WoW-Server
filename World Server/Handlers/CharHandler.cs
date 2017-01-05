@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Framework.Contants;
 using Framework.Database.Tables;
 using Framework.Network;
+using World_Server.Game.Entitys;
 using World_Server.Helpers;
 using World_Server.Sessions;
 
@@ -138,6 +140,18 @@ namespace World_Server.Handlers
     }
     #endregion
 
+    #region CMSG_SET_SELECTION
+    public class CmsgSetSelection : PacketReader
+    {
+        public UInt64 Guid { get; private set; }
+
+        public CmsgSetSelection(byte[] data) : base(data)
+        {
+            Guid = ReadUInt64();
+        }
+    }
+    #endregion
+
     public class CharHandler
     {
         internal static void OnCharDelete(WorldSession session, CmsgCharDelete handler)
@@ -186,6 +200,11 @@ namespace World_Server.Handlers
 
             if (target != null)
                 session.sendPacket(new SmsgNameQueryResponse(target));
+        }
+
+        internal static void OnSetSelectionPacket(WorldSession session, CmsgSetSelection handler)
+        {
+            Console.WriteLine($"Estou Selecionando: {handler.Guid}");
         }
     }
 }

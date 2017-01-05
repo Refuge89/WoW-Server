@@ -56,11 +56,20 @@ namespace World_Server.Managers
 
             // Chat opcodes
             WorldDataRouter.AddHandler<CmsgJoinChannel>(WorldOpcodes.CMSG_JOIN_CHANNEL, ChatHandler.OnJoinChannel);
+            WorldDataRouter.AddHandler<CmsgMessagechat>(WorldOpcodes.CMSG_MESSAGECHAT, ChatHandler.OnMessageChat);
+            WorldDataRouter.AddHandler<CmsgTextEmote>(WorldOpcodes.CMSG_TEXT_EMOTE, ChatHandler.OnTextEmote);
 
-            //Movement opcodes
+            // Movement opcodes
             WorldDataRouter.AddHandler<CmsgMoveTimeSkipped>(WorldOpcodes.CMSG_MOVE_TIME_SKIPPED, MovementHandler.OnMoveTimeSkipped);
             MovementOpcodes.ForEach(code => WorldDataRouter.AddHandler(code, MovementHandler.GenerateResponse(code)));
-            
+
+            // Spell Opcodes
+            WorldDataRouter.AddHandler<CmsgCastSpell>(WorldOpcodes.CMSG_CAST_SPELL, SpellHandler.HandleCastSpellOpcode);
+            WorldDataRouter.AddHandler<CmsgCancelCast>(WorldOpcodes.CMSG_CANCEL_CAST, SpellHandler.HandleCancelCastOpcode);
+
+            //Character Opcodes
+            WorldDataRouter.AddHandler<CmsgSetSelection>(WorldOpcodes.CMSG_SET_SELECTION, CharHandler.OnSetSelectionPacket);
+
 
             // CMSG_REQUEST_RAID_INFO => Aqui verifica se esta em raid group
 

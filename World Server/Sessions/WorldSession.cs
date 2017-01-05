@@ -1,13 +1,14 @@
-﻿using Framework.Contants;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Net.Sockets;
+using Framework.Contants;
 using Framework.Crypt;
 using Framework.Database.Tables;
 using Framework.Helpers;
 using Framework.Network;
 using Framework.Sessions;
-using System;
-using System.IO;
-using System.Linq;
-using System.Net.Sockets;
+using World_Server.Game.Entitys;
 using World_Server.Handlers;
 using World_Server.Helpers;
 
@@ -18,6 +19,7 @@ namespace World_Server.Sessions
         public VanillaCrypt Crypt;
         public Character Character;
         public Users Users;
+        public PlayerEntity Entity;
 
         public uint OutOfSyncDelay { get; set; }
 
@@ -29,7 +31,7 @@ namespace World_Server.Sessions
 
         public void sendPacket(ServerPacket packet)
         {
-            sendPacket((int)packet.Opcode, packet.Packet);
+            sendPacket(packet.Opcode, packet.Packet);
         }
 
         public void sendHexPacket(WorldOpcodes opcde, string hex)
@@ -58,7 +60,7 @@ namespace World_Server.Sessions
         public void sendPacket(int opcode, byte[] data)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
-            byte[] header = Encode(data.Length, (int)opcode);
+            byte[] header = Encode(data.Length, opcode);
 
             writer.Write(header);
             writer.Write(data);
@@ -75,8 +77,8 @@ namespace World_Server.Sessions
                 byte[] headerData = new byte[6];
                 Array.Copy(data, index, headerData, 0, 6);
 
-                ushort length = 0;
-                short opcode = 0;
+                ushort length;
+                short opcode;
 
                 Decode(headerData, out length, out opcode);
 
@@ -116,14 +118,19 @@ namespace World_Server.Sessions
 
             if (Crypt == null)
             {
-                length = BitConverter.ToUInt16(new byte[] { header[1], header[0] }, 0);
+                length = BitConverter.ToUInt16(new[] { header[1], header[0] }, 0);
                 opcode = BitConverter.ToInt16(header, 2);
             }
             else
             {
-                length = BitConverter.ToUInt16(new byte[] { header[1], header[0] }, 0);
-                opcode = BitConverter.ToInt16(new byte[] { header[2], header[3] }, 0);
+                length = BitConverter.ToUInt16(new[] { header[1], header[0] }, 0);
+                opcode = BitConverter.ToInt16(new[] { header[2], header[3] }, 0);
             }
+        }
+
+        internal void SendMessage(string v)
+        {
+            ChatHandler.SendSytemMessage(this, v);
         }
     }
 }
