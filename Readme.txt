@@ -1,15 +1,19 @@
-[CMSG_SET_ACTIVE_MOVER]
+## CMSG_SET_ACTIVE_MOVER
+
 http://wowemu.net/forum/?forum=1&mpage=1&theme=1c4e6a4d15d9eac381eb6548ffed2a5f
 https://github.com/TrinityCore/TrinityCore/issues/18118
 https://www.bountysource.com/issues/252351-core-packetio-fix-crash-and-exploit-caused-when-client-sends-tampered-m
 
-[C#]
+## C#
+
 http://stackoverflow.com/questions/14110212/reading-specific-xml-elements-from-xml-file
 
-[ITEM]
+## ITEM
+
 last item of vanilla 24102
 
-[LINKS]
+## LINKS
+
 http://wow.gamepedia.com/ClassId
 http://www.ac-web.org/forums/showthread.php?58721-List-Every-Title-ID-Class-ID-Race-ID-and-lots-more!
 https://svn.code.sf.net/p/shadowmoses/code/
@@ -26,3 +30,4 @@ http://vanilla-wow.wikia.com/wiki/Mining_trainer
 http://wow-pro.com/node/614
 http://www.lootables.com/?guide=Mining
 http://www.nytimes.com/2007/06/17/magazine/17lootfarmers-t.html
+http://www.wow-mania.com/armory/?spells
