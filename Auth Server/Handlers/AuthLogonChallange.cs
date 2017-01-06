@@ -1,6 +1,5 @@
 ﻿using Framework.Crypt;
 using Framework.Network;
-using System;
 using System.Net;
 using Framework.Contants;
 using Framework.Extensions;
@@ -11,17 +10,17 @@ namespace Auth_Server.Handlers
     {
         public byte OptCode;
         public byte Error;
-        public UInt16 Size;
+        public ushort Size;
 
         public string GameName;
         public string Version;
-        public UInt16 Build;
+        public ushort Build;
 
         public string Platform;
         public string Os;
         public string Country;
 
-        public UInt32 TimeZone;
+        public uint TimeZone;
         public IPAddress Ip;
         public string Name;
 

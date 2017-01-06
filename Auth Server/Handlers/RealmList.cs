@@ -17,7 +17,7 @@ namespace Auth_Server.Handlers
             foreach (var realm in realms)
             {
                 // criar a função para comparar o valor abaixo com o tipo de populacao
-                var realmCount = Program.DatabaseManager.CountRealmCharacter(realm);
+                Program.DatabaseManager.CountRealmCharacter(realm);
 
                 // recupera contagem de chars do usuario pelo realm
                 var charCount = Program.DatabaseManager.CountUserRealmCharacter(username, realm);

@@ -17,14 +17,14 @@ namespace Auth_Server.Sessions
         public string AccountName { get; set; }
         public byte[] SessionKey;
 
-        public AuthSession(int connectionId, Socket _connectionSocket) : base(connectionId, _connectionSocket)
+        public AuthSession(int connectionId, Socket connectionSocket) : base(connectionId, connectionSocket)
         {
         }
 
         public override void OnPacket(byte[] data)
         {
             short opcode = BitConverter.ToInt16(data, 0);
-            Log.Print("Auth Battle.NET", $"Data Received: {opcode.ToString("X2")} ({(AuthServerOpcode) opcode})",
+            Log.Print("Auth Battle.NET", $"Data Received: {opcode:X2} ({(AuthServerOpcode) opcode})",
                 ConsoleColor.Green);
 
             AuthServerOpcode code = (AuthServerOpcode) opcode;

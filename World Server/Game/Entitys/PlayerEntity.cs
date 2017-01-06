@@ -92,19 +92,20 @@ namespace World_Server.Game.Entitys
             var skin = Program.Database.GetSkin(character);
 
             // Object Fields
-            SetUpdateField((int)EObjectFields.OBJECT_FIELD_GUID, character.Id);          // Id do Objeto
-            SetUpdateField((int)EObjectFields.OBJECT_FIELD_TYPE, 25);                    // 0x19 Player + Unit + Object
+            SetUpdateField((int)EObjectFields.OBJECT_FIELD_GUID, character.Id);
+            SetUpdateField((int)EObjectFields.OBJECT_FIELD_TYPE, 25);
             SetUpdateField((int)EObjectFields.OBJECT_FIELD_ENTRY, 0);
-            SetUpdateField((int)EObjectFields.OBJECT_FIELD_SCALE_X, GetScale(character));   // Escala do objeto
+            SetUpdateField((int)EObjectFields.OBJECT_FIELD_SCALE_X, GetScale(character));
 
             // Unit Fields
             SetUpdateField((int)EUnitFields.UNIT_CHANNEL_SPELL, 0);
             SetUpdateField((int)EUnitFields.UNIT_FIELD_CHANNEL_OBJECT, 0);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_HEALTH, GetHealth(character));                    // Se logou agora o Current = Maximum          
-            //SetUpdateField((int)EUnitFields.UNIT_FIELD_POWER1, this.Mana.Current);
+
+            SetUpdateField((int)EUnitFields.UNIT_FIELD_HEALTH, 120);
+            SetUpdateField((int)EUnitFields.UNIT_FIELD_POWER1, 1000);
             SetUpdateField((int)EUnitFields.UNIT_FIELD_POWER2, 1000);
-            //SetUpdateField((int)EUnitFields.UNIT_FIELD_POWER3, this.Focus.Current);
-            //SetUpdateField((int)EUnitFields.UNIT_FIELD_POWER4, this.Energy.Current);
+            SetUpdateField((int)EUnitFields.UNIT_FIELD_POWER3, 1000);
+            SetUpdateField((int)EUnitFields.UNIT_FIELD_POWER4, 1000);
 
 
             SetUpdateField((int)EUnitFields.UNIT_FIELD_MAXHEALTH, GetAttribute(character, "health"));

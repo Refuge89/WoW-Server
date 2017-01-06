@@ -77,8 +77,8 @@
   <ItemGroup>
     <Compile Include="Game\Entitys\PlayerEntity.cs" />
     <Compile Include="Game\Entitys\WorldEntity.cs" />
+    <Compile Include="Game\UpdateObject.cs" />
     <Compile Include="Game\Update\ObjectGuid.cs" />
-    <Compile Include="Game\World.cs" />
     <Compile Include="Handlers\AuthHandler.cs" />
     <Compile Include="Handlers\CharHandler.cs" />
     <Compile Include="Handlers\ChatHandler.cs" />
@@ -113,7 +113,9 @@
       <Name>Framework</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Game\Objects\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.104.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.104.0\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

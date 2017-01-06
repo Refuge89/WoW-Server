@@ -53,7 +53,7 @@ namespace World_Server.Handlers
     {
         public SmsgAuthResponse() : base(WorldOpcodes.SMSG_AUTH_RESPONSE)
         {
-            Write((byte) ResponseCodes.AUTH_OK);
+            Write((byte)LoginErrorCode.AUTH_OK);
         }
     }
 

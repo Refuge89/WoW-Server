@@ -10,10 +10,10 @@ namespace Auth_Server.Managers
     public class DatabaseManager : BaseModel<Models>
     {
         // Pega lista de Realms
-        public List<Realms> GetRealms() => this.model.Realms.Select(row => row).ToList();
+        public List<Realms> GetRealms() => model.Realms.Select(row => row).ToList();
 
         // Pega conta do usuario baseado no login
-        public Users GetAccount(string username) => !this.model.Users.Any() ? null : model.Users.FirstOrDefault(a => a.username.ToLower() == username.ToLower());
+        public Users GetAccount(string username) => !model.Users.Any() ? null : model.Users.FirstOrDefault(a => a.username.ToLower() == username.ToLower());
 
         // Retorna os chars do player por realm
         public int CountUserRealmCharacter(string username, Realms realm)
@@ -23,7 +23,7 @@ namespace Auth_Server.Managers
         }
 
         // Conta quantidade de chars no realm
-        public int CountRealmCharacter(Realms realms) => this.model.Characters.Count(row => row.Realms == realms);
+        public int CountRealmCharacter(Realms realms) => model.Characters.Count(row => row.Realms == realms);
 
         // Define a sessionkey do usuario autenticado
         public async Task<Users> SetSessionKey(string username, byte[] key)
@@ -32,7 +32,7 @@ namespace Auth_Server.Managers
 
             using (var scope = new DataAccessScope())
             {
-                var user = this.model.Users.GetReference(account.Id);
+                var user = model.Users.GetReference(account.Id);
                 user.sessionkey = key;
                 await scope.CompleteAsync();
             }

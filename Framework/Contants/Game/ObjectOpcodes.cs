@@ -12,6 +12,7 @@ namespace Framework.Contants.Game
         UPDATETYPE_NEAR_OBJECTS                     = 5,
     }
 
+    [Flags]
     public enum TypeID : byte
     {
         TYPEID_OBJECT                               = 0,

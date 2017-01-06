@@ -60,13 +60,13 @@ namespace Auth_Server.Managers
             {
                 session.Srp = new SRP(_user.username.ToUpper(), _user.password.ToUpper());
                 session.sendData(new PsAuthLogonChallange(session.Srp, AuthServerResult.AccountBanned));
+                return;
             }
 
             // Check User Pass
             session.AccountName = packet.Name;
             session.Srp = new SRP(_user.username.ToUpper(), _user.password.ToUpper());
             session.sendData(new PsAuthLogonChallange(session.Srp, AuthServerResult.Success));
-            return;
         }
 
         private static async void OnLogonProof(AuthSession session, PcAuthLogonProof packet)
