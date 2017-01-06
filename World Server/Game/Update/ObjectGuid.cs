@@ -34,39 +34,70 @@ namespace World_Server.Game.Update
 
     public class ObjectGuid
     {
-        private static readonly Dictionary<TypeID, uint> Indexes = new Dictionary<TypeID, uint>();
+        private static Dictionary<TypeID, uint> Indexes = new Dictionary<TypeID, uint>();
 
-        public static ObjectGuid GetGameObjectGuid()
+
+        public static ObjectGuid GetUnitGUID()
         {
-            return new ObjectGuid(TypeID.TYPEID_OBJECT, HighGUID.HIGHGUID_MO_TRANSPORT);
+            return new ObjectGuid(TypeID.TYPEID_UNIT, HighGUID.HIGHGUID_UNIT);
+        }
+
+        public static ObjectGuid GetUnitGUID(uint low)
+        {
+            return new ObjectGuid(low, TypeID.TYPEID_UNIT, HighGUID.HIGHGUID_UNIT);
+        }
+
+        public static ObjectGuid GetGameObjectGUID()
+        {
+            return new ObjectGuid(TypeID.TYPEID_GAMEOBJECT, HighGUID.HIGHGUID_GAMEOBJECT);
+        }
+
+        public static ObjectGuid GetGameObjectGUID(uint index)
+        {
+            return new ObjectGuid(index, TypeID.TYPEID_OBJECT, HighGUID.HIGHGUID_MO_TRANSPORT);
         }
 
         private static uint GetIndex(TypeID type)
         {
-            if (!Indexes.ContainsKey(type)) Indexes.Add(type, 0);
+            if (!Indexes.ContainsKey(type)) Indexes.Add(type, 1);
 
             return Indexes[type]++;
         }
 
         // ----------------------------------------------------------------------------
 
-        public ulong RawGuid { get; private set; }
-        public uint Low => (uint) (RawGuid & (ulong) 0x0000000000FFFFFF);
+        public ulong RawGUID { get; private set; }
+        public uint Low { get { return (uint)(RawGUID & (ulong)0x0000000000FFFFFF); } }
 
-        public ObjectGuid(ulong guid)
+        public TypeID TypeID { get; private set; }
+        public HighGUID HighGUID { get; private set; }
+
+        public ObjectGuid(ulong GUID)
         {
-            RawGuid = guid;
+            RawGUID = GUID;
         }
 
         public ObjectGuid(uint index, TypeID type, HighGUID high)
         {
-            RawGuid = index | ((ulong) type << 24) | ((ulong) high << 48);
+            TypeID = type;
+            HighGUID = high;
+
+            RawGUID = (ulong)((ulong)index |
+                      ((ulong)type << 24) |
+                      ((ulong)high << 48));
         }
 
-        public ObjectGuid(TypeID type, HighGUID high) : this(GetIndex(type), type, high)
+        public ObjectGuid(TypeID type, HighGUID high) : this(GetIndex(type), type, high) { }
+
+
+        public TypeID GetId()
         {
-
+            return (TypeID)((RawGUID >> 24) & 0xFFFFF);
         }
 
+        public HighGUID GetGuidType()
+        {
+            return (HighGUID)(RawGUID >> 48);
+        }
     }
 }

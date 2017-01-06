@@ -6,6 +6,7 @@ using World_Server.Game.Entitys;
 using World_Server.Sessions;
 using World_Server.Handlers.World;
 using static World_Server.Program;
+using World_Server.Game;
 
 namespace World_Server.Handlers
 {
@@ -84,11 +85,11 @@ namespace World_Server.Handlers
     {
         public SmsgSpellGo(Character caster, Character target, uint spellId) : base(WorldOpcodes.SMSG_SPELL_GO)
         {
-            byte[] casterGUID = PSUpdateObject.GenerateGuidBytes((ulong)caster.Id);
-            byte[] targetGUID = PSUpdateObject.GenerateGuidBytes((ulong)target.Id);
+            byte[] casterGUID = UpdateObject.GenerateGuidBytes((ulong)caster.Id);
+            byte[] targetGUID = UpdateObject.GenerateGuidBytes((ulong)target.Id);
 
-            PSUpdateObject.WriteBytes(this, casterGUID);
-            PSUpdateObject.WriteBytes(this, casterGUID);
+            UpdateObject.WriteBytes(this, casterGUID);
+            UpdateObject.WriteBytes(this, casterGUID);
 
             Write((UInt32)spellId);
             Write((UInt16)SpellCastFlags.CAST_FLAG_UNKNOWN9); // Cast Flags!?
@@ -96,7 +97,7 @@ namespace World_Server.Handlers
             Write((UInt64)target.Id);
             Write((Byte)0); // End
             Write((UInt16)2); // TARGET_FLAG_UNIT
-            PSUpdateObject.WriteBytes(this, targetGUID); // Packed GUID
+            UpdateObject.WriteBytes(this, targetGUID); // Packed GUID
         }
     }
     #endregion

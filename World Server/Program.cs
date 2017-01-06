@@ -18,6 +18,9 @@ namespace World_Server
 
         public static DatabaseManager Database;
 
+        public static UnitComponent UnitComponent { get; private set; }
+        //public static GameObjectComponent GameObjectComponent { get; private set; }
+
         static void Main()
         {
             var time = Time.getMSTime();
@@ -30,21 +33,22 @@ namespace World_Server
             Log.Print("World Server", $"Running on .NET Framework Version {Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}", ConsoleColor.Green);
 
             var worldPoint = new IPEndPoint(IPAddress.Any, 1001);
-
-            // First Load DBC Files
             DBCManager.Boot();
-
-            // Iniciando World
             World = new WorldServer();
 
-            // Inicia Conexao
             if (World.Start(worldPoint))
             {
-                // Iniciando Database
                 Database = new DatabaseManager();
 
-                // Initilizing Handlers
+                // Handlers
                 HandlerManager.Boot();
+                PlayerManager.Boot();
+
+                // World Spawn
+
+                new WorldManager();
+                UnitComponent = new UnitComponent();
+                //GameObjectComponent = new GameObjectComponent();
 
                 Log.Print("World Server", $"Server is now listening at {worldPoint.Address}:{worldPoint.Port}", ConsoleColor.Green);
                 Log.Print("World Server", $"Successfully started in {Time.getMSTimeDiff(time, Time.getMSTime()) / 1000}s", ConsoleColor.Green);

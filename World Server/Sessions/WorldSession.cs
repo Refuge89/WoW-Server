@@ -8,9 +8,9 @@ using Framework.Database.Tables;
 using Framework.Helpers;
 using Framework.Network;
 using Framework.Sessions;
-using World_Server.Game.Entitys;
 using World_Server.Handlers;
 using World_Server.Helpers;
+using World_Server.Game.Entitys;
 
 namespace World_Server.Sessions
 {
@@ -22,11 +22,28 @@ namespace World_Server.Sessions
         public Character Target;
 
         public uint OutOfSyncDelay { get; set; }
+        public PlayerEntity Entity;
+
+        #region SMSG_AUTH_CHALLENGE
+        sealed class SmsgAuthChallenge : ServerPacket
+        {
+            private readonly uint serverSeed = (uint)(new Random().Next(0, Int32.MaxValue));
+
+            public SmsgAuthChallenge() : base(WorldOpcodes.SMSG_AUTH_CHALLENGE)
+            {
+                Write(1);
+                Write(serverSeed);
+                Write(0);
+                Write(0);
+                Write(0);
+                Write(0);
+            }
+        }
+        #endregion
 
         public WorldSession(int connectionId, Socket connectionSocket) : base(connectionId, connectionSocket)
         {
-            //sendPacket(WorldOpcodes.SMSG_AUTH_CHALLENGE, new byte[] { 0x33, 0x18, 0x34, 0xC8 });
-            sendPacket(WorldOpcodes.SMSG_AUTH_CHALLENGE, new byte[] { 0x31, 0x18, 0x34, 0xC8 });
+            sendPacket(new SmsgAuthChallenge());
         }
 
         public void sendPacket(ServerPacket packet)
@@ -51,7 +68,6 @@ namespace World_Server.Sessions
                              .ToArray();
         }
 
-
         public void sendPacket(WorldOpcodes opcode, byte[] data)
         {
             sendPacket((int)opcode, data);
@@ -65,7 +81,7 @@ namespace World_Server.Sessions
             writer.Write(header);
             writer.Write(data);
 
-            Log.Print("World Server", $"Server -> Client [{(WorldOpcodes)opcode}] [0x{opcode.ToString("X")}]", ConsoleColor.Green);
+            //Log.Print("World Server", $"Server -> Client [{(WorldOpcodes)opcode}] [0x{opcode.ToString("X")}]", ConsoleColor.Green);
 
             sendData(((MemoryStream)writer.BaseStream).ToArray());
         }
@@ -86,7 +102,7 @@ namespace World_Server.Sessions
 
                 byte[] packetDate = new byte[length];
                 Array.Copy(data, index + 6, packetDate, 0, length - 4);
-                Log.Print("World Server", $"Server <- Client [{code}] Packet Length: {length}", ConsoleColor.Green);
+                //Log.Print("World Server", $"Server <- Client [{code}] Packet Length: {length}", ConsoleColor.Green);
 
                 WorldDataRouter.CallHandler(this, code, packetDate);
 

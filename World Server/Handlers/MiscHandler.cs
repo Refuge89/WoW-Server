@@ -19,11 +19,28 @@ namespace World_Server.Handlers
     }
     #endregion
 
+    #region CMSG_AREATRIGGER
+    public class CmsgAreatrigger : PacketReader
+    {
+        public uint TriggerID { get; private set; }
+
+        public CmsgAreatrigger(byte[] data) : base(data)
+        {
+            TriggerID = ReadUInt32();
+        }
+    }
+    #endregion
+
     public class MiscHandler
     {
         internal static void OnQueryTime(WorldSession session, byte[] data)
         {
             session.sendPacket(new SmsgQueryTimeResponse());
+        }
+
+        internal static void OnAreaTrigger(WorldSession session, CmsgAreatrigger handler)
+        {
+            session.SendMessage($"[AreaTrigger] ID: {handler.TriggerID}");
         }
     }
 }

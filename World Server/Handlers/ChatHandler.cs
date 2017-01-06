@@ -135,7 +135,7 @@ namespace World_Server.Handlers
         internal static void OnTextEmote(WorldSession session, CmsgTextEmote handler)
         {
             // Implementar alguns emotes na unha ?!?!?!?!?!?
-            Program.WorldServer.TransmitToAll(new SmsgTextEmote((int)session.Character.Id, (int)handler.EmoteId, (int)handler.TextId));
+            Program.WorldServer.TransmitToAll(new SmsgTextEmote(session.Character.Id, (int)handler.EmoteId, (int)handler.TextId));
         }
 
         internal static void OnMessageChat(WorldSession session, CmsgMessagechat handler)

@@ -8,16 +8,17 @@ using System.IO;
 using World_Server.Game.Entitys;
 using Framework.Contants.Character;
 using Framework.Contants.Game;
-using World_Server.Sessions;
+using World_Server.Game.Update;
 
 namespace World_Server.Handlers.World
 {
+    /*
     public class PSUpdateObject : ServerPacket
     {
-        public PSUpdateObject(List<byte[]> blocks) : base(WorldOpcodes.SMSG_UPDATE_OBJECT)
+        public PSUpdateObject(List<byte[]> blocks, int hasTansport = 0) : base(WorldOpcodes.SMSG_UPDATE_OBJECT)
         {
             Write((uint)blocks.Count());
-            Write((byte)0);
+            Write((byte)hasTansport);
             blocks.ForEach(b => Write(b));
         }
 
@@ -52,8 +53,7 @@ namespace World_Server.Handlers.World
                 writer.Write(data, 0, count);
         }
 
-
-        public static PSUpdateObject CreateOwnCharacterUpdate(Character character, CmsgPlayerLogin packet)
+        public static PSUpdateObject CreateOwnCharacterUpdate(Character character, out PlayerEntity entity)//, CmsgPlayerLogin packet)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
@@ -91,7 +91,9 @@ namespace World_Server.Handlers.World
 
             writer.Write(0x1); // Unkown...
 
-            new PlayerEntity(character).WriteUpdateFields(writer);
+            entity = new PlayerEntity(character);
+            entity.GUID = new ObjectGuid((ulong)character.Id);
+            entity.WriteUpdateFields(writer);
 
             return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
         }
@@ -138,15 +140,6 @@ namespace World_Server.Handlers.World
 
             return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
         }
-
-        public static byte[] StringToByteArray(string hex)
-        {
-            hex = hex.Replace(" ", "");
-
-            return Enumerable.Range(0, hex.Length)
-                             .Where(x => x % 2 == 0)
-                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
-                             .ToArray();
-        }
     }
+    */
 }

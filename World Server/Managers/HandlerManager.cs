@@ -53,10 +53,12 @@ namespace World_Server.Managers
 
             // Misc Opcodes
             WorldDataRouter.AddHandler(WorldOpcodes.CMSG_QUERY_TIME, MiscHandler.OnQueryTime);
+            WorldDataRouter.AddHandler<CmsgAreatrigger>(WorldOpcodes.CMSG_AREATRIGGER, MiscHandler.OnAreaTrigger);
 
             // Chat opcodes
             WorldDataRouter.AddHandler<CmsgJoinChannel>(WorldOpcodes.CMSG_JOIN_CHANNEL, ChatHandler.OnJoinChannel);
             WorldDataRouter.AddHandler<CmsgJoinChannel>(WorldOpcodes.CMSG_LEAVE_CHANNEL, ChatHandler.OnLeaveChannel);
+            //WorldDataRouter.AddHandler<CmsgJoinChannel>(WorldOpcodes.CMSG_CHANNEL_LIST, ChatHandler.OnListChannel);
             WorldDataRouter.AddHandler<CmsgMessagechat>(WorldOpcodes.CMSG_MESSAGECHAT, ChatHandler.OnMessageChat);
             WorldDataRouter.AddHandler<CmsgTextEmote>(WorldOpcodes.CMSG_TEXT_EMOTE, ChatHandler.OnTextEmote);
 

@@ -6,6 +6,8 @@ using Framework.Contants.Character;
 using Framework.Contants;
 using World_Server.Handlers.World;
 using World_Server.Helpers;
+using World_Server.Game;
+using Framework.Extensions;
 
 namespace World_Server.Handlers
 {
@@ -85,14 +87,13 @@ namespace World_Server.Handlers
     {
         public PsMovement(WorldSession session, MsgMoveInfo handler, WorldOpcodes opcode) : base(opcode)
         {
-            var correctedMoveTime = (uint)Environment.TickCount;
-            var packedGuid = PSUpdateObject.GenerateGuidBytes((ulong)session.Character.Id);
+            byte[] packedGUID = UpdateObject.GenerateGuidBytes((ulong)session.Character.Id);
+            UpdateObject.WriteBytes(this, packedGUID);
+            UpdateObject.WriteBytes(this, (handler.BaseStream as MemoryStream).ToArray());
 
-            PSUpdateObject.WriteBytes(this, packedGuid);
-            PSUpdateObject.WriteBytes(this, (handler.BaseStream as MemoryStream)?.ToArray());
             // We then overwrite the original moveTime (sent from the client) with ours
-            ((MemoryStream)BaseStream).Position = 4 + packedGuid.Length;
-            PSUpdateObject.WriteBytes(this, BitConverter.GetBytes(handler.Time));
+            (BaseStream as MemoryStream).Position = 4 + packedGUID.Length;
+            UpdateObject.WriteBytes(this, BitConverter.GetBytes((uint)Environment.TickCount));
         }
     }
     #endregion
@@ -104,8 +105,7 @@ namespace World_Server.Handlers
         internal static void HandleZoneUpdate(WorldSession session, CmsgZoneupdate handler)
         {
             session.Character.MapZone = (int)handler.ZoneId;
-
-            Console.WriteLine($"[ZoneUpdate] ID: {handler.ZoneId}");
+            session.SendMessage($"[ZoneUpdate] ID: {handler.ZoneId}");
         }
 
         internal static void OnMoveTimeSkipped(WorldSession session, CmsgMoveTimeSkipped handler)
