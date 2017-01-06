@@ -13,7 +13,7 @@
 
         public bool Match(byte race, byte _class, byte gender)
         {
-            return this.Race == race && this.Class == _class && this.Sex == gender;
+            return Race == race && Class == _class && Sex == gender;
         }
     }
 }

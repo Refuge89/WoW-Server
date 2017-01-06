@@ -111,7 +111,12 @@
     <Compile Include="DBC\DBReader.cs" />
     <Compile Include="DBC\DBReaderExtensions.cs" />
     <Compile Include="DBC\Structs\AreaTable.cs" />
+    <Compile Include="DBC\Structs\BankBagSlotPrices.cs" />
+    <Compile Include="DBC\Structs\CharBaseInfo.cs" />
     <Compile Include="DBC\Structs\CharStartOutfit.cs" />
+    <Compile Include="DBC\Structs\ChrRaces.cs" />
+    <Compile Include="DBC\Structs\EmotesText.cs" />
+    <Compile Include="DBC\Structs\FactionTemplate.cs" />
     <Compile Include="Extensions\BinaryWriterExtension.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Helpers\Log.cs" />

@@ -37,7 +37,7 @@ namespace Framework.Sessions
             try
             {
                 Log.Print(LogType.Framework, "User Disconnected");
-                ConnectionSocket.Shutdown(SocketShutdown.Both);
+                //ConnectionSocket.Shutdown(SocketShutdown.Both);
                 ConnectionSocket.Close();
             }
             catch (Exception socketException)
