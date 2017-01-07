@@ -20,7 +20,7 @@ namespace World_Server.Handlers
     #endregion
 
     #region CMSG_AREATRIGGER
-    public class CmsgAreatrigger : PacketReader
+    public sealed class CmsgAreatrigger : PacketReader
     {
         public uint TriggerId { get; private set; }
 

@@ -81,9 +81,6 @@ namespace World_Server.Game
             byte[] guidBytes = GenerateGuidBytes(player.ObjectGuid.RawGuid);
             WriteBytes(writer, guidBytes, guidBytes.Length);
 
-            //player.SetUpdateField<float>((int)EObjectFields.OBJECT_FIELD_SCALE_X, (float)20f);
-            //player.SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_ROTATION, (float)1f);
-            //player.SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_DISPLAYID, (uint)10);
             player.WriteUpdateFields(writer);
 
             return new UpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream)?.ToArray() }, (player is PlayerEntity) ? 0 : 1);

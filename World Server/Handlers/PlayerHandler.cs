@@ -98,7 +98,7 @@ namespace World_Server.Handlers
     #endregion
 
     #region SMSG_PLAY_SOUND
-    internal class SmsgPlaySound : ServerPacket
+    internal sealed class SmsgPlaySound : ServerPacket
     {
         public SmsgPlaySound(uint soundId) : base(WorldOpcodes.SMSG_PLAY_SOUND)
         {

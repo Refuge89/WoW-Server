@@ -1,10 +1,10 @@
 ﻿using System;
 using Framework.Contants;
 using Framework.Database.Tables;
+using Framework.Extensions;
 using Framework.Network;
 using World_Server.Sessions;
 using static World_Server.Program;
-using World_Server.Game;
 
 namespace World_Server.Handlers
 {
@@ -14,7 +14,7 @@ namespace World_Server.Handlers
     {
         public SmsgInitialSpells(Character character) : base(WorldOpcodes.SMSG_INITIAL_SPELLS)
         {
-            var spells = Program.Database.GetSpells(character);
+            var spells = Database.GetSpells(character);
 
             Write((byte)0);           
             Write((ushort)(spells.Count));
@@ -68,12 +68,12 @@ namespace World_Server.Handlers
     #endregion
 
     #region SMSG_LEARNED_SPELL
-    class SmsgLearnedSpell : ServerPacket
+    sealed class SmsgLearnedSpell : ServerPacket
     {
         public SmsgLearnedSpell(uint spellId) : base(WorldOpcodes.SMSG_LEARNED_SPELL)
         {
-            Write((uint)spellId);
-            Write((UInt16)0);
+            Write(spellId);
+            Write((ushort)0);
         }
     }
     #endregion 
@@ -83,19 +83,16 @@ namespace World_Server.Handlers
     {
         public SmsgSpellGo(Character caster, Character target, uint spellId) : base(WorldOpcodes.SMSG_SPELL_GO)
         {
-            byte[] casterGuid = UpdateObject.GenerateGuidBytes((ulong)caster.Id);
-            byte[] targetGuid = UpdateObject.GenerateGuidBytes((ulong)target.Id);
+            this.WritePackedUInt64((ulong)caster.Id);
+            this.WritePackedUInt64((ulong)target.Id);
 
-            UpdateObject.WriteBytes(this, casterGuid);
-            UpdateObject.WriteBytes(this, casterGuid);
-
-            Write((UInt32)spellId);
-            Write((UInt16)SpellCastFlags.CastFlagUnknown9); // Cast Flags!?
-            Write((Byte)1); // Target Length
-            Write((UInt64)target.Id);
-            Write((Byte)0); // End
-            Write((UInt16)2); // TARGET_FLAG_UNIT
-            UpdateObject.WriteBytes(this, targetGuid); // Packed GUID
+            Write(spellId);
+            Write((ushort)SpellCastFlags.CastFlagUnknown9); // Cast Flags!?
+            Write((byte)1); // Target Length
+            Write(target.Id);
+            Write((byte)0); // End
+            Write((ushort)2); // TARGET_FLAG_UNIT
+            this.WritePackedUInt64((ulong)target.Id);
         }
     }
     #endregion
@@ -111,14 +108,14 @@ namespace World_Server.Handlers
         CastFlagAmmo              = 0x00000020, // Projectiles visual
         CastFlagUnknown7          = 0x00000040, // !0x41 mask used to call CGTradeSkillInfo::DoRecast
         CastFlagUnknown8          = 0x00000080,
-        CastFlagUnknown9          = 0x00000100,
-    };
+        CastFlagUnknown9          = 0x00000100
+    }
 
     class SpellHandler
     {
         internal static void HandleCastSpellOpcode(WorldSession session, CmsgCastSpell handler)
         {
-            Character target = (session.Target == null) ? session.Character : session.Target;
+            Character target = session.Target ?? session.Character;
 
             WorldServer.TransmitToAll(new SmsgSpellGo(session.Character, target, handler.SpellId));
             session.SendPacket(new SmsgCastFailed(handler.SpellId));

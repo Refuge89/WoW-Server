@@ -19,7 +19,7 @@ namespace World_Server.Managers
     {
         public static ConcurrentDictionary<uint, CharStartOutfit> CharStartOutfit;
         public static ConcurrentDictionary<uint, AreaTable> AreaTable;
-        public static ConcurrentDictionary<uint, ChrRaces> ChrRaces;
+        public static ConcurrentDictionary<int, ChrRaces> ChrRaces;
 
         static DatabaseManager()
         {
@@ -27,7 +27,7 @@ namespace World_Server.Managers
 
             CharStartOutfit = DBReader.Read<uint, CharStartOutfit>("CharStartOutfit.dbc", "ID");
             AreaTable = DBReader.Read<uint, AreaTable>("AreaTable.dbc", "Id");
-            ChrRaces = DBReader.Read<uint, ChrRaces>("ChrRaces.dbc", "m_ID");
+            ChrRaces = DBReader.Read<int, ChrRaces>("ChrRaces.dbc", "Id");
         }
 
         internal void CreateChar(CmsgCharCreate handler, Users users)

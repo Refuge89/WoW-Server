@@ -35,10 +35,5 @@ namespace World_Server.Managers
 
             return sessions;
         }
-
-        public static List<PlayerEntity> PlayersWhoKnowUnit(UnitEntity unit)
-        {
-            return PlayerManager.Players.FindAll(p => p.KnownUnits.Contains(unit));
-        }
     }
 }

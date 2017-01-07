@@ -147,7 +147,7 @@ namespace World_Server.Handlers
                     string[] splitMessage = handler.Message.Split(' ');
                     if (splitMessage.Length == 2)
                     {
-                        if (splitMessage[0].ToLower() == "spell")
+                        if (splitMessage[0].ToLower() == "spell" && splitMessage[1] != "")
                             session.SendPacket(new SmsgLearnedSpell((uint)int.Parse(splitMessage[1])));
 
                         if (splitMessage[0].ToLower() == "sound")
