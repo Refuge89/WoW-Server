@@ -45,6 +45,9 @@ namespace World_Server.Managers
             //Character Opcodes
             WorldDataRouter.AddHandler<CmsgSetSelection>(WorldOpcodes.CMSG_SET_SELECTION, CharHandler.OnSetSelectionPacket);
 
+            //Item opcodes
+            WorldDataRouter.AddHandler<CmsgItemQuerySingle>(WorldOpcodes.CMSG_ITEM_QUERY_SINGLE, ItemHandler.OnItemQuerySingle);
+
 
             // CMSG_REQUEST_RAID_INFO => Aqui verifica se esta em raid group
 

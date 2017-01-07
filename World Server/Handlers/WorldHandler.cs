@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +8,9 @@ using Framework.Contants;
 using Framework.Network;
 using World_Server.Sessions;
 using Framework.Database.Tables;
+using Framework.DBC.Structs;
+using Framework.Extensions;
 using World_Server.Managers;
-using World_Server.Game.Entitys;
 using World_Server.Game;
 
 namespace World_Server.Handlers
@@ -72,6 +74,26 @@ namespace World_Server.Handlers
     }
     #endregion
 
+    #region SMSG_INITIALIZE_FACTIONS
+
+    sealed class SmsgInitializeFactions : ServerPacket
+    {
+        public SmsgInitializeFactions() : base(WorldOpcodes.SMSG_INITIALIZE_FACTIONS)
+        {
+            ConcurrentDictionary<uint, FactionTemplate> factions = DatabaseManager.FactionTemplate;
+
+            Write((uint) factions.Count);
+            for (int i = 0; i < factions.Count; i++)
+            {
+                Write((byte)1);
+                Write((byte)1);
+                Write((byte)1);
+                Write((byte)1);
+            }
+        }
+    }
+    #endregion
+
     class WorldHandler
     {
         public static Dictionary<WorldSession, DateTime> LogoutQueue;
@@ -124,6 +146,7 @@ namespace World_Server.Handlers
             session.SendPacket(new SmsgTutorialFlags());
             session.SendPacket(new SmsgInitialSpells(session.Character));
             session.SendPacket(new SmsgActionButtons(session.Character));
+            session.SendPacket(new SmsgInitializeFactions());
         }
 
         private static void Update()

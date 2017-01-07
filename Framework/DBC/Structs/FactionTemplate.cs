@@ -2,52 +2,52 @@
 {
     public class FactionTemplate
     {
-        public uint m_ID;
-        public int m_faction;
-        public int m_factionGroup;
-        public int m_friendGroup;
-        public int m_enemyGroup;
-        public int[] m_enemies = new int[4];
-        public int[] m_friend = new int[4];
+        public uint Id;
+        public int Faction;
+        public int FactionGroup;
+        public int FriendGroup;
+        public int EnemyGroup;
+        public int[] Enemies = new int[4];
+        public int[] Friend = new int[4];
 
         public bool IsFriendlyTo(FactionTemplate entry)
         {
-            if (entry.m_faction > 0)
+            if (entry.Faction > 0)
             {
                 for (int i = 0; i < 4; ++i)
-                    if (m_enemies[i] == entry.m_faction)
+                    if (Enemies[i] == entry.Faction)
                         return false;
                 for (int i = 0; i < 4; ++i)
-                    if (m_friend[i] == entry.m_faction)
+                    if (Friend[i] == entry.Faction)
                         return true;
             }
 
-            return (m_friendGroup & entry.m_factionGroup) == entry.m_factionGroup ||
-                   (m_factionGroup & entry.m_friendGroup) == entry.m_friendGroup;
+            return (FactionGroup & entry.FactionGroup) == entry.FactionGroup ||
+                   (FactionGroup & entry.FriendGroup) == entry.FriendGroup;
         }
 
         public bool IsEnemyTo(FactionTemplate entry)
         {
-            if (entry.m_faction > 0)
+            if (entry.Faction > 0)
             {
                 for (int i = 0; i < 4; ++i)
-                    if (m_enemies[i] == entry.m_faction)
+                    if (Enemies[i] == entry.Faction)
                         return true;
                 for (int i = 0; i < 4; ++i)
-                    if (m_friend[i] == entry.m_faction)
+                    if (Friend[i] == entry.Faction)
                         return false;
             }
 
-            return (m_enemyGroup & entry.m_factionGroup) == m_enemyGroup;
+            return (EnemyGroup & entry.FactionGroup) == EnemyGroup;
         }
 
         public bool NeutralToAll()
         {
             for (int i = 0; i < 4; ++i)
-                if (m_enemies[i] != 0)
+                if (Enemies[i] != 0)
                     return false;
 
-            return m_enemyGroup == 0 && m_friendGroup == 0;
+            return EnemyGroup == 0 && FriendGroup == 0;
         }
     }
 }

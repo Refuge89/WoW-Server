@@ -75,6 +75,7 @@
     <Compile Include="Handlers\CharHandler.cs" />
     <Compile Include="Handlers\ChatHandler.cs" />
     <Compile Include="Handlers\InternalHandler.cs" />
+    <Compile Include="Handlers\ItemHandler.cs" />
     <Compile Include="Handlers\MiscHandler.cs" />
     <Compile Include="Handlers\MovementHandler.cs" />
     <Compile Include="Handlers\PlayerHandler.cs" />
