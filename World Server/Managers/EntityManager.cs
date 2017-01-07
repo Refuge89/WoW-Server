@@ -29,9 +29,9 @@ namespace World_Server.Managers
 
         public static List<WorldSession> SessionsWhoKnow(PlayerEntity player, bool includeSelf = false)
         {
-            List<WorldSession> sessions = PlayersWhoKnow(player).ConvertAll<WorldSession>(p => p.Session);
+            List<WorldSession> sessions = PlayersWhoKnow(player).ConvertAll(p => p.Session);
 
-            if (includeSelf == true) sessions.Add(player.Session);
+            if (includeSelf) sessions.Add(player.Session);
 
             return sessions;
         }

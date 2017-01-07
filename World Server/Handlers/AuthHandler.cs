@@ -67,7 +67,7 @@ namespace World_Server.Handlers
             session.Users = Program.Database.GetAccount(handler.AccountName);
             session.Crypt = new VanillaCrypt();
             session.Crypt.Init(session.Users.sessionkey);
-            session.sendPacket(new SmsgAuthResponse());
+            session.SendPacket(new SmsgAuthResponse());
         }
 
         internal static void OnUpdateaccountData(WorldSession session, CmsgUpdateAccountData handler)

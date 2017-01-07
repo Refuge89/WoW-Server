@@ -5,7 +5,6 @@ using System.Net.Sockets;
 using Framework.Contants;
 using Framework.Crypt;
 using Framework.Database.Tables;
-using Framework.Helpers;
 using Framework.Network;
 using Framework.Sessions;
 using World_Server.Handlers;
@@ -27,12 +26,12 @@ namespace World_Server.Sessions
         #region SMSG_AUTH_CHALLENGE
         sealed class SmsgAuthChallenge : ServerPacket
         {
-            private readonly uint serverSeed = (uint)(new Random().Next(0, Int32.MaxValue));
+            private readonly uint _serverSeed = (uint)(new Random().Next(0, int.MaxValue));
 
             public SmsgAuthChallenge() : base(WorldOpcodes.SMSG_AUTH_CHALLENGE)
             {
                 Write(1);
-                Write(serverSeed);
+                Write(_serverSeed);
                 Write(0);
                 Write(0);
                 Write(0);
@@ -43,21 +42,21 @@ namespace World_Server.Sessions
 
         public WorldSession(int connectionId, Socket connectionSocket) : base(connectionId, connectionSocket)
         {
-            sendPacket(new SmsgAuthChallenge());
+            SendPacket(new SmsgAuthChallenge());
         }
 
-        public void sendPacket(ServerPacket packet)
+        public void SendPacket(ServerPacket packet)
         {
-            sendPacket(packet.Opcode, packet.Packet);
+            SendPacket(packet.Opcode, packet.Packet);
         }
 
-        public void sendHexPacket(WorldOpcodes opcde, string hex)
+        public void SendHexPacket(WorldOpcodes opcde, string hex)
         {
             string end = hex.Replace(" ", "").Replace("\n", "");
 
             byte[] data = StringToByteArray(end);
 
-            sendPacket(opcde, data);
+            SendPacket(opcde, data);
         }
 
         public static byte[] StringToByteArray(string hex)
@@ -68,20 +67,18 @@ namespace World_Server.Sessions
                              .ToArray();
         }
 
-        public void sendPacket(WorldOpcodes opcode, byte[] data)
+        public void SendPacket(WorldOpcodes opcode, byte[] data)
         {
-            sendPacket((int)opcode, data);
+            SendPacket((int)opcode, data);
         }
 
-        public void sendPacket(int opcode, byte[] data)
+        public void SendPacket(int opcode, byte[] data)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             byte[] header = Encode(data.Length, opcode);
 
             writer.Write(header);
             writer.Write(data);
-
-            //Log.Print("World Server", $"Server -> Client [{(WorldOpcodes)opcode}] [0x{opcode.ToString("X")}]", ConsoleColor.Green);
 
             sendData(((MemoryStream)writer.BaseStream).ToArray());
         }
@@ -102,8 +99,6 @@ namespace World_Server.Sessions
 
                 byte[] packetDate = new byte[length];
                 Array.Copy(data, index + 6, packetDate, 0, length - 4);
-                //Log.Print("World Server", $"Server <- Client [{code}] Packet Length: {length}", ConsoleColor.Green);
-
                 WorldDataRouter.CallHandler(this, code, packetDate);
 
                 index += 2 + (length - 1);

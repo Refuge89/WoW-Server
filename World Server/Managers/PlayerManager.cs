@@ -1,7 +1,7 @@
-﻿using Framework.Network;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using Framework.Network;
 using World_Server.Game;
 using World_Server.Game.Entitys;
 
@@ -15,8 +15,8 @@ namespace World_Server.Managers
         {
             Players = new List<PlayerEntity>();
 
-            EntityManager.OnPlayerSpawn += new PlayerEvent(OnPlayerSpawn);
-            EntityManager.OnPlayerDespawn += new PlayerEvent(OnPlayerDespawn);
+            EntityManager.OnPlayerSpawn += OnPlayerSpawn;
+            EntityManager.OnPlayerDespawn += OnPlayerDespawn;
 
             new Thread(Update).Start();
         }
@@ -29,9 +29,7 @@ namespace World_Server.Managers
                 if (player == remotePlayer) continue;
 
                 if (remotePlayer.KnownPlayers.Contains(player))
-                {
                     DespawnPlayer(remotePlayer, player);
-                }
             }
 
             Players.Remove(player);
@@ -76,8 +74,8 @@ namespace World_Server.Managers
                         // Generate update packet
                         ServerPacket packet = UpdateObject.UpdateValues(player);
 
-                        player.Session.sendPacket(packet);
-                        EntityManager.SessionsWhoKnow(player).ForEach(s => s.sendPacket(packet));
+                        player.Session.SendPacket(packet);
+                        EntityManager.SessionsWhoKnow(player).ForEach(s => s.SendPacket(packet));
                     }
                 }
 
@@ -87,11 +85,10 @@ namespace World_Server.Managers
 
         private static void DespawnPlayer(PlayerEntity remote, PlayerEntity player)
         {
-            List<ObjectEntity> despawnPlayer = new List<ObjectEntity>();
-            despawnPlayer.Add(player);
+            List<ObjectEntity> despawnPlayer = new List<ObjectEntity> { player };
 
             // Should be sending player entity
-            remote.Session.sendPacket(UpdateObject.CreateOutOfRangeUpdate(despawnPlayer));
+            remote.Session.SendPacket(UpdateObject.CreateOutOfRangeUpdate(despawnPlayer));
 
             // Add it to known players
             remote.KnownPlayers.Remove(player);
@@ -100,7 +97,7 @@ namespace World_Server.Managers
         private static void SpawnPlayer(PlayerEntity remote, PlayerEntity player)
         {
             // Should be sending player entity
-            remote.Session.sendPacket(UpdateObject.CreateCharacterUpdate(player.Character));
+            remote.Session.SendPacket(UpdateObject.CreateCharacterUpdate(player.Character));
 
             // Add it to known players
             remote.KnownPlayers.Add(player);

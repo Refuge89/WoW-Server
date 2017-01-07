@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Reflection;
+using World_Server.Handlers.World;
 using World_Server.Managers;
 using World_Server.Sessions;
 
@@ -33,7 +34,6 @@ namespace World_Server
             Log.Print("World Server", $"Running on .NET Framework Version {Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}", ConsoleColor.Green);
 
             var worldPoint = new IPEndPoint(IPAddress.Any, 1001);
-            DBCManager.Boot();
             World = new WorldServer();
 
             if (World.Start(worldPoint))
@@ -45,10 +45,7 @@ namespace World_Server
                 PlayerManager.Boot();
 
                 // World Spawn
-
-                new WorldManager();
                 UnitComponent = new UnitComponent();
-                //GameObjectComponent = new GameObjectComponent();
 
                 Log.Print("World Server", $"Server is now listening at {worldPoint.Address}:{worldPoint.Port}", ConsoleColor.Green);
                 Log.Print("World Server", $"Successfully started in {Time.getMSTimeDiff(time, Time.getMSTime()) / 1000}s", ConsoleColor.Green);
@@ -63,12 +60,12 @@ namespace World_Server
         public class WorldServer : Server
         {
             public static List<WorldSession> Sessions = new List<WorldSession>();
-            public int connectionID = 0;
+            public int ConnectionId = 0;
 
-            public override Session GenerateSession(int connectionID, System.Net.Sockets.Socket connectionSocket)
+            public override Session GenerateSession(int connectionId, System.Net.Sockets.Socket connectionSocket)
             {
-                connectionID++;
-                WorldSession session = new WorldSession(connectionID, connectionSocket);
+                connectionId++;
+                WorldSession session = new WorldSession(connectionId, connectionSocket);
                 Sessions.Add(session);
 
                 return session;
@@ -76,7 +73,7 @@ namespace World_Server
 
             public static void TransmitToAll(ServerPacket packet)
             {
-                WorldServer.Sessions.FindAll(s => s.Character != null).ForEach(s => s.sendPacket(packet));
+                WorldServer.Sessions.FindAll(s => s.Character != null).ForEach(s => s.SendPacket(packet));
             }
 
             public static WorldSession GetSessionByPlayerName(string playerName)

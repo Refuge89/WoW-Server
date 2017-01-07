@@ -1,6 +1,5 @@
 ﻿namespace Framework.Contants.Game
 {
-
     public enum Emotes
     {
         NONE = 0,

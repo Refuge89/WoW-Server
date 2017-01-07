@@ -1,12 +1,15 @@
-﻿using Framework.Contants.Character;
-using Framework.Database;
-using Framework.Database.Tables;
-using Framework.DBC.Structs;
-using Shaolinq;
-using System;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Framework.Contants.Character;
+using Framework.Database;
+using Framework.Database.Tables;
+using Framework.DBC;
+using Framework.DBC.Structs;
+using Framework.Helpers;
+using Shaolinq;
 using World_Server.Handlers;
 using World_Server.Helpers;
 
@@ -14,18 +17,31 @@ namespace World_Server.Managers
 {
     public class DatabaseManager : BaseModel<Models>
     {
+        public static ConcurrentDictionary<uint, CharStartOutfit> CharStartOutfit;
+        public static ConcurrentDictionary<uint, AreaTable> AreaTable;
+        public static ConcurrentDictionary<uint, ChrRaces> ChrRaces;
+
+        static DatabaseManager()
+        {
+            Log.Print(LogType.Status, "Loading DBCs...");
+
+            CharStartOutfit = DBReader.Read<uint, CharStartOutfit>("CharStartOutfit.dbc", "ID");
+            AreaTable = DBReader.Read<uint, AreaTable>("AreaTable.dbc", "Id");
+            ChrRaces = DBReader.Read<uint, ChrRaces>("ChrRaces.dbc", "m_ID");
+        }
+
         internal void CreateChar(CmsgCharCreate handler, Users users)
         {
             using (var scope = new DataAccessScope())
             {
                 // Selecting Starter Itens Equipament
-                CharStartOutfit startItems = DBCManager.CharStartOutfit.Values.FirstOrDefault(x => x.Match(handler.Race, handler.Class, handler.Gender));
+                CharStartOutfit startItems = CharStartOutfit.Values.FirstOrDefault(x => x.Match(handler.Race, handler.Class, handler.Gender));
 
                 // Selecting char data creation
-                CharacterCreationInfo charStarter = this.GetCharStarter((RaceID)handler.Race);
+                CharacterCreationInfo charStarter = GetCharStarter((RaceID)handler.Race);
 
                 // Salva Char
-                var Char = this.model.Characters.Create();
+                var Char = model.Characters.Create();
                     Char.Users = users;
                     Char.Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(handler.Name);
                     Char.Race = (RaceID)handler.Race;
@@ -45,60 +61,56 @@ namespace World_Server.Managers
                     Char.created_at = DateTime.Now;
 
                 // Salva Skin do Char              
-                var Skin = this.model.CharactersSkin.Create();
-                    Skin.Character = Char;
-                    Skin.Face = handler.Face;
-                    Skin.HairStyle = handler.HairStyle;
-                    Skin.HairColor = handler.HairColor;
-                    Skin.Accessory = handler.Accessory;
+                var skin = model.CharactersSkin.Create();
+                    skin.Character = Char;
+                    skin.Face = handler.Face;
+                    skin.HairStyle = handler.HairStyle;
+                    skin.HairColor = handler.HairColor;
+                    skin.Accessory = handler.Accessory;
 
                 // Helper Skill + Spell + Inventory
-                CharHelper Helper = new CharHelper();
-                Helper.GeraSpells(Char);
-                Helper.GeraSkills(Char);
+                CharHelper helper = new CharHelper();
+                helper.GeraSpells(Char);
+                helper.GeraSkills(Char);
 
                 scope.Complete();
             }
-
-
-
-            return;
         }
 
         public CharacterCreationInfo GetCharStarter(RaceID race)
         {
-            return this.model.CharacterCreationInfo.FirstOrDefault(a => a.Race == race);
+            return model.CharacterCreationInfo.FirstOrDefault(a => a.Race == race);
         }
 
         // Pega conta do usuario baseado no login
-        public Users GetAccount(string username) => !this.model.Users.Any() ? null : model.Users.FirstOrDefault(a => a.username.ToLower() == username.ToLower());
+        public Users GetAccount(string username) => !model.Users.Any() ? null : model.Users.FirstOrDefault(a => a.username.ToLower() == username.ToLower());
 
         public Character GetCharacter(int charId)
         {
-            return this.model.Characters.FirstOrDefault(a => a.Id == charId);
+            return model.Characters.FirstOrDefault(a => a.Id == charId);
         }
 
         public List<Character> GetCharacters(string username)
         {
             Users account = GetAccount(username);
-            return this.model.Characters.Where(a => a.Users == account).ToList();
+            return model.Characters.Where(a => a.Users == account).ToList();
         }
 
         public CharactersSkin GetSkin(Character character)
         {
-            return this.model.CharactersSkin.FirstOrDefault(a => a.Character == character);
+            return model.CharactersSkin.FirstOrDefault(a => a.Character == character);
         }
 
         public WorldItems GetItem(int itemId)
         {
-            return this.model.WorldItems.FirstOrDefault(a => a.itemId == itemId);
+            return model.WorldItems.FirstOrDefault(a => a.itemId == itemId);
         }
 
         public async void DeleteCharacter(int charId)
         {
             using (var scope = new DataAccessScope())
             {
-                await this.model.Characters.Where(a => a.Id == charId).DeleteAsync();
+                await model.Characters.Where(a => a.Id == charId).DeleteAsync();
                 await scope.CompleteAsync();
             }
         }
@@ -139,17 +151,17 @@ namespace World_Server.Managers
 
         internal List<CharactersSkill> GetSkills(Character character)
         {
-            return this.model.CharactersSkill.Where(a => a.character == character).ToList();
+            return model.CharactersSkill.Where(a => a.character == character).ToList();
         }
 
         internal List<CharactersSpells> GetSpells(Character character)
         {
-            return this.model.CharactersSpells.Where(a => a.character == character).ToList();
+            return model.CharactersSpells.Where(a => a.character == character).ToList();
         }
 
         internal List<CharactersActionBar> GetActionBar(Character character)
         {
-            return this.model.CharactersActionBar.Where(a => a.character == character).ToList();
+            return model.CharactersActionBar.Where(a => a.character == character).ToList();
         }
     }
 }

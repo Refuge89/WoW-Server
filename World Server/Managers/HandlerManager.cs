@@ -3,39 +3,11 @@ using Framework.Network;
 using System.Collections.Generic;
 using World_Server.Handlers;
 using World_Server.Helpers;
-using System;
 
 namespace World_Server.Managers
 {
     public class HandlerManager
     {
-        private static readonly List<WorldOpcodes> MovementOpcodes = new List<WorldOpcodes>()
-        {
-            WorldOpcodes.MSG_MOVE_HEARTBEAT,
-            WorldOpcodes.MSG_MOVE_JUMP,
-            WorldOpcodes.MSG_MOVE_START_FORWARD,
-            WorldOpcodes.MSG_MOVE_START_BACKWARD,
-            WorldOpcodes.MSG_MOVE_SET_FACING,
-            WorldOpcodes.MSG_MOVE_STOP,
-            WorldOpcodes.MSG_MOVE_START_STRAFE_LEFT,
-            WorldOpcodes.MSG_MOVE_START_STRAFE_RIGHT,
-            WorldOpcodes.MSG_MOVE_STOP_STRAFE,
-            WorldOpcodes.MSG_MOVE_START_TURN_LEFT,
-            WorldOpcodes.MSG_MOVE_START_TURN_RIGHT,
-            WorldOpcodes.MSG_MOVE_STOP_TURN,
-            WorldOpcodes.MSG_MOVE_START_PITCH_UP,
-            WorldOpcodes.MSG_MOVE_START_PITCH_DOWN,
-            WorldOpcodes.MSG_MOVE_STOP_PITCH,
-            WorldOpcodes.MSG_MOVE_SET_RUN_MODE,
-            WorldOpcodes.MSG_MOVE_SET_WALK_MODE,
-            WorldOpcodes.MSG_MOVE_SET_PITCH,
-            WorldOpcodes.MSG_MOVE_START_SWIM,
-            WorldOpcodes.MSG_MOVE_STOP_SWIM,
-            WorldOpcodes.MSG_MOVE_FALL_LAND,
-            WorldOpcodes.MSG_MOVE_HOVER,
-            WorldOpcodes.MSG_MOVE_KNOCK_BACK
-        };
-
         public static void Boot()
         {
             // Login related opcodes
@@ -113,5 +85,32 @@ namespace World_Server.Managers
 
             // MSG_MOVE_FALL_LAND
         }
+
+        private static readonly List<WorldOpcodes> MovementOpcodes = new List<WorldOpcodes>()
+        {
+            WorldOpcodes.MSG_MOVE_HEARTBEAT,
+            WorldOpcodes.MSG_MOVE_JUMP,
+            WorldOpcodes.MSG_MOVE_START_FORWARD,
+            WorldOpcodes.MSG_MOVE_START_BACKWARD,
+            WorldOpcodes.MSG_MOVE_SET_FACING,
+            WorldOpcodes.MSG_MOVE_STOP,
+            WorldOpcodes.MSG_MOVE_START_STRAFE_LEFT,
+            WorldOpcodes.MSG_MOVE_START_STRAFE_RIGHT,
+            WorldOpcodes.MSG_MOVE_STOP_STRAFE,
+            WorldOpcodes.MSG_MOVE_START_TURN_LEFT,
+            WorldOpcodes.MSG_MOVE_START_TURN_RIGHT,
+            WorldOpcodes.MSG_MOVE_STOP_TURN,
+            WorldOpcodes.MSG_MOVE_START_PITCH_UP,
+            WorldOpcodes.MSG_MOVE_START_PITCH_DOWN,
+            WorldOpcodes.MSG_MOVE_STOP_PITCH,
+            WorldOpcodes.MSG_MOVE_SET_RUN_MODE,
+            WorldOpcodes.MSG_MOVE_SET_WALK_MODE,
+            WorldOpcodes.MSG_MOVE_SET_PITCH,
+            WorldOpcodes.MSG_MOVE_START_SWIM,
+            WorldOpcodes.MSG_MOVE_STOP_SWIM,
+            WorldOpcodes.MSG_MOVE_FALL_LAND,
+            WorldOpcodes.MSG_MOVE_HOVER,
+            WorldOpcodes.MSG_MOVE_KNOCK_BACK
+        };
     }
 }

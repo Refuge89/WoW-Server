@@ -117,19 +117,19 @@ namespace World_Server.Handlers
     {
         public static void SendSytemMessage(WorldSession session, string message)
         {
-            session.sendPacket(new SmsgMessagechat(ChatMessageType.CHAT_MSG_SYSTEM, ChatMessageLanguage.LANG_COMMON, 0, message));
+            session.SendPacket(new SmsgMessagechat(ChatMessageType.CHAT_MSG_SYSTEM, ChatMessageLanguage.LANG_COMMON, 0, message));
         }
 
         internal static void OnJoinChannel(WorldSession session, CmsgJoinChannel handler)
         {
             // Precisa inserir na base que entrou no canal
-            session.sendPacket(new SmsgChannelNotify(ChatChannelNotify.CHAT_YOU_JOINED_NOTICE, (ulong)session.Character.Id, handler.ChannelName));
+            session.SendPacket(new SmsgChannelNotify(ChatChannelNotify.CHAT_YOU_JOINED_NOTICE, (ulong)session.Character.Id, handler.ChannelName));
         }
 
         internal static void OnLeaveChannel(WorldSession session, CmsgJoinChannel handler)
         {
             // remove da base que saiu do canal
-            session.sendPacket(new SmsgChannelNotify(ChatChannelNotify.CHAT_YOU_LEFT_NOTICE, (ulong)session.Character.Id, handler.ChannelName));
+            session.SendPacket(new SmsgChannelNotify(ChatChannelNotify.CHAT_YOU_LEFT_NOTICE, (ulong)session.Character.Id, handler.ChannelName));
         }
 
         internal static void OnTextEmote(WorldSession session, CmsgTextEmote handler)
@@ -148,10 +148,10 @@ namespace World_Server.Handlers
                     if (splitMessage.Length == 2)
                     {
                         if (splitMessage[0].ToLower() == "spell")
-                            session.sendPacket(new SmsgLearnedSpell((uint)int.Parse(splitMessage[1])));
+                            session.SendPacket(new SmsgLearnedSpell((uint)int.Parse(splitMessage[1])));
 
                         if (splitMessage[0].ToLower() == "sound")
-                            session.sendPacket(new SmsgPlaySound((uint)int.Parse(splitMessage[1])));
+                            session.SendPacket(new SmsgPlaySound((uint)int.Parse(splitMessage[1])));
                     }
 
                     Program.WorldServer.TransmitToAll(new SmsgMessagechat(handler.Type, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.Id, handler.Message));

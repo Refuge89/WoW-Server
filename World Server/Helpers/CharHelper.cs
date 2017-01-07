@@ -14,10 +14,10 @@ namespace World_Server.Helpers
             {
                 using (var scope = new DataAccessScope())
                 {
-                    var Spell = this.model.CharactersSpells.Create();
-                        Spell.character = character;
-                        Spell.spell = spellid.id;
-                        Spell.created_at = ServerDateTime.Now;
+                    var spell = this.model.CharactersSpells.Create();
+                        spell.character = character;
+                        spell.spell = spellid.id;
+                        spell.created_at = ServerDateTime.Now;
                     scope.Complete();
                 }
             }
@@ -28,10 +28,10 @@ namespace World_Server.Helpers
             {
                 using (var scope = new DataAccessScope())
                 {
-                    var Spell = this.model.CharactersSpells.Create();
-                        Spell.character = character;
-                        Spell.spell = spellid.id;
-                        Spell.created_at = ServerDateTime.Now;
+                    var spell = this.model.CharactersSpells.Create();
+                        spell.character = character;
+                        spell.spell = spellid.id;
+                        spell.created_at = ServerDateTime.Now;
                     scope.Complete();
                 }
             }
@@ -46,18 +46,16 @@ namespace World_Server.Helpers
                     {
                         using (var scope = new DataAccessScope())
                         {
-                            var Spell = this.model.CharactersSpells.Create();
-                                Spell.character = character;
-                                Spell.spell = spell2Id.id;
-                                Spell.created_at = ServerDateTime.Now;
+                            var spell = this.model.CharactersSpells.Create();
+                                spell.character = character;
+                                spell.spell = spell2Id.id;
+                                spell.created_at = ServerDateTime.Now;
                             scope.Complete();
                         }
                     }
                 }
             }
             #endregion
-
-            return;                    
         }
 
         internal void GeraSkills(Character character)
@@ -67,12 +65,12 @@ namespace World_Server.Helpers
             {
                 using (var scope = new DataAccessScope())
                 {
-                    var Skill = this.model.CharactersSkill.Create();
-                        Skill.character = character;
-                        Skill.skill     = skillId.id;
-                        Skill.Max       = skillId.max;
-                        Skill.value = skillId.min;
-                        Skill.created_at = ServerDateTime.Now;
+                    var skill = this.model.CharactersSkill.Create();
+                        skill.character = character;
+                        skill.skill     = skillId.id;
+                        skill.Max       = skillId.max;
+                        skill.value = skillId.min;
+                        skill.created_at = ServerDateTime.Now;
                     scope.Complete();
                 }
             }
@@ -83,12 +81,12 @@ namespace World_Server.Helpers
             {
                 using (var scope = new DataAccessScope())
                 {
-                    var Skill = this.model.CharactersSkill.Create();
-                    Skill.character = character;
-                    Skill.skill = skillId.id;
-                    Skill.Max = skillId.max;
-                    Skill.value = skillId.min;
-                    Skill.created_at = ServerDateTime.Now;
+                    var skill = this.model.CharactersSkill.Create();
+                    skill.character = character;
+                    skill.skill = skillId.id;
+                    skill.Max = skillId.max;
+                    skill.value = skillId.min;
+                    skill.created_at = ServerDateTime.Now;
                     scope.Complete();
                 }
             }
@@ -103,20 +101,18 @@ namespace World_Server.Helpers
                     {
                         using (var scope = new DataAccessScope())
                         {
-                            var Skill = this.model.CharactersSkill.Create();
-                                Skill.character = character;
-                                Skill.skill = skill2Id.id;
-                                Skill.Max = skill2Id.max;
-                                Skill.value = skill2Id.min;
-                                Skill.created_at = ServerDateTime.Now;
+                            var skill = this.model.CharactersSkill.Create();
+                                skill.character = character;
+                                skill.skill = skill2Id.id;
+                                skill.Max = skill2Id.max;
+                                skill.value = skill2Id.min;
+                                skill.created_at = ServerDateTime.Now;
                             scope.Complete();
                         }
                     }
                 }
             }
             #endregion
-
-            return;
         }
     }
 }

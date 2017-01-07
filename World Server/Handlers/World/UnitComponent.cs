@@ -1,72 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
-using World_Server.Game;
 using World_Server.Game.Entitys;
-using World_Server.Game.Update;
-using System;
+using World_Server.Managers;
 
-namespace World_Server.Managers
+namespace World_Server.Handlers.World
 {
-
-    public class WorldManager
+    public abstract class EntityComponent<T> where T : EntityBase
     {
-        public WorldManager()
-        {
-            new Thread(UpdateThread).Start();
-        }
+        public List<T> Entitys;
 
-        private void UpdateThread()
-        {
-            while (true)
-            {
-                Update();
-                Thread.Sleep(500);
-            }
-        }
-
-        public void Update()
-        {
-            foreach (PlayerEntity player in PlayerManager.Players)
-            {
-                // Move this somewhere else?
-                if (player.OutOfRangeEntitys.Any() || player.UpdateBlocks.Any())
-                {
-                    List<UpdateBlock> UpdateBlocks = new List<UpdateBlock>();
-
-                    if (player.OutOfRangeEntitys.Any())
-                        UpdateBlocks.Add(new OutOfRangeBlock(player.OutOfRangeEntitys));
-
-                    if (player.UpdateBlocks.Any())
-                    {
-                        lock (UpdateBlocks)
-                        {
-                            lock (player.UpdateBlocks)
-                            {
-                                UpdateBlocks.AddRange(player.UpdateBlocks);
-                            }
-                        }
-                    }
-
-                    player.Session.sendPacket(new UpdateObject(UpdateBlocks));
-
-                    player.OutOfRangeEntitys.Clear();
-                    player.UpdateBlocks.Clear();
-
-                    // [Debug]
-                    //player.Session.sendMessage("-- Update Packet --");
-                    //UpdateBlocks.ForEach(ub => player.Session.sendMessage(ub.Info));
-                    //player.Session.sendMessage(" ");
-                }
-            }
-        }
-    }
-
-    public abstract class EntityComponent<T> where T : EntityBase //, ILocation - later...
-    {
-        public List<T> Entitys = new List<T>();
-
-        public EntityComponent()
+        protected EntityComponent()
         {
             Entitys = new List<T>();
 
@@ -133,12 +77,6 @@ namespace World_Server.Managers
 
     public class UnitComponent : EntityComponent<UnitEntity>
     {
-
-        public override void Update()
-        {
-            base.Update();
-        }
-
         public override List<UnitEntity> EntityListFromPlayer(PlayerEntity player)
         {
             return player.KnownUnits;
@@ -164,5 +102,4 @@ namespace World_Server.Managers
             //throw new NotImplementedException();
         }
     }
-
 }

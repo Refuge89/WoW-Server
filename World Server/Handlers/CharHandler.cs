@@ -161,7 +161,7 @@ namespace World_Server.Handlers
             // if waiting for transfer  CHAR_DELETE_FAILED_LOCKED_FOR_TRANSFER
             // if guild leader          CHAR_DELETE_FAILED_GUILD_LEADER
             Program.Database.DeleteCharacter(handler.Id);
-            session.sendPacket(new SmsgCharDelete(LoginErrorCode.CHAR_DELETE_SUCCESS));
+            session.SendPacket(new SmsgCharDelete(LoginErrorCode.CHAR_DELETE_SUCCESS));
         }
 
         internal static void OnCharCreate(WorldSession session, CmsgCharCreate handler)
@@ -171,28 +171,28 @@ namespace World_Server.Handlers
             try
             {
                 Database.CreateChar(handler, session.Users);
-                session.sendPacket(new SmsgCharCreate(LoginErrorCode.CHAR_CREATE_SUCCESS)); return;
+                session.SendPacket(new SmsgCharCreate(LoginErrorCode.CHAR_CREATE_SUCCESS)); return;
             }
             catch (Exception ex)
             {
                 // Name in Use
                 if (ex.InnerException != null && ex.InnerException.Message.Contains("Duplicate entry"))
                 {
-                    session.sendPacket(new SmsgCharCreate(LoginErrorCode.CHAR_CREATE_NAME_IN_USE));
+                    session.SendPacket(new SmsgCharCreate(LoginErrorCode.CHAR_CREATE_NAME_IN_USE));
                     return;
                 }
 
                 // Failed another Error
-                session.sendPacket(new SmsgCharCreate(LoginErrorCode.CHAR_CREATE_FAILED));
+                session.SendPacket(new SmsgCharCreate(LoginErrorCode.CHAR_CREATE_FAILED));
             }
 
-            session.sendPacket(new SmsgCharCreate(LoginErrorCode.CHAR_CREATE_ERROR)); return;
+            session.SendPacket(new SmsgCharCreate(LoginErrorCode.CHAR_CREATE_ERROR)); return;
         }
 
         internal static void OnCharEnum(WorldSession session, byte[] data)
         {
             List<Character> characters = Program.Database.GetCharacters(session.Users.username);
-            session.sendPacket(WorldOpcodes.SMSG_CHAR_ENUM, new SmsgCharEnum(characters).PacketData);
+            session.SendPacket(WorldOpcodes.SMSG_CHAR_ENUM, new SmsgCharEnum(characters).PacketData);
         }
 
         internal static void OnNameQuery(WorldSession session, CmsgNameQuery handler)
@@ -200,7 +200,7 @@ namespace World_Server.Handlers
             Character target = Program.Database.GetCharacter((int)handler.Guid);
 
             if (target != null)
-                session.sendPacket(new SmsgNameQueryResponse(target));
+                session.SendPacket(new SmsgNameQueryResponse(target));
         }
 
         internal static void OnSetSelectionPacket(WorldSession session, CmsgSetSelection handler)

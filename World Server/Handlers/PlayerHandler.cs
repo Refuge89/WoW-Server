@@ -3,7 +3,6 @@ using Framework.Database.Tables;
 using Framework.Extensions;
 using Framework.Network;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using World_Server.Sessions;
 
@@ -101,9 +100,9 @@ namespace World_Server.Handlers
     #region SMSG_PLAY_SOUND
     internal class SmsgPlaySound : ServerPacket
     {
-        public SmsgPlaySound(uint soundID) : base(WorldOpcodes.SMSG_PLAY_SOUND)
+        public SmsgPlaySound(uint soundId) : base(WorldOpcodes.SMSG_PLAY_SOUND)
         {
-            Write(soundID);
+            Write(soundId);
         }
     }
     #endregion
@@ -113,6 +112,7 @@ namespace World_Server.Handlers
     {
         public SmsgActionButtons(Character character) : base(WorldOpcodes.SMSG_ACTION_BUTTONS)
         {
+            /*
             List<CharactersActionBar> savedButtons = Program.Database.GetActionBar(character);
 
             for (int button = 0; button < 120; button++)
@@ -131,11 +131,12 @@ namespace World_Server.Handlers
                     Write((UInt32)0);
                 }
             }
+            */
         }
     }
     #endregion
 
-    public class Weather : BinaryWriter
+    public sealed class Weather : BinaryWriter
     {
         public Weather(WeatherState state, float grad, WeatherSounds sound) : base(new MemoryStream())
         {
@@ -144,36 +145,36 @@ namespace World_Server.Handlers
             Write((uint)sound);
         }
 
-        public byte[] Packet { get { return (BaseStream as MemoryStream).ToArray(); } }
+        public byte[] Packet => (BaseStream as MemoryStream)?.ToArray();
     }
 
     public enum WeatherState : uint
     {
-        WEATHER_STATE_FINE = 0,
-        WEATHER_STATE_LIGHT_RAIN = 3,
-        WEATHER_STATE_MEDIUM_RAIN = 4,
-        WEATHER_STATE_HEAVY_RAIN = 5,
-        WEATHER_STATE_LIGHT_SNOW = 6,
-        WEATHER_STATE_MEDIUM_SNOW = 7,
-        WEATHER_STATE_HEAVY_SNOW = 8,
-        WEATHER_STATE_LIGHT_SANDSTORM = 22,
-        WEATHER_STATE_MEDIUM_SANDSTORM = 41,
-        WEATHER_STATE_HEAVY_SANDSTORM = 42,
-        WEATHER_STATE_THUNDERS = 86,
-        WEATHER_STATE_BLACKRAIN = 90
+        WeatherStateFine = 0,
+        WeatherStateLightRain = 3,
+        WeatherStateMediumRain = 4,
+        WeatherStateHeavyRain = 5,
+        WeatherStateLightSnow = 6,
+        WeatherStateMediumSnow = 7,
+        WeatherStateHeavySnow = 8,
+        WeatherStateLightSandstorm = 22,
+        WeatherStateMediumSandstorm = 41,
+        WeatherStateHeavySandstorm = 42,
+        WeatherStateThunders = 86,
+        WeatherStateBlackrain = 90
     };
 
     public enum WeatherSounds : uint
     {
-        WEATHER_NOSOUND = 0,
-        WEATHER_RAINLIGHT = 8533,
-        WEATHER_RAINMEDIUM = 8534,
-        WEATHER_RAINHEAVY = 8535,
-        WEATHER_SNOWLIGHT = 8536,
-        WEATHER_SNOWMEDIUM = 8537,
-        WEATHER_SNOWHEAVY = 8538,
-        WEATHER_SANDSTORMLIGHT = 8556,
-        WEATHER_SANDSTORMMEDIUM = 8557,
-        WEATHER_SANDSTORMHEAVY = 8558
+        WeatherNosound = 0,
+        WeatherRainlight = 8533,
+        WeatherRainmedium = 8534,
+        WeatherRainheavy = 8535,
+        WeatherSnowlight = 8536,
+        WeatherSnowmedium = 8537,
+        WeatherSnowheavy = 8538,
+        WeatherSandstormlight = 8556,
+        WeatherSandstormmedium = 8557,
+        WeatherSandstormheavy = 8558
     };
 }

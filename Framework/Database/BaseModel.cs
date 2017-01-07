@@ -1,6 +1,5 @@
 ﻿using System;
 using Shaolinq;
-using Shaolinq.MySql;
 using Shaolinq.Sqlite;
 
 namespace Framework.Database
@@ -16,7 +15,7 @@ namespace Framework.Database
 
             try
             {
-                this.model = DataAccessModel.BuildDataAccessModel<T>(configuration);
+                model = DataAccessModel.BuildDataAccessModel<T>(configuration);
             }
             catch (Exception e)
             {

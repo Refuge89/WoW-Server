@@ -62,7 +62,7 @@ namespace World_Server.Handlers
     {
         public static void OnPingPacket(WorldSession session, CmsgPing packet)
         {
-            session.sendPacket(new SmsgPong(packet.Ping));
+            session.SendPacket(new SmsgPong(packet.Ping));
         }
     }
 }

@@ -4,10 +4,8 @@ using World_Server.Sessions;
 using System.IO;
 using Framework.Contants.Character;
 using Framework.Contants;
-using World_Server.Handlers.World;
 using World_Server.Helpers;
 using World_Server.Game;
-using Framework.Extensions;
 
 namespace World_Server.Handlers
 {
@@ -87,12 +85,12 @@ namespace World_Server.Handlers
     {
         public PsMovement(WorldSession session, MsgMoveInfo handler, WorldOpcodes opcode) : base(opcode)
         {
-            byte[] packedGUID = UpdateObject.GenerateGuidBytes((ulong)session.Character.Id);
-            UpdateObject.WriteBytes(this, packedGUID);
+            byte[] packedGuid = UpdateObject.GenerateGuidBytes((ulong)session.Character.Id);
+            UpdateObject.WriteBytes(this, packedGuid);
             UpdateObject.WriteBytes(this, (handler.BaseStream as MemoryStream).ToArray());
 
             // We then overwrite the original moveTime (sent from the client) with ours
-            (BaseStream as MemoryStream).Position = 4 + packedGUID.Length;
+            (BaseStream as MemoryStream).Position = 4 + packedGuid.Length;
             UpdateObject.WriteBytes(this, BitConverter.GetBytes((uint)Environment.TickCount));
         }
     }
@@ -127,7 +125,7 @@ namespace World_Server.Handlers
             Program.Database.UpdateMovement(session.Character);
 
             Program.WorldServer.Sessions.FindAll(s => s != session)
-                .ForEach(s => s.sendPacket(new PsMovement(session, handler, code)));
+                .ForEach(s => s.SendPacket(new PsMovement(session, handler, code)));
         }
     }
 }

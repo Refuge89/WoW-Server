@@ -5,18 +5,15 @@ namespace World_Server.Game.Entitys
 {
     public class UnitEntity : ObjectEntity
     {
-        public UnitEntity(ObjectGuid objectGUID) : base(objectGUID)
+        public UnitEntity(ObjectGuid objectGuid) : base(objectGuid)
         {
         }
 
         public float X, Y, Z, R;
 
-        public override int DataLength
-        {
-            get { return (int)EUnitFields.UNIT_END - 0x4; }
-        }
+        public override int DataLength => (int)EUnitFields.UNIT_END - 0x4;
 
-        public override string Name { get { return "Abacate";/*Template.name;*/ } }
+        public override string Name => "Abacate"; /*Template.name;*/
 
         public int Health
         {
@@ -42,7 +39,7 @@ namespace World_Server.Game.Entitys
             set { SetUpdateField((int)EUnitFields.UNIT_NPC_EMOTESTATE, value); }
         }
 
-        public int DisplayID
+        public int DisplayId
         {
             get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_DISPLAYID]; }
             set { SetUpdateField((int)EUnitFields.UNIT_FIELD_DISPLAYID, value); }

@@ -22,11 +22,11 @@ namespace World_Server.Handlers
     #region CMSG_AREATRIGGER
     public class CmsgAreatrigger : PacketReader
     {
-        public uint TriggerID { get; private set; }
+        public uint TriggerId { get; private set; }
 
         public CmsgAreatrigger(byte[] data) : base(data)
         {
-            TriggerID = ReadUInt32();
+            TriggerId = ReadUInt32();
         }
     }
     #endregion
@@ -35,12 +35,12 @@ namespace World_Server.Handlers
     {
         internal static void OnQueryTime(WorldSession session, byte[] data)
         {
-            session.sendPacket(new SmsgQueryTimeResponse());
+            session.SendPacket(new SmsgQueryTimeResponse());
         }
 
         internal static void OnAreaTrigger(WorldSession session, CmsgAreatrigger handler)
         {
-            session.SendMessage($"[AreaTrigger] ID: {handler.TriggerID}");
+            session.SendMessage($"[AreaTrigger] ID: {handler.TriggerId}");
         }
     }
 }
