@@ -1,41 +1,9 @@
-﻿using Framework.Database.Tables;
+﻿using Framework.Contants.Character;
+using Framework.Database.Tables;
 using Platform;
 
 namespace World_Server.Helpers
 {
-    enum WoWEquipSlot : byte
-    {
-        None,
-        Head,
-        Neck,
-        Shoulders,
-        Shirt,
-        Vest,
-        Waist,
-        Legs,
-        Feet,
-        Wrist,
-        Hands,
-        Ring,
-        Trinket,
-        Onehand,
-        Shield,
-        Bow,
-        Back,
-        Twohand,
-        Bag,
-        Tabbard,
-        Robe,
-        Mainhand,
-        Offhand,
-        Held,
-        Ammo,
-        Thrown,
-        Ranged,
-        Ranged2,
-        Relic
-    }
-
     public class InventoryHelper
     {
         public static WorldItems[] GenerateInventoryByIDs(string ids)

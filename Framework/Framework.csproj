@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="Contants\AuthOpcodes.cs" />
     <Compile Include="Contants\Character\Opcodes.cs" />
+    <Compile Include="Contants\Character\UnitOpcodes.cs" />
     <Compile Include="Contants\Game\ChatOpcodes.cs" />
     <Compile Include="Contants\Game\ObjectOpcodes.cs" />
     <Compile Include="Contants\Game\UnitFields.cs" />

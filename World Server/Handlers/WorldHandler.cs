@@ -76,8 +76,6 @@ namespace World_Server.Handlers
     {
         public static Dictionary<WorldSession, DateTime> LogoutQueue;
 
-        private static PlayerEntity _entity;
-
         internal static void OnLogoutRequest(WorldSession session, PacketReader handler)
         {
             LogoutQueue = new Dictionary<WorldSession, DateTime>();

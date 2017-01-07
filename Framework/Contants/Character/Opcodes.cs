@@ -75,4 +75,61 @@ namespace Framework.Contants.Character
         MOVEFLAG_SAFE_FALL              = 0x20000000,               // active rogue safe fall spell (passive)
         MOVEFLAG_HOVER                  = 0x40000000,
     }
+
+    public enum SpellCastFlags
+    {
+        CastFlagNone = 0x00000000,
+        CastFlagHiddenCombatlog = 0x00000001, // hide in combat log?
+        CastFlagUnknown2 = 0x00000002,
+        CastFlagUnknown3 = 0x00000004,
+        CastFlagUnknown4 = 0x00000008,
+        CastFlagUnknown5 = 0x00000010,
+        CastFlagAmmo = 0x00000020, // Projectiles visual
+        CastFlagUnknown7 = 0x00000040, // !0x41 mask used to call CGTradeSkillInfo::DoRecast
+        CastFlagUnknown8 = 0x00000080,
+        CastFlagUnknown9 = 0x00000100
+    }
+
+    public enum PowerTypes : uint
+    {
+        TYPE_MANA = 0,
+        TYPE_RAGE = 1,
+        TYPE_FOCUS = 2,
+        TYPE_ENERGY = 3,
+        TYPE_HAPPINESS = 4,
+        POWER_HEALTH = 0xFFFFFFFE
+    }
+
+    public enum WoWEquipSlot : byte
+    {
+        None,
+        Head,
+        Neck,
+        Shoulders,
+        Shirt,
+        Vest,
+        Waist,
+        Legs,
+        Feet,
+        Wrist,
+        Hands,
+        Ring,
+        Trinket,
+        Onehand,
+        Shield,
+        Bow,
+        Back,
+        Twohand,
+        Bag,
+        Tabbard,
+        Robe,
+        Mainhand,
+        Offhand,
+        Held,
+        Ammo,
+        Thrown,
+        Ranged,
+        Ranged2,
+        Relic
+    }
 }

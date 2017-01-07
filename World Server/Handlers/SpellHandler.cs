@@ -1,5 +1,6 @@
 ﻿using System;
 using Framework.Contants;
+using Framework.Contants.Character;
 using Framework.Database.Tables;
 using Framework.Extensions;
 using Framework.Network;
@@ -96,20 +97,6 @@ namespace World_Server.Handlers
         }
     }
     #endregion
-
-    enum SpellCastFlags
-    {
-        CastFlagNone              = 0x00000000,
-        CastFlagHiddenCombatlog  = 0x00000001, // hide in combat log?
-        CastFlagUnknown2          = 0x00000002,
-        CastFlagUnknown3          = 0x00000004,
-        CastFlagUnknown4          = 0x00000008,
-        CastFlagUnknown5          = 0x00000010,
-        CastFlagAmmo              = 0x00000020, // Projectiles visual
-        CastFlagUnknown7          = 0x00000040, // !0x41 mask used to call CGTradeSkillInfo::DoRecast
-        CastFlagUnknown8          = 0x00000080,
-        CastFlagUnknown9          = 0x00000100
-    }
 
     class SpellHandler
     {
