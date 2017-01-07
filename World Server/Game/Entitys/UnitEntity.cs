@@ -1,4 +1,5 @@
-﻿using Framework.Contants.Game;
+﻿using System;
+using Framework.Contants.Game;
 using World_Server.Game.Update;
 
 namespace World_Server.Game.Entitys
@@ -14,6 +15,8 @@ namespace World_Server.Game.Entitys
         public override int DataLength => (int) EUnitFields.UNIT_END - 0x4;
 
         public override string Name => "Abacate"; /*Template.name;*/
+
+        public byte PowerType = 0;
 
         public int Health
         {
@@ -74,30 +77,29 @@ namespace World_Server.Game.Entitys
             get { return (int) UpdateData[(int) EUnitFields.UNIT_FIELD_FACTIONTEMPLATE]; }
             set { SetUpdateField((int) EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, value); }
         }
-        /*
-        public int RaceID
+
+        public int RaceUnit
         {
             get { return (int) UpdateData[(int) EUnitFields.UNIT_FIELD_BYTES_0]; }
-            set { SetUpdateField((int) EUnitFields.UNIT_FIELD_BYTES_0, value, 0); }
+            set { SetUpdateField((int) EUnitFields.UNIT_FIELD_BYTES_0, (byte)value, 0); }
         }
 
-        public int ClassID
+        public int ClassUnit
         {
             get { return (int) UpdateData[(int) EUnitFields.UNIT_FIELD_BYTES_0]; }
-            set { SetUpdateField((int) EUnitFields.UNIT_FIELD_BYTES_0, value, 1); }
+            set { SetUpdateField((int) EUnitFields.UNIT_FIELD_BYTES_0, (byte)value, 1); }
         }
-        */
 
         public int Gender
         {
             get { return (int) UpdateData[(int) EUnitFields.UNIT_FIELD_BYTES_0]; }
-            set { SetUpdateField((int) EUnitFields.UNIT_FIELD_BYTES_0, value, 2); }
+            set { SetUpdateField((int) EUnitFields.UNIT_FIELD_BYTES_0, (byte)value, 2); }
         }
 
         public int Power
         {
             get { return (int) UpdateData[(int) EUnitFields.UNIT_FIELD_BYTES_0]; }
-            set { SetUpdateField((int) EUnitFields.UNIT_FIELD_BYTES_0, value, 3); }
+            set { SetUpdateField<byte>((int) EUnitFields.UNIT_FIELD_BYTES_0, (byte)value, 3); }
         }
 
         public int Mana
@@ -136,4 +138,24 @@ namespace World_Server.Game.Entitys
             set { SetUpdateField((int) EUnitFields.UNIT_FIELD_BYTES_2, value, 1); }
         }
     }
+
+    [Flags]
+    public enum TypeMask
+    {
+        TYPEMASK_OBJECT = 0x0001,
+        TYPEMASK_ITEM = 0x0002,
+        TYPEMASK_CONTAINER = 0x0004,
+        TYPEMASK_UNIT = 0x0008,                       // players also have it
+        TYPEMASK_PLAYER = 0x0010,
+        TYPEMASK_GAMEOBJECT = 0x0020,
+        TYPEMASK_DYNAMICOBJECT = 0x0040,
+        TYPEMASK_CORPSE = 0x0080,
+
+        // used combinations in Player::GetObjectByTypeMask (TYPEMASK_UNIT case ignore players in call)
+        TYPEMASK_CREATURE_OR_GAMEOBJECT = TYPEMASK_UNIT | TYPEMASK_GAMEOBJECT,
+        TYPEMASK_CREATURE_GAMEOBJECT_OR_ITEM = TYPEMASK_UNIT | TYPEMASK_GAMEOBJECT | TYPEMASK_ITEM,
+        TYPEMASK_CREATURE_GAMEOBJECT_PLAYER_OR_ITEM = TYPEMASK_UNIT | TYPEMASK_GAMEOBJECT | TYPEMASK_ITEM | TYPEMASK_PLAYER,
+
+        TYPEMASK_WORLDOBJECT = TYPEMASK_UNIT | TYPEMASK_PLAYER | TYPEMASK_GAMEOBJECT | TYPEMASK_DYNAMICOBJECT | TYPEMASK_CORPSE,
+    };
 }

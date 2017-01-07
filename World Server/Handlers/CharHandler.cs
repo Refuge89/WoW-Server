@@ -212,8 +212,8 @@ namespace World_Server.Handlers
                 return;
             }
 
-            session.Target = WorldServer.Sessions.FirstOrDefault(s => s.Character.Id == (int)handler.Guid).Character;
-            ChatHandler.SendSytemMessage(session, $"Targeted: {session.Target.Name}");
+            session.Target = WorldServer.Sessions.FirstOrDefault(s => s.Character.Id == (int)handler.Guid)?.Character;
+            ChatHandler.SendSytemMessage(session, $"Targeted: {session.Target?.Name}");
 
         }
     }

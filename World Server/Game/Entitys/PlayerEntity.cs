@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using Framework.Contants.Character;
 using Framework.Contants.Game;
 using Framework.Database.Tables;
 using World_Server.Game.Update;
 using World_Server.Helpers;
+using World_Server.Managers;
 using World_Server.Sessions;
 
 namespace World_Server.Game.Entitys
@@ -24,93 +27,50 @@ namespace World_Server.Game.Entitys
 
         public int Xp
         {
-            set { SetUpdateField((int) EUnitFields.PLAYER_XP, value); }
+            set { SetUpdateField((int)EUnitFields.PLAYER_XP, value); }
         }
 
-        public override int DataLength => (int) EUnitFields.PLAYER_END - 0x4;
+        public override int DataLength => (int)EUnitFields.PLAYER_END - 0x4;
 
         public WorldSession Session { get; internal set; }
 
         public PlayerEntity(Character character) : base(new ObjectGuid((uint)character.Id, TypeID.TYPEID_PLAYER, HighGuid.HighguidMoTransport))
         {
             var skin = Program.Database.GetSkin(character);
+            var chrRaces = DatabaseManager.ChrRaces.Values.FirstOrDefault(x => x.Match(character.Race));
 
-            Character = character;
-            KnownPlayers = new List<PlayerEntity>();
-            KnownUnits = new List<UnitEntity>();
-            OutOfRangeEntitys = new List<ObjectEntity>();
-            UpdateBlocks = new List<UpdateBlock>();
+            this.Character = character;
+            this.KnownPlayers = new List<PlayerEntity>();
+            this.KnownUnits = new List<UnitEntity>();
+            this.OutOfRangeEntitys = new List<ObjectEntity>();
+            this.UpdateBlocks = new List<UpdateBlock>();
 
-            Guid = (uint)character.Id;
-            SetUpdateField((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)25);
-            //SetUpdateField((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)TypeID.TYPEID_PLAYER);
+            this.Guid = (uint)character.Id;
+            this.SetUpdateField((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)25);
+            this.Level = character.Level;
+            this.Xp = 0;
+            this.Scale = GetScale(character);
+            this.DisplayId = GetModel(character);
+            this.NativeDisplayID = GetModel(character);
+            this.FactionTemplate = chrRaces.FactionId;
 
-            Character   = character;
-            Health      = 70;
-            MaxHealth   = 70;
-            Level       = 1;
-            Xp          = 10;
-            Scale       = GetScale(character);
+            this.RaceUnit    = (byte) character.Race;
+            this.ClassUnit   = (byte) character.Class;
+            this.Gender      = (byte) character.Gender;
+            this.Power       = GetPowerType(character);
 
-            UnitFlag    = (int)UnitFlags.UNIT_FLAG_PVP;
+            // Recupera a lista de Skills do Char
+            this.GenerateSkills();
 
-            //ChrRaces ChrRaces = DatabaseManager.ChrRaces.Values.FirstOrDefault(x => x.Match(character.Race));
-
-            Random rand = new Random();
-            SetUpdateField((int) EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, rand.Next(0, 2) == 0 ? 1 : 7);
-
-
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_POWER1, 1000);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_POWER2, 1000);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_POWER3, 1000);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_POWER4, 1000);
-
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_MAXPOWER1, 1000);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_MAXPOWER2, 1000);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_MAXPOWER3, 1000);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_MAXPOWER4, 1000);
-
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Race, 0);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Class, 1);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Gender, 2);
-            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, 0, 3); // [mana 0] [rage 1] [focus 2] [energy 3]
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_BASEATTACKTIME, 2000);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_OFFHANDATTACKTIME, 2000);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_RANGEDATTACKTIME, 2000);
-
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_DISPLAYID, GetModel(character));
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_NATIVEDISPLAYID, GetModel(character));
-
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_MINDAMAGE, 1083927991);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_MAXDAMAGE, 1086025143);
-
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_1, (byte)UnitStandStateType.UnitStandStateStand, 0); // Stand State?
-            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, 0xEE, 1); //  if (getPowerType() == POWER_RAGE || getPowerType() == POWER_MANA)
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_BYTES_1, (character.Class == ClassID.WARRIOR) ? (byte)ShapeshiftForm.FormBattlestance : (byte)ShapeshiftForm.FormNone, 2); // ShapeshiftForm?
-            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, /* (byte)UnitBytes1_Flags.UNIT_BYTE1_FLAG_ALL */ 0, 3); // StandMiscFlags
-
-            SetUpdateField<float>((int)EUnitFields.UNIT_MOD_CAST_SPEED, 1);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_STAT0, 22);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_STAT1, 18);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_STAT2, 23);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_STAT3, 18);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_STAT4, 25);
-
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_RESISTANCES, 36);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_RESISTANCES_05, 10);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_BASE_HEALTH, 20);
-
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_ATTACK_POWER, 27);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_RANGED_ATTACK_POWER, 9);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_MINRANGEDDAMAGE, 1074940196);
-            SetUpdateField((int)EUnitFields.UNIT_FIELD_MAXRANGEDDAMAGE, 1079134500);
+            // Monta Stats do Char
+            this.GenerateStats();
 
             SetUpdateField((int)EUnitFields.PLAYER_BYTES, skin.Skin, 0);
             SetUpdateField((int)EUnitFields.PLAYER_BYTES, skin.Face, 1);
             SetUpdateField((int)EUnitFields.PLAYER_BYTES, skin.HairStyle, 2);
             SetUpdateField((int)EUnitFields.PLAYER_BYTES, skin.HairColor, 3);
 
-            SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES_2, 0, 0);
+            SetUpdateField((int)EUnitFields.PLAYER_NEXT_LEVEL_XP, 400);
 
             // Items Equipamento
             WorldItems[] equipment = InventoryHelper.GenerateInventoryByIDs(character.Equipment);
@@ -118,23 +78,33 @@ namespace World_Server.Game.Entitys
             for (int i = 0; i < 19; i++)
             {
                 if (equipment?[i] != null)
-                    SetUpdateField((int)EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (i * 12), equipment[i].itemId);
+                {
+                    SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (i * 12), equipment[i].itemId);
+                    SetUpdateField((int) EUnitFields.PLAYER_FIELD_BANKBAG_SLOT_1 + (i * 12), equipment[i].itemId);
+                }
             }
+        }
 
-            SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES_2, 0, 0);
+        private void GenerateStats()
+        {
+            this.Health = 120;
+            this.MaxHealth = 150;
 
-            SetUpdateField((int)EUnitFields.PLAYER_NEXT_LEVEL_XP, 400);
-            SetUpdateField((int)EUnitFields.PLAYER_SKILL_INFO_1_1, 26);
+            this.Mana = 110;
+            this.MaxMana = 120;
 
+            this.MaxRage = 100;
+        }
+
+        private void GenerateSkills()
+        {
             int a = 0;
-            foreach (CharactersSkill skill in Program.Database.GetSkills(character))
+            foreach (CharactersSkill skill in Program.Database.GetSkills(this.Character))
             {
                 SetUpdateField((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3), skill.skill);
-                SetUpdateField((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 1, (Int16)skill.value + skill.Max);
-                SetUpdateField((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 2, 3); // Bonus de Skill
+                SetUpdateField((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 1, (Int32)(skill.value + (skill.Max << 16)));
                 a++;
             }
-
         }
 
         private int GetModel(Character character)
@@ -154,6 +124,31 @@ namespace World_Server.Game.Entitys
 
             return 1f;
         }
+
+        private byte GetPowerType(Character character)
+        {
+            switch (character.Class)
+            {
+                case ClassID.WARRIOR:
+                    return (byte)PowerTypes.TYPE_RAGE;
+                case ClassID.HUNTER:
+                    return (byte)PowerTypes.TYPE_FOCUS;
+                case ClassID.ROGUE:
+                    return (byte)PowerTypes.TYPE_ENERGY;
+                default:
+                    return (byte)PowerTypes.TYPE_MANA;
+            }
+        }
+    }
+
+    public enum PowerTypes : uint
+    {
+        TYPE_MANA = 0,
+        TYPE_RAGE = 1,
+        TYPE_FOCUS = 2,
+        TYPE_ENERGY = 3,
+        TYPE_HAPPINESS = 4,
+        POWER_HEALTH = 0xFFFFFFFE
     }
 
     public enum UnitFlags
