@@ -75,7 +75,6 @@ namespace World_Server.Handlers
     #endregion
 
     #region SMSG_INITIALIZE_FACTIONS
-
     sealed class SmsgInitializeFactions : ServerPacket
     {
         public SmsgInitializeFactions() : base(WorldOpcodes.SMSG_INITIALIZE_FACTIONS)

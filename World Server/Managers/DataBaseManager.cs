@@ -17,19 +17,21 @@ namespace World_Server.Managers
 {
     public class DatabaseManager : BaseModel<Models>
     {
-        public static ConcurrentDictionary<uint, CharStartOutfit> CharStartOutfit;
         public static ConcurrentDictionary<uint, AreaTable> AreaTable;
+        public static ConcurrentDictionary<uint, CharStartOutfit> CharStartOutfit;       
         public static ConcurrentDictionary<int, ChrRaces> ChrRaces;
         public static ConcurrentDictionary<uint, FactionTemplate> FactionTemplate;
+        public static ConcurrentDictionary<uint, Spell> Spell;
 
         static DatabaseManager()
         {
             Log.Print(LogType.Status, "Loading DBCs...");
 
-            CharStartOutfit = DBReader.Read<uint, CharStartOutfit>("CharStartOutfit.dbc", "ID");
             AreaTable = DBReader.Read<uint, AreaTable>("AreaTable.dbc", "Id");
+            CharStartOutfit = DBReader.Read<uint, CharStartOutfit>("CharStartOutfit.dbc", "ID");
             ChrRaces = DBReader.Read<int, ChrRaces>("ChrRaces.dbc", "Id");
             FactionTemplate = DBReader.Read<uint, FactionTemplate>("FactionTemplate.dbc", "Id");
+            Spell = DBReader.Read<uint, Spell>("Spell.dbc", "Id");
         }
 
         internal void CreateChar(CmsgCharCreate handler, Users users)

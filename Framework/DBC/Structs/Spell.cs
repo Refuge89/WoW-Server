@@ -1,0 +1,71 @@
+﻿namespace Framework.DBC.Structs
+{
+    public class Spell
+    {
+        public uint Id;
+        public uint School;
+        public uint Category;
+        public uint CastUi;
+        public uint Attributes;
+        public uint AttributesEx;
+        public uint ShapeshiftMask;
+        public uint Targets;
+        public uint TargetCreatureType;
+        public uint RequiresSpellFocus;
+        public uint CasterAuraState;
+        public uint TargetAuraState;
+        public uint CastingTimeIndex;
+        public uint RecoveryTime;
+        public uint CategoryRecoveryTime;
+        public uint InterruptFlags;
+        public uint AuraInterruptFlags;
+        public uint ChannelInterruptFlags;
+        public uint ProcFlags;
+        public uint ProcChance;
+        public uint ProcCharges;
+        public uint MaxLevel;
+        public uint BaseLevel;
+        public uint DurationIndex;
+        public uint PowerType;
+        public uint ManaCost;
+        public uint ManaCostPerLevel;
+        public uint ManaPerSecond;
+        public uint ManaPerSecondPerLevel;
+        public uint RangeIndex;
+        public float Speed;
+        public uint ModalNextSpell;
+        public uint[] Totem = new uint[2];
+        public uint[] Reagent = new uint[8];
+        public uint[] ReagentCount = new uint[8];
+        public uint EquippedItemClass;
+        public uint EquippedItemSubClass;
+        public uint[] Effect = new uint[3];
+        public uint[] EffectDieSides = new uint[3];
+        public uint[] EffectBaseDice = new uint[3];
+        public uint[] EffectDicePerLevel = new uint[3];
+        public uint[] EffectBasePoints = new uint[3];
+        public uint[] EffectImplicitTargetA = new uint[3];
+        public uint[] EffectImplicitTargetB = new uint[3];
+        public uint[] EffectRadiusIndex = new uint[3];
+        public uint[] EffectAura = new uint[3];
+        public uint[] EffectAuraPeriod = new uint[3];
+        public float[] EffectAmplitude = new float[3];
+        public uint[] EffectChainTarget = new uint[3];
+        public uint[] EffectItemType = new uint[3];
+        public uint[] EffectMiscValue = new uint[3];
+        public uint[] EffectTriggerSpell = new uint[3];
+        public uint SpellVisual;
+        public uint SpellIconId;
+        public uint ActiveIconId;
+        public uint SpellPriority;
+        public int[] NONE6 = new int[7];
+        public uint NameFlags;
+        public int[] NONE7 = new int[7];
+        public uint RankFlags;
+        public int[] NONE8 = new int[7];
+        public uint DescriptionFlags;
+        public uint ManaCostPct;
+        public uint StartRecoveryCategory;
+        public uint StartRecoveryTime;
+    }
+}
