@@ -25,6 +25,7 @@
         public uint ProcCharges;
         public uint MaxLevel;
         public uint BaseLevel;
+        public uint SpellLevel;       
         public uint DurationIndex;
         public uint PowerType;
         public uint ManaCost;
@@ -43,6 +44,7 @@
         public uint[] EffectDieSides = new uint[3];
         public uint[] EffectBaseDice = new uint[3];
         public uint[] EffectDicePerLevel = new uint[3];
+        public float[] EffectRealPointsPerLevel = new float[3];        
         public uint[] EffectBasePoints = new uint[3];
         public uint[] EffectImplicitTargetA = new uint[3];
         public uint[] EffectImplicitTargetB = new uint[3];
@@ -58,10 +60,13 @@
         public uint SpellIconId;
         public uint ActiveIconId;
         public uint SpellPriority;
+        public string[] Name;
         public int[] NONE6 = new int[7];
         public uint NameFlags;
+        public string[] Rank;
         public int[] NONE7 = new int[7];
         public uint RankFlags;
+        public string[] Description;
         public int[] NONE8 = new int[7];
         public uint DescriptionFlags;
         public uint ManaCostPct;

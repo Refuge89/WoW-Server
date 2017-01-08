@@ -9,7 +9,7 @@ namespace Framework.Network
 {
     public class PacketWriter : BinaryWriter
     {
-        public PacketHeaderType HeaderType { get { return _headerType; } }
+        public PacketHeaderType HeaderType => _headerType;
 
         private readonly PacketHeaderType _headerType;
 
@@ -27,13 +27,7 @@ namespace Framework.Network
         /// Gets the packet data of this <see cref="PacketWriter"/>.
         /// </summary>
         /// <value>The packet data.</value>
-        public byte[] PacketData
-        {
-            get
-            {
-                return (BaseStream as MemoryStream).ToArray();
-            }
-        }
+        public byte[] PacketData => (BaseStream as MemoryStream)?.ToArray();
 
         /// <summary>
         /// Writes a null byte to the stream.

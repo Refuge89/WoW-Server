@@ -1,9 +1,10 @@
 ﻿using System;
 using Framework.Contants;
-using Framework.Contants.Character;
 using Framework.Database.Tables;
-using Framework.Extensions;
+using Framework.DBC.Structs;
 using Framework.Network;
+using World_Server.Handlers.World;
+using World_Server.Managers;
 using World_Server.Sessions;
 using static World_Server.Program;
 
@@ -82,8 +83,26 @@ namespace World_Server.Handlers
     #region SMSG_SPELL_GO
     public sealed class SmsgSpellGo : ServerPacket
     {
-        public SmsgSpellGo(Character caster, Character target, uint spellId) : base(WorldOpcodes.SMSG_SPELL_GO)
+        public SmsgSpellGo(WorldSession session, Character target, uint spellId) : base(WorldOpcodes.SMSG_SPELL_GO)
         {
+            session.SendMessage($"Spell GO {spellId}");
+            try
+            {
+                SpellComponent cast = new SpellComponent(session)
+                {
+                    Targets = target,
+                    Spell = DatabaseManager.Spell[spellId],
+                    Triggered = false
+                };
+
+                session.PrepareSpell(cast);
+            }
+            catch (Exception e)
+            {
+                session.SendMessage($"Spell ainda não implementada: {spellId}");
+            }
+
+            /*
             this.WritePackedUInt64((ulong)caster.Id);
             this.WritePackedUInt64((ulong)target.Id);
 
@@ -94,6 +113,7 @@ namespace World_Server.Handlers
             Write((byte)0); // End
             Write((ushort)2); // TARGET_FLAG_UNIT
             this.WritePackedUInt64((ulong)target.Id);
+            */
         }
     }
     #endregion
@@ -104,7 +124,7 @@ namespace World_Server.Handlers
         {
             Character target = session.Target ?? session.Character;
 
-            WorldServer.TransmitToAll(new SmsgSpellGo(session.Character, target, handler.SpellId));
+            WorldServer.TransmitToAll(new SmsgSpellGo(session, target, handler.SpellId));
             session.SendPacket(new SmsgCastFailed(handler.SpellId));
         }
 

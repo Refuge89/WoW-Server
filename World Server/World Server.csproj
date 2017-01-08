@@ -80,6 +80,8 @@
     <Compile Include="Handlers\MovementHandler.cs" />
     <Compile Include="Handlers\PlayerHandler.cs" />
     <Compile Include="Handlers\SpellHandler.cs" />
+    <Compile Include="Handlers\World\SpellComponent.cs" />
+    <Compile Include="Handlers\World\SpellExtension.cs" />
     <Compile Include="Handlers\World\UnitComponent.cs" />
     <Compile Include="Helpers\CharHelper.cs" />
     <Compile Include="Helpers\WorldDataRouter.cs" />
