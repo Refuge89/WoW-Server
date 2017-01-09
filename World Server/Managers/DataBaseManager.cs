@@ -113,9 +113,16 @@ namespace World_Server.Managers
 
         public async void DeleteCharacter(int charId)
         {
+            Character Char = model.Characters.FirstOrDefault(a => a.Id == charId);
+
             using (var scope = new DataAccessScope())
             {
                 await model.Characters.Where(a => a.Id == charId).DeleteAsync();
+                await model.CharactersActionBar.Where(a => a.character == Char).DeleteAsync();
+                await model.CharactersSkill.Where(a => a.character == Char).DeleteAsync();
+                await model.CharactersSpells.Where(a => a.character == Char).DeleteAsync();
+                await model.CharactersSkin.Where(a => a.Character == Char).DeleteAsync();
+
                 await scope.CompleteAsync();
             }
         }
@@ -173,7 +180,7 @@ namespace World_Server.Managers
         {
             using (var scope = new DataAccessScope())
             {
-                await model.CharactersActionBar.Where(a => a.character == character).Where(b => b.Action == handler.Action).DeleteAsync();
+                await model.CharactersActionBar.Where(a => a.character == character).Where(b => b.Button == handler.Button).DeleteAsync();
                 await scope.CompleteAsync();
             }
         }
