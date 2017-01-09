@@ -29,22 +29,10 @@
 		<spell id="20552" />	<!-- Cultivation -->
 	</spells>
 	<skills>
-		<skill id="109"> 		<!-- Language: Orcish -->
-			<min>1</min>
-			<max>300</max>
-		</skill>
-		<skill id="115"> 		<!-- Language: Taurahe -->
-			<min>300</min>
-			<max>300</max>
-		</skill>
-		<skill id="162"> 		<!-- Unarmed -->
-			<min>1</min>
-			<max>300</max>
-		</skill>
-		<skill id="124"> 		<!-- Tauren Racial -->
-			<min>1</min>
-			<max>1</max>
-		</skill>
+		<skill id="109" min="1" max="300" /> 		<!-- Language: Orcish -->
+		<skill id="115" min="300" max="300" /> 		<!-- Language: Taurahe -->
+		<skill id="162" min="1" max="300" /> 		<!-- Unarmed -->
+		<skill id="124" min="1" max="1" /> 		<!-- Tauren Racial -->
 	</skills>
 	<classes>
 		<class id="WARRIOR">
@@ -54,24 +42,21 @@
 				<spell id="199" />		<!-- Two-Handed Maces -->
 			</spells>
 			<skills>
-				<skill id="44"> 		<!-- Axes -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="54"> 		<!-- Maces -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="160"> 		<!-- Two-Handed Maces -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="44" min="1" max="300" /> 		<!-- Axes -->
+				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
+				<skill id="160" min="1" max="300" /> 		<!-- Two-Handed Maces -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
 				<item id="117" /> 		<!-- Tough Jerky -->
 				<item id="14650" /> 	<!-- Camp Narache Gift Voucher -->
 			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="78" type="0" />
+				<action button="2" action="20549" type="0" />
+				<action button="11" action="4540" type="128" />
+			</actions>
 		</class>
 		<class id="HUNTER">
 			<spells>
@@ -79,14 +64,8 @@
 				<spell id="266" /> 		<!-- Guns -->
 			</spells>
 			<skills>
-				<skill id="44"> 		<!-- Axes -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="46"> 		<!--  -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="44" min="1" max="300" /> 		<!-- Axes -->
+				<skill id="46" min="1" max="300" /> 		<!--  -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -97,28 +76,14 @@
 				<item id="2516" /> 		<!-- Light Shot -->
 				<item id="2102" /> 		<!-- Small Ammo Pouch -->
 			</items>
-		</class>	
-		<class id="DRUID">
-			<spells>
-				<spell id="198" />		<!-- Maces -->
-				<spell id="227" /> 		<!-- Staves -->
-			</spells>
-			<skills>
-				<skill id="54"> 		<!-- Maces -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="136"> 		<!-- Staves -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-			</skills>
-			<items>
-				<item id="6948" /> 		<!-- Hearthstone -->
-				<item id="159" /> 		<!-- Refreshing Spring Water -->
-				<item id="4536" /> 		<!-- Shiny Red Apple -->
-				<item id="14650" /> 	<!-- Camp Narache Gift Voucher -->
-			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="2973" type="0" />
+				<action button="2" action="75" type="0" />
+				<action button="3" action="20549" type="0" />
+				<action button="10" action="159" type="128" />
+				<action button="11" action="117" type="128" />
+			</actions>
 		</class>
 		<class id="SHAMAN">
 			<spells>
@@ -126,14 +91,8 @@
 				<spell id="227" /> 		<!-- Staves -->
 			</spells>
 			<skills>
-				<skill id="54"> 		<!-- Maces -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="136"> 		<!-- Staves -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
+				<skill id="136" min="1" max="300" /> 		<!-- Staves -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -141,6 +100,39 @@
 				<item id="4604" /> 		<!-- Forest Mushroom Cap -->
 				<item id="14650" /> 	<!-- Camp Narache Gift Voucher -->
 			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="403" type="0" />
+				<action button="2" action="331" type="0" />
+				<action button="3" action="20549" type="0" />
+				<action button="10" action="159" type="128" />
+				<action button="11" action="4604" type="128" />
+			</actions>
+		</class>		
+		<class id="DRUID">
+			<spells>
+				<spell id="198" />		<!-- Maces -->
+				<spell id="227" /> 		<!-- Staves -->
+			</spells>
+			<skills>
+				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
+				<skill id="136" min="1" max="300" /> 		<!-- Staves -->
+			</skills>
+			<items>
+				<item id="6948" /> 		<!-- Hearthstone -->
+				<item id="159" /> 		<!-- Refreshing Spring Water -->
+				<item id="4536" /> 		<!-- Shiny Red Apple -->
+				<item id="14650" /> 	<!-- Camp Narache Gift Voucher -->
+			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="5176" type="0" />
+				<action button="2" action="5185" type="0" />
+				<action button="3" action="20549" type="0" />
+				<action button="10" action="159" type="128" />
+				<action button="11" action="4536" type="128" />
+			</actions>
 		</class>
+
 	</classes>
 </race>

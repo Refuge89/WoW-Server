@@ -1,9 +1,11 @@
-﻿namespace Framework.Database.Xml
+﻿using System.Xml.Serialization;
+
+namespace Framework.Database.Xml
 {
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public partial class race
+    [XmlType(AnonymousType = true)]
+    [XmlRoot(Namespace = "", IsNullable = false)]
+    public class race
     {
 
         private byte healthField;
@@ -23,102 +25,60 @@
         /// <remarks/>
         public byte health
         {
-            get
-            {
-                return this.healthField;
-            }
-            set
-            {
-                this.healthField = value;
-            }
+            get { return healthField; }
+            set { healthField = value; }
         }
 
         /// <remarks/>
         public raceStats stats
         {
-            get
-            {
-                return this.statsField;
-            }
-            set
-            {
-                this.statsField = value;
-            }
+            get { return statsField; }
+            set { statsField = value; }
         }
 
         /// <remarks/>
         public raceLeveling leveling
         {
-            get
-            {
-                return this.levelingField;
-            }
-            set
-            {
-                this.levelingField = value;
-            }
+            get { return levelingField; }
+            set { levelingField = value; }
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("spell", IsNullable = false)]
+        [XmlArrayItem("spell", IsNullable = false)]
         public raceSpell[] spells
         {
-            get
-            {
-                return this.spellsField;
-            }
-            set
-            {
-                this.spellsField = value;
-            }
+            get { return spellsField; }
+            set { spellsField = value; }
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("skill", IsNullable = false)]
+        [XmlArrayItem("skill", IsNullable = false)]
         public raceSkill[] skills
         {
-            get
-            {
-                return this.skillsField;
-            }
-            set
-            {
-                this.skillsField = value;
-            }
+            get { return skillsField; }
+            set { skillsField = value; }
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("class", IsNullable = false)]
+        [XmlArrayItem("class", IsNullable = false)]
         public raceClass[] classes
         {
-            get
-            {
-                return this.classesField;
-            }
-            set
-            {
-                this.classesField = value;
-            }
+            get { return classesField; }
+            set { classesField = value; }
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public byte id
         {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
+            get { return idField; }
+            set { idField = value; }
         }
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class raceStats
+    [XmlType(AnonymousType = true)]
+    public class raceStats
     {
 
         private byte strengthField;
@@ -134,72 +94,42 @@
         /// <remarks/>
         public byte strength
         {
-            get
-            {
-                return this.strengthField;
-            }
-            set
-            {
-                this.strengthField = value;
-            }
+            get { return strengthField; }
+            set { strengthField = value; }
         }
 
         /// <remarks/>
         public byte agility
         {
-            get
-            {
-                return this.agilityField;
-            }
-            set
-            {
-                this.agilityField = value;
-            }
+            get { return agilityField; }
+            set { agilityField = value; }
         }
 
         /// <remarks/>
         public byte stamina
         {
-            get
-            {
-                return this.staminaField;
-            }
-            set
-            {
-                this.staminaField = value;
-            }
+            get { return staminaField; }
+            set { staminaField = value; }
         }
 
         /// <remarks/>
         public byte intellect
         {
-            get
-            {
-                return this.intellectField;
-            }
-            set
-            {
-                this.intellectField = value;
-            }
+            get { return intellectField; }
+            set { intellectField = value; }
         }
 
         /// <remarks/>
         public byte spirit
         {
-            get
-            {
-                return this.spiritField;
-            }
-            set
-            {
-                this.spiritField = value;
-            }
+            get { return spiritField; }
+            set { spiritField = value; }
         }
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class raceLeveling
+    [XmlType(AnonymousType = true)]
+    public class raceLeveling
     {
 
         private decimal strengthField;
@@ -215,146 +145,94 @@
         /// <remarks/>
         public decimal strength
         {
-            get
-            {
-                return this.strengthField;
-            }
-            set
-            {
-                this.strengthField = value;
-            }
+            get { return strengthField; }
+            set { strengthField = value; }
         }
 
         /// <remarks/>
         public decimal agility
         {
-            get
-            {
-                return this.agilityField;
-            }
-            set
-            {
-                this.agilityField = value;
-            }
+            get { return agilityField; }
+            set { agilityField = value; }
         }
 
         /// <remarks/>
         public decimal stamina
         {
-            get
-            {
-                return this.staminaField;
-            }
-            set
-            {
-                this.staminaField = value;
-            }
+            get { return staminaField; }
+            set { staminaField = value; }
         }
 
         /// <remarks/>
         public decimal intellect
         {
-            get
-            {
-                return this.intellectField;
-            }
-            set
-            {
-                this.intellectField = value;
-            }
+            get { return intellectField; }
+            set { intellectField = value; }
         }
 
         /// <remarks/>
         public decimal spirit
         {
-            get
-            {
-                return this.spiritField;
-            }
-            set
-            {
-                this.spiritField = value;
-            }
+            get { return spiritField; }
+            set { spiritField = value; }
         }
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class raceSpell
+    [XmlType(AnonymousType = true)]
+    public class raceSpell
     {
 
         private ushort idField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public ushort id
         {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
+            get { return idField; }
+            set { idField = value; }
         }
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class raceSkill
+    [XmlType(AnonymousType = true)]
+    public class raceSkill
     {
+
+        private ushort idField;
 
         private ushort minField;
 
         private ushort maxField;
 
-        private ushort idField;
-
         /// <remarks/>
-        public ushort min
-        {
-            get
-            {
-                return this.minField;
-            }
-            set
-            {
-                this.minField = value;
-            }
-        }
-
-        /// <remarks/>
-        public ushort max
-        {
-            get
-            {
-                return this.maxField;
-            }
-            set
-            {
-                this.maxField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public ushort id
         {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
+            get { return idField; }
+            set { idField = value; }
+        }
+
+        /// <remarks/>
+        [XmlAttribute]
+        public ushort min
+        {
+            get { return minField; }
+            set { minField = value; }
+        }
+
+        /// <remarks/>
+        [XmlAttribute]
+        public ushort max
+        {
+            get { return maxField; }
+            set { maxField = value; }
         }
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class raceClass
+    [XmlType(AnonymousType = true)]
+    public class raceClass
     {
 
         private raceClassSpell[] spellsField;
@@ -363,158 +241,152 @@
 
         private raceClassItem[] itemsField;
 
+        private raceClassAction[] actionsField;
+
         private string idField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("spell", IsNullable = false)]
+        [XmlArrayItem("spell", IsNullable = false)]
         public raceClassSpell[] spells
         {
-            get
-            {
-                return this.spellsField;
-            }
-            set
-            {
-                this.spellsField = value;
-            }
+            get { return spellsField; }
+            set { spellsField = value; }
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("skill", IsNullable = false)]
+        [XmlArrayItem("skill", IsNullable = false)]
         public raceClassSkill[] skills
         {
-            get
-            {
-                return this.skillsField;
-            }
-            set
-            {
-                this.skillsField = value;
-            }
+            get { return skillsField; }
+            set { skillsField = value; }
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("item", IsNullable = false)]
+        [XmlArrayItem("item", IsNullable = false)]
         public raceClassItem[] items
         {
-            get
-            {
-                return this.itemsField;
-            }
-            set
-            {
-                this.itemsField = value;
-            }
+            get { return itemsField; }
+            set { itemsField = value; }
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlArrayItem("action", IsNullable = false)]
+        public raceClassAction[] actions
+        {
+            get { return actionsField; }
+            set { actionsField = value; }
+        }
+
+        /// <remarks/>
+        [XmlAttribute]
         public string id
         {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
+            get { return idField; }
+            set { idField = value; }
         }
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class raceClassSpell
+    [XmlType(AnonymousType = true)]
+    public class raceClassSpell
     {
 
         private ushort idField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public ushort id
         {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
+            get { return idField; }
+            set { idField = value; }
         }
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class raceClassSkill
+    [XmlType(AnonymousType = true)]
+    public class raceClassSkill
     {
+
+        private byte idField;
 
         private byte minField;
 
         private ushort maxField;
 
-        private byte idField;
-
         /// <remarks/>
-        public byte min
-        {
-            get
-            {
-                return this.minField;
-            }
-            set
-            {
-                this.minField = value;
-            }
-        }
-
-        /// <remarks/>
-        public ushort max
-        {
-            get
-            {
-                return this.maxField;
-            }
-            set
-            {
-                this.maxField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public byte id
         {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
+            get { return idField; }
+            set { idField = value; }
+        }
+
+        /// <remarks/>
+        [XmlAttribute]
+        public byte min
+        {
+            get { return minField; }
+            set { minField = value; }
+        }
+
+        /// <remarks/>
+        [XmlAttribute]
+        public ushort max
+        {
+            get { return maxField; }
+            set { maxField = value; }
         }
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class raceClassItem
+    [XmlType(AnonymousType = true)]
+    public class raceClassItem
     {
 
         private ushort idField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute]
         public ushort id
         {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
+            get { return idField; }
+            set { idField = value; }
+        }
+    }
+
+    /// <remarks/>
+    [XmlType(AnonymousType = true)]
+    public class raceClassAction
+    {
+
+        private byte buttonField;
+
+        private ushort actionField;
+
+        private byte typeField;
+
+        /// <remarks/>
+        [XmlAttribute]
+        public byte button
+        {
+            get { return buttonField; }
+            set { buttonField = value; }
+        }
+
+        /// <remarks/>
+        [XmlAttribute]
+        public ushort action
+        {
+            get { return actionField; }
+            set { actionField = value; }
+        }
+
+        /// <remarks/>
+        [XmlAttribute]
+        public byte type
+        {
+            get { return typeField; }
+            set { typeField = value; }
         }
     }
 }

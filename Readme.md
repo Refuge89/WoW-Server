@@ -1,15 +1,16 @@
+- Change (cinematic, FactionId, Model Male, Model Female, Team, TaxiMask) from DB to DBC
+- CreateTable "CharactersSocial" (Player, PlayerFriend, PlayerIgnore)
+- CreateTable "Channel" (Name, PlayerId, Password)
+- ChannelCharacters (Channel, PlayerId)
+
 ## TODO
 - Remove player on Logout
 - Limit CHAT_SAY Radius
 - Inventory 
 - Equipament 
 - Spells
-- Language
-- Faction Init
 - Change ItemsList from DB to XML
 - Limit CHAT_CHANNEL to only players in the channel
-- Action Bar
-
 
 ## Based ON 
 

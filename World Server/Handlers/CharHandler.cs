@@ -5,7 +5,6 @@ using System.Linq;
 using Framework.Contants;
 using Framework.Database.Tables;
 using Framework.Network;
-using World_Server.Game.Entitys;
 using World_Server.Helpers;
 using World_Server.Sessions;
 using static World_Server.Program;
@@ -153,6 +152,32 @@ namespace World_Server.Handlers
     }
     #endregion
 
+    #region CMSG_SET_ACTION_BUTTON
+    public sealed class CmsgSetActionButton : PacketReader
+    {
+        public byte Button { get; private set; }
+        public uint Action { get; private set; }
+        public ActionButtonType Type { get; private set; }
+
+        public CmsgSetActionButton(byte[] data) : base(data)
+        {
+            Button = ReadByte();
+            var packedData = ReadUInt32();
+            Action = packedData & 0x00FFFFFF;
+            Type = (ActionButtonType)((packedData & 0xFF000000) >> 24);
+        }
+    }
+    #endregion
+
+    public enum ActionButtonType
+    {
+        ACTION_BUTTON_SPELL = 0x00,
+        ACTION_BUTTON_C = 0x01,                     // click?
+        ACTION_BUTTON_MACRO = 0x40,
+        ACTION_BUTTON_CMACRO = ACTION_BUTTON_C | ACTION_BUTTON_MACRO,
+        ACTION_BUTTON_ITEM = 0x80
+    };
+
     public class CharHandler
     {
         internal static void OnCharDelete(WorldSession session, CmsgCharDelete handler)
@@ -215,6 +240,14 @@ namespace World_Server.Handlers
             session.Target = WorldServer.Sessions.FirstOrDefault(s => s.Character.Id == (int)handler.Guid)?.Character;
             ChatHandler.SendSytemMessage(session, $"Targeted: {session.Target?.Name}");
 
+        }
+
+        internal static void OnSetActionButton(WorldSession session, CmsgSetActionButton handler)
+        {
+            if (handler.Action == 0)
+                Program.Database.RemoveActionBar(handler, session.Character);
+            else
+                Program.Database.AddActionBar(handler, session.Character);
         }
     }
 }

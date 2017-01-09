@@ -74,8 +74,9 @@ namespace World_Server.Managers
 
                 // Helper Skill + Spell + Inventory
                 CharHelper helper = new CharHelper();
-                helper.GeraSpells(Char);
-                helper.GeraSkills(Char);
+                           helper.GeraSpells(Char);
+                           helper.GeraSkills(Char);
+                           helper.GeraActionBar(Char);
 
                 scope.Complete();
             }
@@ -166,6 +167,29 @@ namespace World_Server.Managers
         internal List<CharactersActionBar> GetActionBar(Character character)
         {
             return model.CharactersActionBar.Where(a => a.character == character).ToList();
+        }
+
+        internal async void RemoveActionBar(CmsgSetActionButton handler, Character character)
+        {
+            using (var scope = new DataAccessScope())
+            {
+                await model.CharactersActionBar.Where(a => a.character == character).Where(b => b.Action == handler.Action).DeleteAsync();
+                await scope.CompleteAsync();
+            }
+        }
+
+        internal void AddActionBar(CmsgSetActionButton handler, Character character)
+        {
+            using (var scope = new DataAccessScope())
+            {
+                var skill = this.model.CharactersActionBar.Create();
+                    skill.character = character;
+                    skill.Action = (int)handler.Action;
+                    skill.Button = handler.Button;
+                    skill.Type = (int)handler.Type;
+                    skill.created_at = ServerDateTime.Now;
+                scope.Complete();
+            }
         }
     }
 }

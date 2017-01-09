@@ -1,7 +1,6 @@
 ﻿using System;
 using Framework.Contants;
 using Framework.Database.Tables;
-using Framework.DBC.Structs;
 using Framework.Network;
 using World_Server.Handlers.World;
 using World_Server.Managers;
@@ -97,23 +96,10 @@ namespace World_Server.Handlers
 
                 session.PrepareSpell(cast);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 session.SendMessage($"Spell ainda não implementada: {spellId}");
             }
-
-            /*
-            this.WritePackedUInt64((ulong)caster.Id);
-            this.WritePackedUInt64((ulong)target.Id);
-
-            Write(spellId);
-            Write((ushort)SpellCastFlags.CastFlagUnknown9); // Cast Flags!?
-            Write((byte)1); // Target Length
-            Write(target.Id);
-            Write((byte)0); // End
-            Write((ushort)2); // TARGET_FLAG_UNIT
-            this.WritePackedUInt64((ulong)target.Id);
-            */
         }
     }
     #endregion

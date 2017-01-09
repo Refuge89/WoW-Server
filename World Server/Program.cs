@@ -73,12 +73,12 @@ namespace World_Server
 
             public static void TransmitToAll(ServerPacket packet)
             {
-                WorldServer.Sessions.FindAll(s => s.Character != null).ForEach(s => s.SendPacket(packet));
+                Sessions.FindAll(s => s.Character != null).ForEach(s => s.SendPacket(packet));
             }
 
             public static WorldSession GetSessionByPlayerName(string playerName)
             {
-                return WorldServer.Sessions.Find(user => user.Character.Name.ToLower() == playerName.ToLower());
+                return Sessions.Find(user => user.Character.Name.ToLower() == playerName.ToLower());
             }
         }
     }

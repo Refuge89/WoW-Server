@@ -114,5 +114,30 @@ namespace World_Server.Helpers
             }
             #endregion
         }
+
+        internal void GeraActionBar(Character character)
+        {
+            #region Select ActionBar of Race/Class
+            foreach (raceClass classId in XmlManager.GetRaceStats(character.Race).classes)
+            {
+                if (classId.id == character.Class.ToString())
+                {
+                    foreach (raceClassAction actionId in classId.actions)
+                    {
+                        using (var scope = new DataAccessScope())
+                        {
+                            var skill = this.model.CharactersActionBar.Create();
+                                skill.character = character;
+                                skill.Action = actionId.action;
+                                skill.Button = actionId.button;
+                                skill.Type = actionId.type;
+                                skill.created_at = ServerDateTime.Now;
+                            scope.Complete();
+                        }
+                    }
+                }
+            }
+            #endregion
+        }
     }
 }

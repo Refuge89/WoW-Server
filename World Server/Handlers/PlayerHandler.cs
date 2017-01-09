@@ -3,7 +3,7 @@ using Framework.Database.Tables;
 using Framework.Extensions;
 using Framework.Network;
 using System;
-using System.IO;
+using System.Collections.Generic;
 using World_Server.Sessions;
 
 namespace World_Server.Handlers
@@ -108,11 +108,10 @@ namespace World_Server.Handlers
     #endregion
 
     #region SMSG_ACTION_BUTTONS
-    class SmsgActionButtons : ServerPacket
+    sealed class SmsgActionButtons : ServerPacket
     {
         public SmsgActionButtons(Character character) : base(WorldOpcodes.SMSG_ACTION_BUTTONS)
         {
-            /*
             List<CharactersActionBar> savedButtons = Program.Database.GetActionBar(character);
 
             for (int button = 0; button < 120; button++)
@@ -127,54 +126,10 @@ namespace World_Server.Handlers
                     Write((UInt32)packedData);
                 }
                 else
-                {
                     Write((UInt32)0);
-                }
             }
-            */
         }
     }
     #endregion
 
-    public sealed class Weather : BinaryWriter
-    {
-        public Weather(WeatherState state, float grad, WeatherSounds sound) : base(new MemoryStream())
-        {
-            Write((uint)state);
-            Write(grad);
-            Write((uint)sound);
-        }
-
-        public byte[] Packet => (BaseStream as MemoryStream)?.ToArray();
-    }
-
-    public enum WeatherState : uint
-    {
-        WeatherStateFine = 0,
-        WeatherStateLightRain = 3,
-        WeatherStateMediumRain = 4,
-        WeatherStateHeavyRain = 5,
-        WeatherStateLightSnow = 6,
-        WeatherStateMediumSnow = 7,
-        WeatherStateHeavySnow = 8,
-        WeatherStateLightSandstorm = 22,
-        WeatherStateMediumSandstorm = 41,
-        WeatherStateHeavySandstorm = 42,
-        WeatherStateThunders = 86,
-        WeatherStateBlackrain = 90
-    };
-
-    public enum WeatherSounds : uint
-    {
-        WeatherNosound = 0,
-        WeatherRainlight = 8533,
-        WeatherRainmedium = 8534,
-        WeatherRainheavy = 8535,
-        WeatherSnowlight = 8536,
-        WeatherSnowmedium = 8537,
-        WeatherSnowheavy = 8538,
-        WeatherSandstormlight = 8556,
-        WeatherSandstormmedium = 8557,
-        WeatherSandstormheavy = 8558
-    };
 }

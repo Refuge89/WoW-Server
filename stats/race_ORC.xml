@@ -28,18 +28,9 @@
 		<spell id="20575" />	<!-- Command -->
 	</spells>
 	<skills>
-		<skill id="109"> 		<!-- Language: Orcish -->
-			<min>300</min>
-			<max>300</max>
-		</skill>
-		<skill id="162"> 		<!-- Unarmed -->
-			<min>1</min>
-			<max>300</max>
-		</skill>
-		<skill id="125"> 		<!-- Orcish Racial -->
-			<min>1</min>
-			<max>1</max>
-		</skill>
+		<skill id="109" min="300" max="300" /> 		<!-- Language: Orcish -->
+		<skill id="162" min="1" max="300" /> 		<!-- Unarmed -->
+		<skill id="125" min="1" max="1" /> 		<!-- Orcish Racial -->
 	</skills>
 	<classes>
 		<class id="WARRIOR">
@@ -49,24 +40,21 @@
 				<spell id="201" />		<!-- Swords -->
 			</spells>
 			<skills>
-				<skill id="43"> 		<!-- Swords -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="44"> 		<!-- Axes -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="172"> 		<!-- Two-Handed Axes -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="43" min="1" max="300" /> 		<!-- Swords -->
+				<skill id="44" min="1" max="300" /> 		<!-- Axes -->
+				<skill id="172" min="1" max="300" /> 		<!-- Two-Handed Axes -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
 				<item id="117" /> 		<!-- Tough Jerky -->
 				<item id="14649" /> 	<!-- Valley of Trials Gift Voucher -->
 			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="78" type="0" />
+				<action button="2" action="20572" type="0" />
+				<action button="11" action="117" type="128" />
+			</actions>
 		</class>
 		<class id="HUNTER">
 			<spells>
@@ -74,14 +62,8 @@
 				<spell id="264" /> 		<!-- Bows -->
 			</spells>
 			<skills>
-				<skill id="44"> 		<!-- Axes -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="45"> 		<!-- Bows -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="44" min="1" max="300" /> 		<!-- Axes -->
+				<skill id="45" min="1" max="300" /> 		<!-- Bows -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -92,6 +74,14 @@
 				<item id="2512" /> 		<!-- Rough Arrow -->
 				<item id="2101" /> 		<!-- Light Quiver -->
 			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="2973" type="0" />
+				<action button="2" action="75" type="0" />
+				<action button="4" action="20572" type="0" />
+				<action button="10" action="159" type="128" />
+				<action button="11" action="117" type="128" />
+			</actions>
 		</class>
 		<class id="ROGUE">
 			<spells>
@@ -100,14 +90,8 @@
 				<spell id="2764" /> 	<!-- Throw -->
 			</spells>
 			<skills>
-				<skill id="173"> 		<!-- Daggers -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="176"> 		<!-- Thrown -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
+				<skill id="176" min="1" max="300" /> 		<!-- Thrown -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -115,6 +99,14 @@
 				<item id="14649" /> 	<!-- Valley of Trials Gift Voucher -->
 				<item id="3111" /> 		<!-- Crude Throwing Axe -->
 			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="1752" type="0" />
+				<action button="2" action="2098" type="0" />
+				<action button="3" action="2764" type="0" />
+				<action button="4" action="20572" type="0" />
+				<action button="11" action="117" type="128" />
+			</actions>
 		</class>
 		<class id="SHAMAN">
 			<spells>
@@ -122,14 +114,8 @@
 				<spell id="227" /> 		<!-- Staves -->
 			</spells>
 			<skills>
-				<skill id="54"> 		<!-- Maces -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="136"> 		<!-- Staves -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
+				<skill id="136" min="1" max="300" /> 		<!-- Staves -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -137,6 +123,14 @@
 				<item id="14649" /> 	<!-- Valley of Trials Gift Voucher -->
 				<item id="159" /> 		<!-- Refreshing Spring Water -->
 			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="403" type="0" />
+				<action button="2" action="331" type="0" />
+				<action button="3" action="20572" type="0" />
+				<action button="10" action="159" type="128" />
+				<action button="11" action="117" type="128" />
+			</actions>
 		</class>
 		<class id="WARLOCK">
 			<spells>
@@ -145,14 +139,8 @@
 				<spell id="5019" /> 	<!-- Shoot -->
 			</spells>
 			<skills>
-				<skill id="173"> 		<!-- Daggers -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="228"> 		<!-- Wands -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
+				<skill id="228" min="1" max="300" /> 		<!-- Wands -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -160,6 +148,14 @@
 				<item id="14649" /> 	<!-- Valley of Trials Gift Voucher -->
 				<item id="159" /> 		<!-- Refreshing Spring Water -->
 			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="686" type="0" />
+				<action button="2" action="687" type="0" />
+				<action button="3" action="20572" type="0" />
+				<action button="10" action="159" type="128" />
+				<action button="11" action="117" type="128" />	
+			</actions>
 		</class>
 	</classes>
 </race>

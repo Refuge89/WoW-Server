@@ -29,23 +29,16 @@
 		<spell id="20585" />	<!-- Wisp Spirit -->
 	</spells>
 	<skills>
-		<skill id="98"> 		<!-- Language: Common -->
-			<min>300</min>
-			<max>300</max>
-		</skill>
-		<skill id="113"> 		<!-- Language: Darnassian -->
-			<min>300</min>
-			<max>300</max>
-		</skill>
-		<skill id="162"> 		<!-- Unarmed -->
-			<min>1</min>
-			<max>300</max>
-		</skill>
-		<skill id="126"> 		<!-- Human Night Elf -->
-			<min>1</min>
-			<max>1</max>
-		</skill>
+		<skill id="98" min="300" max="300" /> 		<!-- Language: Common -->
+		<skill id="113" min="300" max="300" /> 		<!-- Language: Darnassian -->
+		<skill id="162" min="1" max="300" /> 		<!-- Unarmed -->
+		<skill id="126" min="1" max="1" /> 		<!-- Human Night Elf -->
 	</skills>
+	<actions>
+		<action button="72" action="6603" type="0" />
+		<action button="73" action="78" type="0" />
+		<action button="83" action="117" type="128" />
+	</actions>
 	<classes>
 		<class id="WARRIOR">
 			<spells>
@@ -54,24 +47,21 @@
 				<spell id="201" />		<!-- Swords -->
 			</spells>
 			<skills>
-				<skill id="173"> 		<!-- Daggers -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="54"> 		<!-- Maces -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="43"> 		<!-- Swords -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
+				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
+				<skill id="43" min="1" max="300" /> 		<!-- Swords -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
 				<item id="117" /> 		<!-- Tough Jerky -->
 				<item id="14646" /> 	<!-- Shadowglen Gift Voucher -->
 			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="78" type="0" />
+				<action button="2" action="20580" type="0" />
+				<action button="11" action="117" type="128" />
+			</actions>
 		</class>
 		<class id="HUNTER">
 			<spells>
@@ -79,14 +69,8 @@
 				<spell id="264" /> 		<!-- Bows -->
 			</spells>
 			<skills>
-				<skill id="45"> 		<!-- Bows -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="173"> 		<!-- Daggers -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="45" min="1" max="300" /> 		<!-- Bows -->
+				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
 			</skills>
 			<items>
 				<item id="159" /> 		<!-- Refreshing Spring Water -->
@@ -96,6 +80,14 @@
 				<item id="117" /> 		<!-- Tough Jerky -->
 				<item id="14646" /> 	<!-- Shadowglen Gift Voucher -->
 			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="2973" type="0" />
+				<action button="2" action="75" type="0" />
+				<action button="3" action="20580" type="0" />
+				<action button="10" action="159" type="128" />
+				<action button="11" action="117" type="128" />
+			</actions>
 		</class>
 		<class id="ROGUE">
 			<spells>
@@ -104,42 +96,21 @@
 				<spell id="2764" /> 	<!-- Throw -->
 			</spells>
 			<skills>
-				<skill id="176"> 		<!-- Thrown -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="173"> 		<!-- Daggers -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="176" min="1" max="300" /> 		<!-- Thrown -->
+				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
 				<item id="4540" /> 		<!-- Tough Hunk of Bread -->
 				<item id="14646" /> 	<!-- Shadowglen Gift Voucher -->
 			</items>
-		</class>
-		<class id="DRUID">
-			<spells>
-				<spell id="1180" />		<!-- Daggers -->
-				<spell id="227" /> 		<!-- Staves -->
-			</spells>
-			<skills>
-				<skill id="136"> 		<!-- Staves -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="173"> 		<!-- Daggers -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-			</skills>
-			<items>
-				<item id="6948" /> 		<!-- Hearthstone -->
-				<item id="159" /> 		<!-- Refreshing Spring Water -->
-				<item id="4536" /> 		<!-- Shiny Red Apple -->
-				<item id="14646" /> 	<!-- Shadowglen Gift Voucher -->
-			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="1752" type="0" />
+				<action button="2" action="2098" type="0" />
+				<action button="3" action="2764" type="0" />
+				<action button="11" action="4540" type="128" />
+			</actions>
 		</class>
 		<class id="PRIEST">
 			<spells>
@@ -148,14 +119,8 @@
 				<spell id="5019" /> 	<!-- Shoot -->
 			</spells>
 			<skills>
-				<skill id="54"> 		<!-- Maces -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="228"> 		<!-- Wands -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
+				<skill id="228" min="1" max="300" /> 		<!-- Wands -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -163,6 +128,37 @@
 				<item id="2070" /> 		<!-- Darnassian Bleu -->
 				<item id="14646" /> 	<!-- Shadowglen Gift Voucher -->
 			</items>
-		</class>	
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="585" type="0" />
+				<action button="2" action="2050" type="0" />
+				<action button="3" action="20580" type="0" />
+				<action button="10" action="159" type="128" />
+				<action button="11" action="2070" type="128" />
+			</actions>
+		</class>
+		<class id="DRUID">
+			<spells>
+				<spell id="1180" />		<!-- Daggers -->
+				<spell id="227" /> 		<!-- Staves -->
+			</spells>
+			<skills>
+				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
+			</skills>
+			<items>
+				<item id="6948" /> 		<!-- Hearthstone -->
+				<item id="159" /> 		<!-- Refreshing Spring Water -->
+				<item id="4536" /> 		<!-- Shiny Red Apple -->
+				<item id="14646" /> 	<!-- Shadowglen Gift Voucher -->
+			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="5176" type="0" />
+				<action button="2" action="5185" type="0" />
+				<action button="3" action="20580" type="0" />
+				<action button="10" action="159" type="128" />
+				<action button="11" action="4536" type="128" />
+			</actions>
+		</class>
 	</classes>
 </race>

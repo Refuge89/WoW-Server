@@ -144,48 +144,6 @@ namespace World_Server.Handlers
             switch (handler.Type)
             {
                 case ChatMessageType.CHAT_MSG_SAY:
-                    string[] splitMessage = handler.Message.Split(' ');
-
-                    UnitEntity entity = session.Entity.Target ?? session.Entity;
-
-                    if (splitMessage.Length == 2)
-                    {
-                        if (splitMessage[0].ToLower() == "spell" && splitMessage[1] != "")
-                            session.SendPacket(new SmsgLearnedSpell((uint) int.Parse(splitMessage[1])));
-
-                        if (splitMessage[0].ToLower() == "sound")
-                            session.SendPacket(new SmsgPlaySound((uint) int.Parse(splitMessage[1])));
-
-                        
-
-                        if (splitMessage[0].ToLower() == "scale")
-                            entity.Scale = float.Parse(splitMessage[1]);
-
-                        if (splitMessage[0].ToLower() == "level")
-                            entity.Level = int.Parse(splitMessage[1]);
-
-                        if (splitMessage[0].ToLower() == "xp")
-                        {
-                            ((PlayerEntity) entity).Xp = int.Parse(splitMessage[1]);
-                        }
-
-                        session.SendMessage($"Applied {splitMessage[0].ToLower()} = {splitMessage[1]}");
-                    }
-
-                    if (splitMessage[0].ToLower() == "vem")
-                    {
-                        Console.WriteLine("vem comando");
-                        try
-                        {
-                            Console.WriteLine(splitMessage[2]);
-                            entity.SetUpdateField((int)(EUnitFields)Enum.Parse(typeof(EUnitFields), splitMessage[1]), int.Parse(splitMessage[2]));
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                        }
-                    }
-
                     Program.WorldServer.TransmitToAll(new SmsgMessagechat(handler.Type, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.Id, handler.Message));
                     break;
                 case ChatMessageType.CHAT_MSG_EMOTE:

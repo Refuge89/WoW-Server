@@ -9,7 +9,6 @@ using Framework.Network;
 using World_Server.Sessions;
 using Framework.Database.Tables;
 using Framework.DBC.Structs;
-using Framework.Extensions;
 using World_Server.Managers;
 using World_Server.Game;
 

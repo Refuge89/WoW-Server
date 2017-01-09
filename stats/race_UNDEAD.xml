@@ -29,23 +29,16 @@
 		<spell id="20579" />	<!-- Shadow Resistance -->
 	</spells>
 	<skills>
-		<skill id="109"> 		<!-- Language: Orcish -->
-			<min>1</min>
-			<max>300</max>
-		</skill>
-		<skill id="673"> 		<!-- Language: Gutterspeak -->
-			<min>300</min>
-			<max>300</max>
-		</skill>
-		<skill id="162"> 		<!-- Unarmed -->
-			<min>1</min>
-			<max>300</max>
-		</skill>
-		<skill id="220"> 		<!-- Undead Racial -->
-			<min>1</min>
-			<max>1</max>
-		</skill>
+		<skill id="109" min="1" max="300" /> 		<!-- Language: Orcish -->
+		<skill id="673" min="300" max="300" /> 		<!-- Language: Gutterspeak -->
+		<skill id="162" min="1" max="300" /> 		<!-- Unarmed -->
+		<skill id="220" min="1" max="1" /> 		<!-- Undead Racial -->
 	</skills>
+	<actions>
+		<action button="72" action="6603" type="0" />
+		<action button="73" action="78" type="0" />
+		<action button="83" action="4604" type="128" />
+	</actions>
 	<classes>
 		<class id="WARRIOR">
 			<spells>
@@ -54,24 +47,21 @@
 				<spell id="1180" />		<!-- Daggers -->
 			</spells>
 			<skills>
-				<skill id="43"> 		<!-- Swords -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="55"> 		<!-- Two-Handed Swords -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="173"> 		<!-- Daggers -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="43" min="1" max="300" /> 		<!-- Swords -->
+				<skill id="55" min="1" max="300" /> 		<!-- Two-Handed Swords -->
+				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
 				<item id="117" /> 		<!-- Tough Jerky -->
 				<item id="14651" /> 	<!-- Deathknell Gift Voucher -->
 			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="78" type="0" />
+				<action button="2" action="20577" type="0" />
+				<action button="11" action="4604" type="128" />
+			</actions>
 		</class>
 		<class id="ROGUE">
 			<spells>
@@ -80,14 +70,8 @@
 				<spell id="2764" />		<!-- Throw -->
 			</spells>
 			<skills>
-				<skill id="176"> 		<!-- Thrown -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="173"> 		<!-- Daggers -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="176" min="1" max="300" /> 		<!-- Thrown -->
+				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -95,6 +79,14 @@
 				<item id="14651" /> 	<!-- Deathknell Gift Voucher -->
 				<item id="2947" /> 		<!-- Small Throwing Knife -->
 			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="1752" type="0" />
+				<action button="2" action="2098" type="0" />
+				<action button="3" action="2764" type="0" />
+				<action button="4" action="20577" type="0" />
+				<action button="11" action="4604" type="128" />
+			</actions>
 		</class>
 		<class id="PRIEST">
 			<spells>
@@ -103,14 +95,8 @@
 				<spell id="5019" />		<!-- Shoot -->
 			</spells>
 			<skills>
-				<skill id="54"> 		<!-- Maces -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="228"> 		<!-- Wands -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
+				<skill id="228" min="1" max="300" /> 		<!-- Wands -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -118,6 +104,14 @@
 				<item id="14651" /> 	<!-- Deathknell Gift Voucher -->
 				<item id="159" /> 		<!-- Refreshing Spring Water -->
 			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="585" type="0" />
+				<action button="2" action="2050" type="0" />
+				<action button="3" action="20577" type="0" />
+				<action button="10" action="159" type="128" />
+				<action button="11" action="4604" type="128" />
+			</actions>
 		</class>
 		<class id="MAGE">
 			<spells>
@@ -126,14 +120,8 @@
 				<spell id="5019" />		<!-- Shoot -->
 			</spells>
 			<skills>
-				<skill id="136"> 		<!-- Staves -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="228"> 		<!-- Wands -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="136" min="1" max="300" /> 		<!-- Staves -->
+				<skill id="228" min="1" max="300" /> 		<!-- Wands -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -141,6 +129,14 @@
 				<item id="14651" /> 	<!-- Deathknell Gift Voucher -->
 				<item id="159" /> 		<!-- Refreshing Spring Water -->
 			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="113" type="0" />
+				<action button="2" action="168" type="0" />
+				<action button="3" action="20577" type="0" />
+				<action button="10" action="159" type="128" />
+				<action button="11" action="4604" type="128" />
+			</actions>
 		</class>
 		<class id="WARLOCK">
 			<spells>
@@ -149,14 +145,8 @@
 				<spell id="5019" />		<!-- Shoot -->
 			</spells>
 			<skills>
-				<skill id="173"> 		<!-- Daggers -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
-				<skill id="228"> 		<!-- Wands -->
-					<min>1</min>
-					<max>300</max>
-				</skill>
+				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
+				<skill id="228" min="1" max="300" /> 		<!-- Wands -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -164,6 +154,14 @@
 				<item id="14651" /> 	<!-- Deathknell Gift Voucher -->
 				<item id="159" /> 		<!-- Refreshing Spring Water -->
 			</items>
+			<actions>
+				<action button="0" action="6603" type="0" />
+				<action button="1" action="686" type="0" />
+				<action button="2" action="687" type="0" />
+				<action button="3" action="20577" type="0" />
+				<action button="10" action="159" type="128" />
+				<action button="11" action="4604" type="128" />
+			</actions>
 		</class>
 	</classes>
 </race>

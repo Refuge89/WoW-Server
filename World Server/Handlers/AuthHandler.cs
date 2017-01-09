@@ -1,5 +1,4 @@
-﻿using System;
-using Framework.Contants;
+﻿using Framework.Contants;
 using Framework.Crypt;
 using Framework.Network;
 using World_Server.Sessions;
@@ -48,7 +47,6 @@ namespace World_Server.Handlers
     #endregion
 
     #region SMSG_AUTH_RESPONSE
-
     sealed class SmsgAuthResponse : ServerPacket
     {
         public SmsgAuthResponse() : base(WorldOpcodes.SMSG_AUTH_RESPONSE)
@@ -56,7 +54,6 @@ namespace World_Server.Handlers
             Write((byte)LoginErrorCode.AUTH_OK);
         }
     }
-
     #endregion
 
     public class AuthHandler

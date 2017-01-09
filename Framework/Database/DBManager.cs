@@ -185,6 +185,7 @@ namespace Framework.Database
             }
 
             
+            /*
             string itemFile = File.ReadAllText("_test.txt");
 
             Regex patItem = new Regex(@"\[item (.*)\]");
@@ -219,6 +220,7 @@ namespace Framework.Database
                 }
             }
             Console.WriteLine($"Inserido {ia} registros.");
+            */
         }
     }
 }

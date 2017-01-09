@@ -1,5 +1,4 @@
-﻿using System;
-using Framework.Contants.Game;
+﻿using Framework.Contants.Game;
 using World_Server.Game.Update;
 
 namespace World_Server.Game.Entitys

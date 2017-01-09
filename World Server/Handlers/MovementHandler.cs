@@ -87,10 +87,10 @@ namespace World_Server.Handlers
         {
             byte[] packedGuid = UpdateObject.GenerateGuidBytes((ulong)session.Character.Id);
             UpdateObject.WriteBytes(this, packedGuid);
-            UpdateObject.WriteBytes(this, (handler.BaseStream as MemoryStream).ToArray());
+            UpdateObject.WriteBytes(this, (handler.BaseStream as MemoryStream)?.ToArray());
 
             // We then overwrite the original moveTime (sent from the client) with ours
-            (BaseStream as MemoryStream).Position = 4 + packedGuid.Length;
+            ((MemoryStream) BaseStream).Position = 4 + packedGuid.Length;
             UpdateObject.WriteBytes(this, BitConverter.GetBytes((uint)Environment.TickCount));
         }
     }
