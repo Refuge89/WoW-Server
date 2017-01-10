@@ -11,6 +11,18 @@
 		<DisplayId>2473</DisplayId>
 	</item>
 	
+	<item id="139">
+		<name>Brawler's Pants</name>
+		<DisplayId>9988</DisplayId>
+		<Type>7</Type>
+	</item>
+	
+	<item id="2361">
+		<name>Battleworn Hammer</name>
+		<DisplayId>8690</DisplayId>
+		<Type>17</Type>
+	</item>
+	
 	<item id="804">
 		<name>Large Blue Sack</name>
 		<DisplayId>2588</DisplayId>

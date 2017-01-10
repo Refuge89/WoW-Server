@@ -5,7 +5,6 @@ using Framework.Contants.Character;
 using Framework.Contants.Game;
 using Framework.Database.Tables;
 using World_Server.Game.Update;
-using World_Server.Helpers;
 using World_Server.Managers;
 using World_Server.Sessions;
 
@@ -71,6 +70,7 @@ namespace World_Server.Game.Entitys
 
             SetUpdateField((int)EUnitFields.PLAYER_NEXT_LEVEL_XP, 400);
 
+            /*
             // Items Equipamento
             WorldItems[] equipment = InventoryHelper.GenerateInventoryByIDs(character.Equipment);
 
@@ -82,6 +82,7 @@ namespace World_Server.Game.Entitys
                     SetUpdateField((int) EUnitFields.PLAYER_FIELD_BANKBAG_SLOT_1 + (i * 12), equipment[i].itemId);
                 }
             }
+            */
         }
 
         private void GenerateStats()

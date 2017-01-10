@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Framework.Contants.Character;
 using Framework.Database;
 using Framework.Database.Tables;
 using Framework.Database.Xml;
@@ -12,8 +13,6 @@ namespace World_Server.Helpers
 {
     class CharHelper : BaseModel<Models>
     {
-        public itemsItem Template;
-
         internal void GeraSpells(Character character)
         {
             #region Select spell of race
@@ -181,9 +180,6 @@ namespace World_Server.Helpers
                     continue;
                 }
 
-                if (Template == null)
-                    Template = XmlManager.GetItem(entry);
-
                 using (var scope = new DataAccessScope())
                 {
                     var item = XmlManager.GetItem(entry);
@@ -191,46 +187,14 @@ namespace World_Server.Helpers
                     var inventory = model.CharactersInventory.Create();
                         inventory.Character = character;
                         inventory.Item = item.id;
-                        inventory.Slot = PrefInvSlot();
+                        inventory.Slot = PrefInvSlot(item);
                         inventory.created_at = ServerDateTime.Now;
                     scope.Complete();
                 }
             }
         }
 
-        public enum InventoryTypes : byte
-        {
-            NONE_EQUIP = 0x00,
-            HEAD = 0x01,
-            NECK = 0x02,
-            SHOULDER = 0x03,
-            BODY = 0x04,
-            CHEST = 0x05,
-            WAIST = 0x06,
-            LEGS = 0x07,
-            FEET = 0x08,
-            WRIST = 0x09,
-            HAND = 0x0A,
-            FINGER = 0x0B,
-            TRINKET = 0x0C,
-            WEAPON = 0x0D,
-            SHIELD = 0x0E,
-            RANGED = 0x0F,
-            CLOAK = 0x10,
-            TWOHANDEDWEAPON = 0x11,
-            BAG = 0x12,
-            TABARD = 0x13,
-            ROBE = 0x14,
-            WEAPONMAINHAND = 0x15,
-            WEAPONOFFHAND = 0x16,
-            HOLDABLE = 0x17,
-            AMMO = 0x18,
-            THROWN = 0x19,
-            RANGEDRIGHT = 0x1A,
-            NUM_TYPES = 0x1B
-        }
-
-        protected uint PrefInvSlot()
+        private uint PrefInvSlot(itemsItem item)
         {
             int[] slotTypes = new int[(int)InventoryTypes.NUM_TYPES]{
                 (int)InventorySlots.SLOT_INBACKPACK, // NONE EQUIP
@@ -262,50 +226,7 @@ namespace World_Server.Helpers
 	            (int)InventorySlots.SLOT_RANGED // rangedright
             };
 
-            return (uint)slotTypes[Template.Type];
+            return (uint)slotTypes[item.Type];
         }
-    }
-
-    public enum InventorySlots
-    {
-        SLOT_HEAD = 0,
-        SLOT_NECK = 1,
-        SLOT_SHOULDERS = 2,
-        SLOT_SHIRT = 3,
-        SLOT_CHEST = 4,
-        SLOT_WAIST = 5,
-        SLOT_LEGS = 6,
-        SLOT_FEET = 7,
-        SLOT_WRISTS = 8,
-        SLOT_HANDS = 9,
-        SLOT_FINGERL = 10,
-        SLOT_FINGERR = 11,
-        SLOT_TRINKETL = 12,
-        SLOT_TRINKETR = 13,
-        SLOT_BACK = 14,
-        SLOT_MAINHAND = 15,
-        SLOT_OFFHAND = 16,
-        SLOT_RANGED = 17,
-        SLOT_TABARD = 18,
-
-        //! Misc Types
-        SLOT_BAG1 = 19,
-        SLOT_BAG2 = 20,
-        SLOT_BAG3 = 21,
-        SLOT_BAG4 = 22,
-        SLOT_INBACKPACK = 23,
-
-        SLOT_ITEM_START = 23,
-        SLOT_ITEM_END = 39,
-
-        SLOT_BANK_ITEM_START = 39,
-        SLOT_BANK_ITEM_END = 63,
-        SLOT_BANK_BAG_1 = 63,
-        SLOT_BANK_BAG_2 = 64,
-        SLOT_BANK_BAG_3 = 65,
-        SLOT_BANK_BAG_4 = 66,
-        SLOT_BANK_BAG_5 = 67,
-        SLOT_BANK_BAG_6 = 68,
-        SLOT_BANK_END = 69
     }
 }

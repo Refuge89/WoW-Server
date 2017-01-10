@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Framework.Contants;
+using Framework.Contants.Character;
 using Framework.Database;
 using Framework.Database.Tables;
 using Framework.Database.XML;
@@ -171,15 +172,6 @@ namespace World_Server.Handlers
         }
     }
     #endregion
-
-    public enum ActionButtonType
-    {
-        ACTION_BUTTON_SPELL = 0x00,
-        ACTION_BUTTON_C = 0x01,                     // click?
-        ACTION_BUTTON_MACRO = 0x40,
-        ACTION_BUTTON_CMACRO = ACTION_BUTTON_C | ACTION_BUTTON_MACRO,
-        ACTION_BUTTON_ITEM = 0x80
-    }
 
     public class CharHandler
     {

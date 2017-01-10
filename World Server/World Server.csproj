@@ -86,7 +86,6 @@
     <Compile Include="Helpers\CharHelper.cs" />
     <Compile Include="Helpers\WorldDataRouter.cs" />
     <Compile Include="Handlers\WorldHandler.cs" />
-    <Compile Include="Helpers\InventoryHelper.cs" />
     <Compile Include="Managers\HandlerManager.cs" />
     <Compile Include="Managers\DatabaseManager.cs" />
     <Compile Include="Managers\PlayerManager.cs" />
