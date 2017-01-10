@@ -5,8 +5,8 @@ using System.Linq;
 using Framework.Contants;
 using Framework.Database;
 using Framework.Database.Tables;
+using Framework.Database.XML;
 using Framework.Network;
-using World_Server.Helpers;
 using World_Server.Sessions;
 using static World_Server.Program;
 
@@ -89,8 +89,8 @@ namespace World_Server.Handlers
                 var inventory = Database.GetInventory(character);
 
                 Write((ulong) character.Id);
-                WriteCString(character.Name);
 
+                WriteCString(character.Name);
                 Write((byte) character.Race);
                 Write((byte) character.Class);
                 Write((byte) character.Gender);
@@ -99,18 +99,18 @@ namespace World_Server.Handlers
                 Write(skin.Face);
                 Write(skin.HairStyle);
                 Write(skin.HairColor);
-                Write(skin.Accessory);
+                Write(skin.Accessory); // ?? realy need on mangos dont have this
 
                 Write(character.Level);
-
                 Write(character.MapZone);
                 Write(character.MapID);
+
                 Write(character.MapX);
                 Write(character.MapY);
                 Write(character.MapZ);
 
                 Write(0); // Guild ID
-                Write(0); // Character Flags
+                Write(1); // Character Flags [PLAYER_FLAGS_HIDE_HELM / CHARACTER_FLAG_HIDE_CLOAK / CHARACTER_FLAG_GHOST / CHARACTER_FLAG_RENAME]
                 Write((byte) (character.firsttime ? 1 : 0)); //FirstLogin 
 
                 Write(0); // Pet DisplayID
@@ -119,17 +119,20 @@ namespace World_Server.Handlers
 
                 for (int i = 0; i < 19; i++)
                 {
-                    Write((int)0);
-                    Write((byte)0);
-                }
-                    /*
-                    foreach (CharactersInventory item in inventory)
+                    CharactersInventory abab = inventory.FirstOrDefault(b => b.Slot == i);
+
+                    if (abab != null)
                     {
-                        var itm = XmlManager.GetItem((uint)item.Item);
-                        Write(itm.DisplayId); // displayId
-                        Write(itm.Type); // InventoryType
+                        itemsItem itm = XmlManager.GetItem((uint)abab.Item);
+                        Write((int)itm.DisplayId);
+                        Write((byte)itm.Type);
                     }
-                    */
+                    else
+                    {
+                        Write(0);
+                        Write((byte)0);
+                    }
+                }
 
                 Write(0); // first bag display id
                 Write((byte)0); // first bag inventory type
@@ -207,8 +210,6 @@ namespace World_Server.Handlers
                     return;
                 }
 
-                Console.WriteLine(ex);
-
                 // Failed another Error
                 session.SendPacket(new SmsgCharCreate(LoginErrorCode.CHAR_CREATE_FAILED));
             }
@@ -232,7 +233,6 @@ namespace World_Server.Handlers
 
         internal static void OnSetSelectionPacket(WorldSession session, CmsgSetSelection handler)
         {
-            Console.WriteLine($"Estou Selecionando: {handler.Guid}");
             if (handler.Guid == 0)
             {
                 session.Target = null;
