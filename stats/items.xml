@@ -4,40 +4,59 @@
 		<name>Recruit's Shirt</name>
 		<DisplayId>9891</DisplayId>
 		<Type>4</Type>
+		<Class>4</Class>
 	</item>
 	
 	<item id="117">
 		<name>Tough Jerky</name>
 		<DisplayId>2473</DisplayId>
+		<Class>0</Class>
 	</item>
 	
 	<item id="139">
 		<name>Brawler's Pants</name>
 		<DisplayId>9988</DisplayId>
 		<Type>7</Type>
+		<Class>4</Class>
+	</item>
+		
+	<item id="804">
+		<name>Large Blue Sack</name>
+		<DisplayId>2588</DisplayId>
+		<Type>18</Type>
+		<Slot>10</Slot>
+		<Class>1</Class>
 	</item>
 	
 	<item id="2361">
 		<name>Battleworn Hammer</name>
 		<DisplayId>8690</DisplayId>
 		<Type>17</Type>
+		<Class>2</Class>
 	</item>
 	
-	<item id="804">
-		<name>Large Blue Sack</name>
-		<DisplayId>2588</DisplayId>
-		<Type>18</Type>
-		<Slot>10</Slot>
+	<item id="4540">
+		<name>Tough Hunk of Bread</name>
+		<DisplayId>6399</DisplayId>
+		<Class>0</Class>
 	</item>
 	
 	<item id="6125">
 		<name>Brawler's Harness</name>
 		<DisplayId>9995</DisplayId>
 		<Type>4</Type>
+		<Class>4</Class>
 	</item>
 	
 	<item id="6948">
 		<name>Hearthstone</name>
 		<DisplayId>6418</DisplayId>
+		<Class>15</Class>
+	</item>
+	
+	<item id="9547">
+		<name>Simple Note</name>
+		<DisplayId>7798</DisplayId>
+		<Class>12</Class>
 	</item>	
 </items>

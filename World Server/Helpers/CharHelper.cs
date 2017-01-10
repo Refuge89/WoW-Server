@@ -169,28 +169,71 @@ namespace World_Server.Helpers
             if (startItems == null)
                 return;
 
-            for (int i = 0; i < startItems.m_InventoryType.Count(); i++)
+            // Adiciona Items
+            for (int j = 0; j < 12; ++j)
             {
-                uint entry = 0;
-
-                if (startItems.m_InventoryType[i] < 1 || !uint.TryParse(startItems.m_ItemID[i].ToString(), out entry) ||
-                    XmlManager.GetItem(entry) == null)
-                {
-                    Console.WriteLine($"Item not Found: {entry}");
+                if (startItems.m_ItemID[j] <= 0)
                     continue;
+
+                uint itemId = (uint)startItems.m_ItemID[j];
+
+                Console.WriteLine($"Tentando adicionar item a bag {itemId}");
+
+                var item = XmlManager.GetItem(itemId);
+
+                if (item == null)
+                    continue;;
+
+                // special amount for foor/drink
+                if (item?.Class == 0) // && Item.SubClass == 5)
+                {
+
                 }
+                // Adiciona todos os items aqui
 
                 using (var scope = new DataAccessScope())
                 {
-                    var item = XmlManager.GetItem(entry);
-
                     var inventory = model.CharactersInventory.Create();
                         inventory.Character = character;
                         inventory.Item = item.id;
+                        inventory.Stack = 1;
                         inventory.Slot = PrefInvSlot(item);
                         inventory.created_at = ServerDateTime.Now;
                     scope.Complete();
                 }
+            }
+
+            for (int i = 23; i < 39; ++i)
+            {
+                /*
+                if (Item * pItem = GetItemByPos(INVENTORY_SLOT_BAG_0, i))
+                {
+                    uint16 eDest;
+                    // equip offhand weapon/shield if it attempt equipped before main-hand weapon
+                    InventoryResult msg = CanEquipItem(NULL_SLOT, eDest, pItem, false);
+                    if (msg == EQUIP_ERR_OK)
+                    {
+                        RemoveItem(INVENTORY_SLOT_BAG_0, i, true);
+                        EquipItem(eDest, pItem, true);
+                    }
+                    // move other items to more appropriate slots (ammo not equipped in special bag)
+                    else
+                    {
+                        ItemPosCountVec sDest;
+                        msg = CanStoreItem(NULL_BAG, NULL_SLOT, sDest, pItem, false);
+                        if (msg == EQUIP_ERR_OK)
+                        {
+                            RemoveItem(INVENTORY_SLOT_BAG_0, i, true);
+                            pItem = StoreItem(sDest, pItem, true);
+                        }
+
+                        // if  this is ammo then use it
+                        msg = CanUseAmmo(pItem->GetEntry());
+                        if (msg == EQUIP_ERR_OK)
+                            SetAmmo(pItem->GetEntry());
+                    }
+                }
+                */
             }
         }
 

@@ -100,7 +100,7 @@ namespace World_Server.Handlers
                 Write(skin.Face);
                 Write(skin.HairStyle);
                 Write(skin.HairColor);
-                Write(skin.Accessory); // ?? realy need on mangos dont have this
+                Write(skin.Accessory); // facial hair
 
                 Write(character.Level);
                 Write(character.MapZone);
@@ -111,7 +111,7 @@ namespace World_Server.Handlers
                 Write(character.MapZ);
 
                 Write(0); // Guild ID
-                Write(1); // Character Flags [PLAYER_FLAGS_HIDE_HELM / CHARACTER_FLAG_HIDE_CLOAK / CHARACTER_FLAG_GHOST / CHARACTER_FLAG_RENAME]
+                Write(0); // Flags [1024] PLAYER_FLAGS_HIDE_HELM / [2048] CHARACTER_FLAG_HIDE_CLOAK / [8192] CHARACTER_FLAG_GHOST / [16384] CHARACTER_FLAG_RENAME
                 Write((byte) (character.firsttime ? 1 : 0)); //FirstLogin 
 
                 Write(0); // Pet DisplayID
@@ -126,7 +126,7 @@ namespace World_Server.Handlers
                     {
                         itemsItem itm = XmlManager.GetItem((uint)abab.Item);
                         Write((int)itm.DisplayId);
-                        Write((byte)itm.Type);
+                        Write(itm.Type);
                     }
                     else
                     {
@@ -233,7 +233,6 @@ namespace World_Server.Handlers
 
             session.Target = WorldServer.Sessions.FirstOrDefault(s => s.Character.Id == (int)handler.Guid)?.Character;
             ChatHandler.SendSytemMessage(session, $"Targeted: {session.Target?.Name}");
-
         }
 
         internal static void OnSetActionButton(WorldSession session, CmsgSetActionButton handler)

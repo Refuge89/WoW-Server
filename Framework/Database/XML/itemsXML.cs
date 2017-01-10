@@ -1,6 +1,5 @@
 ﻿namespace Framework.Database.XML
 {
-
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
@@ -27,7 +26,13 @@
 
         private ushort displayIdField;
 
+        private byte classField;
+
+        private bool classFieldSpecified;
+
         private byte typeField;
+
+        private bool typeFieldSpecified;
 
         private byte slotField;
 
@@ -50,10 +55,33 @@
         }
 
         /// <remarks/>
+        public byte Class
+        {
+            get { return this.classField; }
+            set { this.classField = value; }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool ClassSpecified
+        {
+            get { return this.classFieldSpecified; }
+            set { this.classFieldSpecified = value; }
+        }
+
+        /// <remarks/>
         public byte Type
         {
             get { return this.typeField; }
             set { this.typeField = value; }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool TypeSpecified
+        {
+            get { return this.typeFieldSpecified; }
+            set { this.typeFieldSpecified = value; }
         }
 
         /// <remarks/>

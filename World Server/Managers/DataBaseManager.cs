@@ -112,9 +112,9 @@ namespace World_Server.Managers
             return model.CharactersSkin.FirstOrDefault(a => a.Character == character);
         }
 
-        public WorldItems GetItem(int itemId)
+        public CharactersInventory GetItem(Character character, uint itemId)
         {
-            return model.WorldItems.FirstOrDefault(a => a.itemId == itemId);
+            return model.CharactersInventory.FirstOrDefault(b => (b.Character == character) && (b.Item == itemId));
         }
 
         public async void DeleteCharacter(int charId)
