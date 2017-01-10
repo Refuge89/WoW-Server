@@ -32,5 +32,8 @@ namespace Framework.Database
 
         [DataAccessObjects]
         public abstract DataAccessObjects<CharactersActionBar> CharactersActionBar { get; }
+
+        [DataAccessObjects]
+        public abstract DataAccessObjects<CharactersInventory> CharactersInventory { get; }
     }
 }

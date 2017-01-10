@@ -47,7 +47,7 @@
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
-				<item id="117" /> 		<!-- Tough Jerky -->
+				<item id="117" qty="5" /> 		<!-- Tough Jerky -->
 				<item id="14646" /> 	<!-- Northshire Gift Voucher -->
 			</items>
 			<actions>
@@ -67,8 +67,8 @@
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
-				<item id="159" /> 		<!-- Refreshing Spring Water -->
-				<item id="2070" /> 		<!-- Darnassian Bleu -->
+				<item id="159" qty="5" /> 		<!-- Refreshing Spring Water -->
+				<item id="2070" qty="5" /> 		<!-- Darnassian Bleu -->
 				<item id="14646" /> 	<!-- Northshire Gift Voucher -->
 			</items>
 			<actions>
@@ -91,8 +91,9 @@
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
-				<item id="2070" /> 		<!-- Darnassian Bleu -->
+				<item id="2070" qty="5" /> 		<!-- Darnassian Bleu -->
 				<item id="14646" /> 	<!-- Northshire Gift Voucher -->
+				<item id="2947" qty="100" />	<!-- Broken Small Throwing Knife -->
 			</items>
 			<actions>
 				<action button="0" action="6603" type="0" />
@@ -114,8 +115,8 @@
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
-				<item id="159" /> 		<!-- Refreshing Spring Water -->
-				<item id="2070" /> 		<!-- Darnassian Bleu -->
+				<item id="159" qty="5" /> 		<!-- Refreshing Spring Water -->
+				<item id="2070" qty="5" /> 		<!-- Darnassian Bleu -->
 				<item id="14646" /> 	<!-- Northshire Gift Voucher -->
 			</items>
 			<actions>

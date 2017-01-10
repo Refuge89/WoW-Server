@@ -15,6 +15,11 @@ namespace World_Server.Game
 {
     internal sealed class UpdateObject : ServerPacket
     {
+        public static float WalkSpeed = 2.5f;
+        public static float RunningSpeed = 7.0f;
+        public static float SwimSpeed = 4.7222223f;
+        public static float TurnRate = 3.141593f;
+
         public UpdateObject(List<UpdateBlock> blocks, int hasTansport = 0) : base(WorldOpcodes.SMSG_UPDATE_OBJECT)
         {
             Write((uint)blocks.Count());
@@ -57,12 +62,12 @@ namespace World_Server.Game
             // Movement speeds
             writer.Write((float)0);     // ????
 
-            writer.Write(2.5f);  // MOVE_WALK
-            writer.Write(7f);    // MOVE_RUN
+            writer.Write(WalkSpeed);  // MOVE_WALK
+            writer.Write(RunningSpeed);    // MOVE_RUN
             writer.Write(4.5f);  // MOVE_RUN_BACK
-            writer.Write(4.72f); // MOVE_SWIM
+            writer.Write(SwimSpeed); // MOVE_SWIM
             writer.Write(2.5f);  // MOVE_SWIM_BACK
-            writer.Write(3.14f); // MOVE_TURN_RATE
+            writer.Write(TurnRate); // MOVE_TURN_RATE
 
             writer.Write(0x1); // Unkown...
 

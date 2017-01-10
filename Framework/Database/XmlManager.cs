@@ -2,6 +2,7 @@
 using System.IO;
 using System.Xml.Serialization;
 using Framework.Database.Xml;
+using Framework.Database.XML;
 
 namespace Framework.Database
 {
@@ -25,6 +26,22 @@ namespace Framework.Database
             reader.Close();
 
             return classeStats;
+        }
+
+        public static itemsItem GetItem(uint value)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(items));
+            StreamReader reader = new StreamReader($"../../stats/items.xml");
+            var retorno = (items)serializer.Deserialize(reader);
+            reader.Close();
+
+            foreach (itemsItem itemId in retorno.item)
+            {
+                if (itemId.id == value)
+                    return itemId;
+            }
+
+            return null;
         }
     }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<items>
+	<item id="38">
+		<name>Recruit's Shirt</name>
+		<DisplayId>9891</DisplayId>
+		<Type>4</Type>
+	</item>
+	
+	<item id="117">
+		<name>Tough Jerky</name>
+		<DisplayId>2473</DisplayId>
+	</item>
+	
+	<item id="804">
+		<name>Large Blue Sack</name>
+		<DisplayId>2588</DisplayId>
+		<Type>18</Type>
+		<Slot>10</Slot>
+	</item>
+	
+	<item id="6125">
+		<name>Brawler's Harness</name>
+		<DisplayId>9995</DisplayId>
+		<Type>4</Type>
+	</item>
+	
+	<item id="6948">
+		<name>Hearthstone</name>
+		<DisplayId>6418</DisplayId>
+	</item>	
+</items>

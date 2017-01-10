@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Framework.Contants;
+using Framework.Database;
 using Framework.Database.Tables;
 using Framework.Network;
 using World_Server.Helpers;
@@ -84,7 +85,8 @@ namespace World_Server.Handlers
 
             foreach (Character character in characters)
             {
-                var skin = Program.Database.GetSkin(character);
+                var skin = Database.GetSkin(character);
+                var inventory = Database.GetInventory(character);
 
                 Write((ulong) character.Id);
                 WriteCString(character.Name);
@@ -93,13 +95,13 @@ namespace World_Server.Handlers
                 Write((byte) character.Class);
                 Write((byte) character.Gender);
 
-                Write((byte) skin.Skin);
-                Write((byte) skin.Face);
-                Write((byte) skin.HairStyle);
-                Write((byte) skin.HairColor);
-                Write((byte) skin.Accessory);
+                Write(skin.Skin);
+                Write(skin.Face);
+                Write(skin.HairStyle);
+                Write(skin.HairColor);
+                Write(skin.Accessory);
 
-                Write((byte) character.Level);
+                Write(character.Level);
 
                 Write(character.MapZone);
                 Write(character.MapID);
@@ -107,31 +109,29 @@ namespace World_Server.Handlers
                 Write(character.MapY);
                 Write(character.MapZ);
 
-                Write((int) 0); // Guild ID
-                Write((int) 0); // Character Flags
+                Write(0); // Guild ID
+                Write(0); // Character Flags
                 Write((byte) (character.firsttime ? 1 : 0)); //FirstLogin 
 
                 Write(0); // Pet DisplayID
                 Write(0); // Pet Level
                 Write(0); // Pet FamilyID
 
-                WorldItems[] equipment = InventoryHelper.GenerateInventoryByIDs(character.Equipment);
-
                 for (int i = 0; i < 19; i++)
                 {
-                    if (equipment?[i] != null)
-                    {
-                        Write(equipment[i].displayId);
-                        Write((byte)equipment[i].InventoryType);
-                    }
-                    else
-                    {
-                        Write((int)0);
-                        Write((byte)0);
-                    }
+                    Write((int)0);
+                    Write((byte)0);
                 }
+                    /*
+                    foreach (CharactersInventory item in inventory)
+                    {
+                        var itm = XmlManager.GetItem((uint)item.Item);
+                        Write(itm.DisplayId); // displayId
+                        Write(itm.Type); // InventoryType
+                    }
+                    */
 
-                Write((int)0); // first bag display id
+                Write(0); // first bag display id
                 Write((byte)0); // first bag inventory type
             }
         }
@@ -176,7 +176,7 @@ namespace World_Server.Handlers
         ACTION_BUTTON_MACRO = 0x40,
         ACTION_BUTTON_CMACRO = ACTION_BUTTON_C | ACTION_BUTTON_MACRO,
         ACTION_BUTTON_ITEM = 0x80
-    };
+    }
 
     public class CharHandler
     {
@@ -185,7 +185,7 @@ namespace World_Server.Handlers
             // if failed                CHAR_DELETE_FAILED
             // if waiting for transfer  CHAR_DELETE_FAILED_LOCKED_FOR_TRANSFER
             // if guild leader          CHAR_DELETE_FAILED_GUILD_LEADER
-            Program.Database.DeleteCharacter(handler.Id);
+            Database.DeleteCharacter(handler.Id);
             session.SendPacket(new SmsgCharDelete(LoginErrorCode.CHAR_DELETE_SUCCESS));
         }
 
@@ -207,22 +207,24 @@ namespace World_Server.Handlers
                     return;
                 }
 
+                Console.WriteLine(ex);
+
                 // Failed another Error
                 session.SendPacket(new SmsgCharCreate(LoginErrorCode.CHAR_CREATE_FAILED));
             }
 
-            session.SendPacket(new SmsgCharCreate(LoginErrorCode.CHAR_CREATE_ERROR)); return;
+            session.SendPacket(new SmsgCharCreate(LoginErrorCode.CHAR_CREATE_ERROR));
         }
 
         internal static void OnCharEnum(WorldSession session, byte[] data)
         {
-            List<Character> characters = Program.Database.GetCharacters(session.Users.username);
+            List<Character> characters = Database.GetCharacters(session.Users.username);
             session.SendPacket(WorldOpcodes.SMSG_CHAR_ENUM, new SmsgCharEnum(characters).PacketData);
         }
 
         internal static void OnNameQuery(WorldSession session, CmsgNameQuery handler)
         {
-            Character target = Program.Database.GetCharacter((int)handler.Guid);
+            Character target = Database.GetCharacter((int)handler.Guid);
 
             if (target != null)
                 session.SendPacket(new SmsgNameQueryResponse(target));
@@ -245,9 +247,9 @@ namespace World_Server.Handlers
         internal static void OnSetActionButton(WorldSession session, CmsgSetActionButton handler)
         {
             if (handler.Action == 0)
-                Program.Database.RemoveActionBar(handler, session.Character);
+                Database.RemoveActionBar(handler, session.Character);
             else
-                Program.Database.AddActionBar(handler, session.Character);
+                Database.AddActionBar(handler, session.Character);
         }
     }
 }

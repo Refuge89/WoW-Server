@@ -77,9 +77,15 @@ namespace World_Server.Managers
                            helper.GeraSpells(Char);
                            helper.GeraSkills(Char);
                            helper.GeraActionBar(Char);
+                           helper.GeraInventory(Char);
 
                 scope.Complete();
             }
+        }
+
+        internal List<CharactersInventory> GetInventory(Character character)
+        {
+            return model.CharactersInventory.Where(a => a.Character == character).ToList();
         }
 
         public CharacterCreationInfo GetCharStarter(RaceID race)

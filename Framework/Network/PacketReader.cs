@@ -42,7 +42,7 @@ namespace Framework.Network
                     readCount = ReadUInt32();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("numBytesForLength");
+                    throw new ArgumentOutOfRangeException(nameof(numBytesForLength));
             }
             string ret = "";
             for (int i = 0; i < readCount; i++)

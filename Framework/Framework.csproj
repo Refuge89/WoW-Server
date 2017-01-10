@@ -106,6 +106,7 @@
     <Compile Include="Database\Tables\WorldItems.cs" />
     <Compile Include="Database\XmlManager.cs" />
     <Compile Include="Database\XML\classeXML.cs" />
+    <Compile Include="Database\XML\itemsXML.cs" />
     <Compile Include="Database\XML\raceXML.cs" />
     <Compile Include="DBC\BinaryReaderExtensions.cs" />
     <Compile Include="DBC\DBHeader.cs" />
