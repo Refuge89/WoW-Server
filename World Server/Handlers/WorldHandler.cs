@@ -183,6 +183,7 @@ namespace World_Server.Handlers
                 session.SendPacket(new SmsgTriggerCinematic(session, Program.Database.GetCharStarter(session.Character.Race).Cinematic));
 
             // Part Three
+
             // Friend List + Ignore List  
         }
 

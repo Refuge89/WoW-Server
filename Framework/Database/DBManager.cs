@@ -183,44 +183,6 @@ namespace Framework.Database
 
                 scope.Complete();
             }
-
-            
-            /*
-            string itemFile = File.ReadAllText("_test.txt");
-
-            Regex patItem = new Regex(@"\[item (.*)\]");
-            Regex patAttr = new Regex(@"(.*)=(.*)");
-
-            var ia = 0;
-            foreach (var item in itemFile.Split("\n\r\n"))
-            {
-                var itemId = patItem.Matches(item);
-                var attrId = patAttr.Matches(item);
-
-                using (var scope = new DataAccessScope())
-                {
-                    Console.WriteLine($"Inserindo Item [{itemId[0].Groups[1].Value}]");
-                    var itemSave = this.model.WorldItems.Create();
-                    itemSave.itemId = int.Parse(itemId[0].Groups[1].Value);
-                    itemSave.created_at = DateTime.Now;
-
-                    for (int i = 0; i < attrId.Count; i++)
-                    {
-                        if (attrId[i].Groups[1].Value == "name")
-                            itemSave.name = attrId[i].Groups[2].Value;
-
-                        if (attrId[i].Groups[1].Value == "inventorytype")
-                            itemSave.InventoryType = Convert.ToByte(attrId[i].Groups[2].Value);
-
-                        if (attrId[i].Groups[1].Value == "model")
-                            itemSave.displayId = int.Parse(attrId[i].Groups[2].Value);
-                    }
-                    scope.Complete();
-                    ia++;
-                }
-            }
-            Console.WriteLine($"Inserido {ia} registros.");
-            */
         }
     }
 }

@@ -36,6 +36,7 @@ namespace World_Server.Game.Entitys
         {
             var skin = Program.Database.GetSkin(character);
             var chrRaces = DatabaseManager.ChrRaces.Values.FirstOrDefault(x => x.Match(character.Race));
+            var inventory = Program.Database.GetInventory(character);
 
             this.Character = character;
             this.KnownPlayers = new List<PlayerEntity>();
@@ -70,19 +71,10 @@ namespace World_Server.Game.Entitys
 
             SetUpdateField((int)EUnitFields.PLAYER_NEXT_LEVEL_XP, 400);
 
-            /*
-            // Items Equipamento
-            WorldItems[] equipment = InventoryHelper.GenerateInventoryByIDs(character.Equipment);
-
-            for (int i = 0; i < 19; i++)
+            foreach (var Item in inventory)
             {
-                if (equipment?[i] != null)
-                {
-                    SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (i * 12), equipment[i].itemId);
-                    SetUpdateField((int) EUnitFields.PLAYER_FIELD_BANKBAG_SLOT_1 + (i * 12), equipment[i].itemId);
-                }
+                SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + ((int)Item.Slot * 12), Item.Item);
             }
-            */
         }
 
         private void GenerateStats()
@@ -140,7 +132,4 @@ namespace World_Server.Game.Entitys
             }
         }
     }
-
-
-
 }
