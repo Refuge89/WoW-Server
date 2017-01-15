@@ -1,3 +1,19 @@
+World of Warcraft Vanilla Classic 1.12.1
+
+https://github.com/mangos/mangos-svn/blob/master/tags/0.0.1/ChangeLog
+https://github.com/mangos/mangos-svn/tree/master/tags/0.0.1
+https://github.com/emulator-archive/WoWD
+http://repo.or.cz/w/auctionmangos.git/patch/078a532fd305d04e4d6bda6f731dfb566b701735?f=contrib/vmap_extractor_v2/stormlib/bzip2/manual.ps
+https://github.com/emulator-archive/WoWD
+
+## ToDo
+
+## Changelog
+
+## Version
+
+## Outros
+
 - Change (cinematic, FactionId, Model Male, Model Female, Team, TaxiMask) from DB to DBC
 - CreateTable "CharactersSocial" (Player, PlayerFriend, PlayerIgnore)
 - CreateTable "Channel" (Name, PlayerId, Password)

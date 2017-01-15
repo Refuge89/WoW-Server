@@ -177,12 +177,13 @@ namespace World_Server.Helpers
 
                 uint itemId = (uint)startItems.m_ItemID[j];
 
-                Console.WriteLine($"Tentando adicionar item a bag {itemId}");
-
                 var item = XmlManager.GetItem(itemId);
 
                 if (item == null)
-                    continue;;
+                {
+                    Console.WriteLine($"Item nao existe [{itemId}]");
+                    continue;
+                }
 
                 // special amount for foor/drink
                 if (item?.Class == 0) // && Item.SubClass == 5)
@@ -239,7 +240,7 @@ namespace World_Server.Helpers
 
         private uint PrefInvSlot(itemsItem item)
         {
-            int[] slotTypes = new int[(int)InventoryTypes.NUM_TYPES]{
+            int[] slotTypes = {
                 (int)InventorySlots.SLOT_INBACKPACK, // NONE EQUIP
 	            (int)InventorySlots.SLOT_HEAD,
                 (int)InventorySlots.SLOT_NECK,

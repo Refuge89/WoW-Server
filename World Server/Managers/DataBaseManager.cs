@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using Framework.Contants.Character;
@@ -8,7 +9,6 @@ using Framework.Database;
 using Framework.Database.Tables;
 using Framework.DBC;
 using Framework.DBC.Structs;
-using Framework.Helpers;
 using Shaolinq;
 using World_Server.Handlers;
 using World_Server.Helpers;
@@ -25,7 +25,7 @@ namespace World_Server.Managers
 
         static DatabaseManager()
         {
-            Log.Print(LogType.Status, "Loading DBCs...");
+            Main._Main.Log("Loading DBCs...", Color.Brown);
 
             AreaTable = DBReader.Read<uint, AreaTable>("AreaTable.dbc", "Id");
             CharStartOutfit = DBReader.Read<uint, CharStartOutfit>("CharStartOutfit.dbc", "ID");

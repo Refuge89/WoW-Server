@@ -90,7 +90,7 @@ namespace World_Server.Handlers
     {
         public SmsgTriggerCinematic(WorldSession session, int cinematicId) : base(WorldOpcodes.SMSG_TRIGGER_CINEMATIC)
         {
-            Program.Database.UpdateCharacter(session.Character.Id, "firstlogin");
+            Main.Database.UpdateCharacter(session.Character.Id, "firstlogin");
 
             Write(cinematicId);
         }
@@ -112,7 +112,7 @@ namespace World_Server.Handlers
     {
         public SmsgActionButtons(Character character) : base(WorldOpcodes.SMSG_ACTION_BUTTONS)
         {
-            List<CharactersActionBar> savedButtons = Program.Database.GetActionBar(character);
+            List<CharactersActionBar> savedButtons = Main.Database.GetActionBar(character);
 
             for (int button = 0; button < 120; button++)
             {

@@ -15,7 +15,7 @@ namespace World_Server.Handlers
     {
         public SmsgInitialSpells(Character character) : base(WorldOpcodes.SMSG_INITIAL_SPELLS)
         {
-            var spells = Database.GetSpells(character);
+            var spells = Main.Database.GetSpells(character);
 
             Write((byte)0);           
             Write((ushort)(spells.Count));
@@ -110,7 +110,7 @@ namespace World_Server.Handlers
         {
             Character target = session.Target ?? session.Character;
 
-            WorldServer.TransmitToAll(new SmsgSpellGo(session, target, handler.SpellId));
+            Main.WorldServer.TransmitToAll(new SmsgSpellGo(session, target, handler.SpellId));
             session.SendPacket(new SmsgCastFailed(handler.SpellId));
         }
 

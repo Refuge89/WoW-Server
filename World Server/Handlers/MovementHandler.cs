@@ -122,9 +122,9 @@ namespace World_Server.Handlers
             session.Character.MapY = handler.MapY;
             session.Character.MapZ = handler.MapZ;
 
-            Program.Database.UpdateMovement(session.Character);
+            Main.Database.UpdateMovement(session.Character);
 
-            Program.WorldServer.Sessions.FindAll(s => s != session)
+            Main.WorldServer.Sessions.FindAll(s => s != session)
                 .ForEach(s => s.SendPacket(new PsMovement(session, handler, code)));
         }
     }

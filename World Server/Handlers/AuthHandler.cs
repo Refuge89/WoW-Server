@@ -1,4 +1,5 @@
-﻿using Framework.Contants;
+﻿using System.Windows.Forms;
+using Framework.Contants;
 using Framework.Crypt;
 using Framework.Network;
 using World_Server.Sessions;
@@ -61,10 +62,12 @@ namespace World_Server.Handlers
 
         public static void OnAuthSession(WorldSession session, CmsgAuthSession handler)
         {
-            session.Users = Program.Database.GetAccount(handler.AccountName);
+            session.Users = Main.Database.GetAccount(handler.AccountName);
             session.Crypt = new VanillaCrypt();
             session.Crypt.Init(session.Users.sessionkey);
             session.SendPacket(new SmsgAuthResponse());
+
+            Main._Main.editClient(session.ConnectionId.ToString(), session.Users.name);
         }
 
         internal static void OnUpdateaccountData(WorldSession session, CmsgUpdateAccountData handler)

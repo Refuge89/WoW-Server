@@ -15,6 +15,8 @@ namespace World_Server.Game.Entitys
         public Character Character;
         public UnitEntity Target;
 
+        public ItemEntity Inventory;
+
         public List<PlayerEntity> KnownPlayers { get; private set; }
         public List<UnitEntity> KnownUnits { get; private set; }
 
@@ -34,9 +36,9 @@ namespace World_Server.Game.Entitys
 
         public PlayerEntity(Character character) : base(new ObjectGuid((uint)character.Id, TypeID.TYPEID_PLAYER, HighGuid.HighguidMoTransport))
         {
-            var skin = Program.Database.GetSkin(character);
+            var skin = Main.Database.GetSkin(character);
             var chrRaces = DatabaseManager.ChrRaces.Values.FirstOrDefault(x => x.Match(character.Race));
-            var inventory = Program.Database.GetInventory(character);
+            var inventory = Main.Database.GetInventory(character);
 
             this.Character = character;
             this.KnownPlayers = new List<PlayerEntity>();
@@ -69,12 +71,30 @@ namespace World_Server.Game.Entitys
             SetUpdateField((int)EUnitFields.PLAYER_BYTES, skin.HairStyle, 2);
             SetUpdateField((int)EUnitFields.PLAYER_BYTES, skin.HairColor, 3);
 
+            // PLAYER_BYTES_2 [FacialHair - PlayerBytes2_2 - BankBags.Slots -  RestState
+            SetUpdateField((int)EUnitFields.PLAYER_BYTES_2, 20, 2);
+
+            // PLAYER_BYTES_3 [ Gender - DrunkState - PlayerBytes3_3 - PvPRank
+
             SetUpdateField((int)EUnitFields.PLAYER_NEXT_LEVEL_XP, 400);
 
+            int i = 0;
             foreach (var Item in inventory)
             {
-                SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + ((int)Item.Slot * 12), Item.Item);
+                // Equipamento Equipado
+                SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_CREATOR + (int) Item.Slot * 12, Item.Item);
+                SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (int)Item.Slot * 12, Item.Item);
+                SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_PROPERTIES + 0 + (int) Item.Slot * 12, 0);
+                SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_PROPERTIES + 1 + (int) Item.Slot * 12, 0);
+
+                if (Item.Slot != 23)
+                {
+                    SetUpdateField((int) EUnitFields.PLAYER_FIELD_INV_SLOT_HEAD + i * 2, Item.Item);
+                    i++;
+                }
             }
+
+            //PLAYER_EXPLORED_ZONES_1
         }
 
         private void GenerateStats()
@@ -91,7 +111,7 @@ namespace World_Server.Game.Entitys
         private void GenerateSkills()
         {
             int a = 0;
-            foreach (CharactersSkill skill in Program.Database.GetSkills(this.Character))
+            foreach (CharactersSkill skill in Main.Database.GetSkills(this.Character))
             {
                 SetUpdateField((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3), skill.skill);
                 SetUpdateField((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 1, (Int32)(skill.value + (skill.Max << 16)));
@@ -101,7 +121,7 @@ namespace World_Server.Game.Entitys
 
         private int GetModel(Character character)
         {
-            var charModel = Program.Database.GetCharStarter(character.Race);
+            var charModel = Main.Database.GetCharStarter(character.Race);
 
             return character.Gender == GenderID.MALE ? charModel.ModelM : charModel.ModelF;
         }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using Framework.Contants;
+using Framework.Database;
 using Framework.Network;
 using World_Server.Sessions;
 using Framework.Database.Tables;
@@ -148,8 +149,8 @@ namespace World_Server.Handlers
         internal static void OnPlayerLogin(WorldSession session, CmsgPlayerLogin packet)
         {
             // Recupera informação do Char
-            session.Character = Program.Database.GetCharacter(Convert.ToInt32(packet.Guid));
-            Program.Database.UpdateCharacter(session.Character.Id, "online");
+            session.Character = Main.Database.GetCharacter(Convert.ToInt32(packet.Guid));
+            Main.Database.UpdateCharacter(session.Character.Id, "online");
 
             PreLoadLogin(session);
 
@@ -158,6 +159,8 @@ namespace World_Server.Handlers
             
             session.Entity.Session = session;
             EntityManager.DispatchOnPlayerSpawn(session.Entity);
+
+            //Main._Main.editClient(session.ConnectionId.ToString(), session.Users.name, session.Character.Name);
         }
 
         private static void PreLoadLogin(WorldSession session)
@@ -180,7 +183,7 @@ namespace World_Server.Handlers
 
             // Cinematic if Need
             if (session.Character.firsttime == false)
-                session.SendPacket(new SmsgTriggerCinematic(session, Program.Database.GetCharStarter(session.Character.Race).Cinematic));
+                session.SendPacket(new SmsgTriggerCinematic(session, Main.Database.GetCharStarter(session.Character.Race).Cinematic));
 
             // Part Three
 

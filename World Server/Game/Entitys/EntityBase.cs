@@ -27,7 +27,6 @@ namespace World_Server.Game.Entitys
         public void SetUpdateField<T>(int index, T value, byte offset = 0)
         {
             UpdateCount++;
-
             switch (value.GetType().Name)
             {
                 case "SByte":

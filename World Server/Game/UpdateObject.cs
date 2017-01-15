@@ -6,10 +6,12 @@ using Framework.Contants;
 using Framework.Contants.Character;
 using Framework.Contants.Game;
 using Framework.Database.Tables;
+using Framework.Database.XML;
 using Framework.Extensions;
 using Framework.Network;
 using World_Server.Game.Entitys;
 using World_Server.Game.Update;
+using World_Server.Managers;
 
 namespace World_Server.Game
 {
@@ -75,6 +77,13 @@ namespace World_Server.Game
             //entity.GUID = new ObjectGuid((ulong)character.Id);
             entity.WriteUpdateFields(writer);
 
+            //new ContainerEntity(character);
+
+            foreach (var item in Main.Database.GetInventory(character))
+            {
+                new ItemEntity(character, item);
+            }
+
             return new UpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream)?.ToArray() });
         }
 
@@ -98,7 +107,6 @@ namespace World_Server.Game
 
             byte[] guidBytes = GenerateGuidBytes((ulong)character.Id);
             WriteBytes(writer, guidBytes, guidBytes.Length);
-
 
             writer.Write((byte)TypeID.TYPEID_PLAYER);
 

@@ -35,7 +35,7 @@
         ITEM_END = EObjectFields.OBJECT_END + 0x2A,
     };
 
-    public enum EContainerFields
+    public enum EContainerFields 
     {
         CONTAINER_FIELD_NUM_SLOTS = EItemFields.ITEM_END + 0x00, // Size:1
         CONTAINER_ALIGN_PAD = EItemFields.ITEM_END + 0x01, // Size:1

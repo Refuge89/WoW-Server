@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Framework.Helpers
 {
@@ -35,7 +34,6 @@ namespace Framework.Helpers
         public static void Print(LogType type, object obj)
         {
             Console.ForegroundColor = TypeColour[type];
-
             Console.Write($"{DateTime.Now:hh:mm:ss} [{type}] ");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(obj.ToString());

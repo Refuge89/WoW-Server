@@ -10,6 +10,7 @@ using Framework.Database.XML;
 using Framework.Network;
 using World_Server.Sessions;
 using static World_Server.Program;
+using static World_Server.Main;
 
 namespace World_Server.Handlers
 {
@@ -86,8 +87,8 @@ namespace World_Server.Handlers
 
             foreach (Character character in characters)
             {
-                var skin = Database.GetSkin(character);
-                var inventory = Database.GetInventory(character);
+                var skin = Main.Database.GetSkin(character);
+                var inventory = Main.Database.GetInventory(character);
 
                 Write((ulong) character.Id);
 
@@ -180,7 +181,7 @@ namespace World_Server.Handlers
             // if failed                CHAR_DELETE_FAILED
             // if waiting for transfer  CHAR_DELETE_FAILED_LOCKED_FOR_TRANSFER
             // if guild leader          CHAR_DELETE_FAILED_GUILD_LEADER
-            Database.DeleteCharacter(handler.Id);
+            Main.Database.DeleteCharacter(handler.Id);
             session.SendPacket(new SmsgCharDelete(LoginErrorCode.CHAR_DELETE_SUCCESS));
         }
 
@@ -190,7 +191,7 @@ namespace World_Server.Handlers
 
             try
             {
-                Database.CreateChar(handler, session.Users);
+                Main.Database.CreateChar(handler, session.Users);
                 session.SendPacket(new SmsgCharCreate(LoginErrorCode.CHAR_CREATE_SUCCESS)); return;
             }
             catch (Exception ex)
@@ -211,13 +212,13 @@ namespace World_Server.Handlers
 
         internal static void OnCharEnum(WorldSession session, byte[] data)
         {
-            List<Character> characters = Database.GetCharacters(session.Users.username);
+            List<Character> characters = Main.Database.GetCharacters(session.Users.username);
             session.SendPacket(WorldOpcodes.SMSG_CHAR_ENUM, new SmsgCharEnum(characters).PacketData);
         }
 
         internal static void OnNameQuery(WorldSession session, CmsgNameQuery handler)
         {
-            Character target = Database.GetCharacter((int)handler.Guid);
+            Character target = Main.Database.GetCharacter((int)handler.Guid);
 
             if (target != null)
                 session.SendPacket(new SmsgNameQueryResponse(target));

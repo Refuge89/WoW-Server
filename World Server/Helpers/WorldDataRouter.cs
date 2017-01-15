@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using Framework.Contants;
-using Framework.Helpers;
 using World_Server.Sessions;
 
 namespace World_Server.Helpers
@@ -35,7 +36,8 @@ namespace World_Server.Helpers
             }
             else
             {
-                Log.Print(LogType.Warning, "Missing handler: " + opcode);
+                Debug.WriteLine($"Missing handler: {opcode}");
+                //Main._Main.Log($"Missing handler: {opcode}", Color.Red);
             }
         }
     }

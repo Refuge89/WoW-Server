@@ -3,16 +3,32 @@ using Framework.Network;
 using Framework.Sessions;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Net;
 using System.Reflection;
+using System.Windows.Forms;
 using World_Server.Handlers.World;
 using World_Server.Managers;
 using World_Server.Sessions;
 
 namespace World_Server
 {
+    public static class RichTextBoxExtensions
+    {
+        public static void AppendLine(this RichTextBox box, string text, Color? color = null)
+        {
+            //box.SelectionStart = box.TextLength;
+            box.SelectionColor = color ?? Color.Black;
+            box.AppendText($"[ {DateTime.Now} ] {text} \r\n");
+            box.SelectionColor = box.ForeColor;
+            
+            box.ScrollToCaret();
+        }
+    }
+
     class Program
     {
+        /*
         private static readonly Assembly MAssembly = Assembly.GetEntryAssembly();
 
         public static WorldServer World { get; private set; }
@@ -20,10 +36,13 @@ namespace World_Server
         public static DatabaseManager Database;
 
         public static UnitComponent UnitComponent { get; private set; }
-        //public static GameObjectComponent GameObjectComponent { get; private set; }
-
+        */
         static void Main()
         {
+            Application.EnableVisualStyles();
+            Application.Run(new Main());
+
+            /*
             var time = Time.getMSTime();
 
             Version ver = MAssembly.GetName().Version;
@@ -55,8 +74,9 @@ namespace World_Server
             Log.Print(LogType.Status, $"Total Memory: {Convert.ToSingle(GC.GetTotalMemory(false) / 1024 / 1024)}MB");
 
             while (true) Console.ReadLine();
+            */
         }
-
+        /*
         public class WorldServer : Server
         {
             public static List<WorldSession> Sessions = new List<WorldSession>();
@@ -81,5 +101,6 @@ namespace World_Server
                 return Sessions.Find(user => user.Character.Name.ToLower() == playerName.ToLower());
             }
         }
+        */
     }
 }
