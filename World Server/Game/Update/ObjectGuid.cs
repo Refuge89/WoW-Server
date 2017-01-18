@@ -22,9 +22,11 @@ namespace World_Server.Game.Update
         // ----------------------------------------------------------------------------
 
         public ulong RawGuid { get; }
+
         public uint Low => (uint)(RawGuid & 0x0000000000FFFFFF);
 
         public TypeID TypeId { get; private set; }
+
         public HighGuid HighGuid { get; private set; }
 
         public ObjectGuid(ulong guid)

@@ -3,17 +3,15 @@ using World_Server.Game.Update;
 
 namespace World_Server.Game.Entitys
 {
-    public class UnitEntity : ObjectEntity
+    public class Unit : Object
     {
-        public UnitEntity(ObjectGuid guid) : base(guid)
+        public Unit(ObjectGuid guid) : base(guid)
         {
         }
 
         public float X, Y, Z, R;
 
         public override int DataLength => (int) EUnitFields.UNIT_END - 0x4;
-
-        public override string Name => "Abacate"; /*Template.name;*/
 
         public byte PowerType = 0;
 

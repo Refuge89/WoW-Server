@@ -37,7 +37,7 @@ namespace World_Server.Helpers
             else
             {
                 Debug.WriteLine($"Missing handler: {opcode}");
-                //Main._Main.Log($"Missing handler: {opcode}", Color.Red);
+                Main._Main.Log($"Missing handler: {opcode}", Color.DarkMagenta);
             }
         }
     }

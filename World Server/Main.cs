@@ -28,9 +28,18 @@ namespace World_Server
 
         public void Log(string message, Color color)
         {
-            //BeginInvoke(new Action(() => {
+            if (InvokeRequired)
+            {
+                Invoke(
+                    new MethodInvoker(
+                        delegate() {
+                            ConsoleInput.AppendLine(message, color);
+                        }));
+            }
+            else
+            {
                 ConsoleInput.AppendLine(message, color);
-            //}));
+            }
         }
 
         public void addClient(string id, string msg)
@@ -43,15 +52,15 @@ namespace World_Server
             }));
         }
 
-        public void editClient(string id, string msg, string Character = null)
+        public void editClient(string id, string msg, string character = null)
         {
             BeginInvoke(new Action(() =>
             {
                 var item = listView1.FindItemWithText(id);
                 item.SubItems[1].Text = msg;
-                if (Character != null)
+                if (character != null)
                 {
-                    item.SubItems[2].Text = Character;
+                    item.SubItems[2].Text = character;
                 }
             }));
         }
@@ -65,8 +74,8 @@ namespace World_Server
 
             // Add columns
             listView1.Columns.Add("Id", -2, HorizontalAlignment.Left);
-            listView1.Columns.Add("Name", -2, HorizontalAlignment.Left);
-            listView1.Columns.Add("Char", -2, HorizontalAlignment.Left);
+            listView1.Columns.Add("Name", 80, HorizontalAlignment.Left);
+            listView1.Columns.Add("Char", 80, HorizontalAlignment.Left);
             listView1.Columns.Add("Location", -2, HorizontalAlignment.Left);
 
             var time = Time.getMSTime();
@@ -140,12 +149,29 @@ namespace World_Server
         {
             string text = listView1.SelectedItems[0].Text;
 
-            UnitEntity entity = WorldServer.GetSessionByUserName(text).Entity.Target ?? WorldServer.GetSessionByUserName(text).Entity;
+            Unit entity = WorldServer.GetSessionByUserName(text).Entity.Target ?? WorldServer.GetSessionByUserName(text).Entity;
 
-            //entity.SetUpdateField((int)(EItemFields)Enum.Parse(typeof(EItemFields), splitMessage[1]), int.Parse(splitMessage[2]));
-            entity.SetUpdateField((int)EUnitFields.UNIT_FIELD_MAXHEALTH, (int)1234);
-            entity.SetUpdateField((int)EUnitFields.UNIT_FIELD_BASE_HEALTH, 4444);
-            entity.SetUpdateField((int)EUnitFields.UNIT_FIELD_HEALTH, 5555);
+            try
+            {
+                foreach (string line in textBox1.Lines)
+                {
+                    string[] splitMessage = line.Split(' ');
+
+                    if (splitMessage[3] == null)
+                    {
+                        entity.SetUpdateField((int) (EUnitFields) Enum.Parse(typeof(EUnitFields), splitMessage[0]),
+                            int.Parse(splitMessage[1]));
+                    }
+                    else
+                    {
+                        entity.SetUpdateField((int)(EUnitFields)Enum.Parse(typeof(EUnitFields), splitMessage[0]) + int.Parse(splitMessage[1]) * 12, int.Parse(splitMessage[1]));
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
         }
     }
 }

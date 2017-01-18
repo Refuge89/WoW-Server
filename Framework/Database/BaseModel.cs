@@ -1,5 +1,6 @@
 ﻿using System;
 using Shaolinq;
+using Shaolinq.MySql;
 using Shaolinq.Sqlite;
 
 namespace Framework.Database
@@ -10,8 +11,8 @@ namespace Framework.Database
 
         public BaseModel()
         {
-            var configuration = SqliteConfiguration.Create("database.sqlite", null);
-            //var configuration = MySqlConfiguration.Create("wow", "127.0.0.1", "homestead", "secret");
+            //var configuration = SqliteConfiguration.Create("database.sqlite", null);
+            var configuration = MySqlConfiguration.Create("wow", "127.0.0.1", "homestead", "secret");
 
             try
             {

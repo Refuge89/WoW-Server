@@ -7,9 +7,6 @@ namespace Framework.Database
     public abstract class Models : DataAccessModel
     {
         [DataAccessObjects]
-        public abstract DataAccessObjects<WorldItems> WorldItems { get; }
-
-        [DataAccessObjects]
         public abstract DataAccessObjects<Users> Users { get; }
 
         [DataAccessObjects]

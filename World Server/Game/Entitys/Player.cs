@@ -10,17 +10,17 @@ using World_Server.Sessions;
 
 namespace World_Server.Game.Entitys
 {
-    public class PlayerEntity : UnitEntity
+    public class Player : Unit
     {
         public Character Character;
-        public UnitEntity Target;
+        public Unit Target;
 
-        public ItemEntity Inventory;
+        public Item Inventory;
 
-        public List<PlayerEntity> KnownPlayers { get; private set; }
-        public List<UnitEntity> KnownUnits { get; private set; }
+        public List<Player> KnownPlayers { get; private set; }
+        public List<Unit> KnownUnits { get; private set; }
 
-        public List<ObjectEntity> OutOfRangeEntitys { get; private set; }
+        public List<Object> OutOfRangeEntitys { get; private set; }
         public List<UpdateBlock> UpdateBlocks { get; private set; }
 
         public override string Name => Character.Name;
@@ -34,16 +34,16 @@ namespace World_Server.Game.Entitys
 
         public WorldSession Session { get; internal set; }
 
-        public PlayerEntity(Character character) : base(new ObjectGuid((uint)character.Id, TypeID.TYPEID_PLAYER, HighGuid.HighguidMoTransport))
+        public Player(Character character) : base(new ObjectGuid((uint)character.Id, TypeID.TYPEID_PLAYER, HighGuid.HighguidMoTransport))
         {
             var skin = Main.Database.GetSkin(character);
             var chrRaces = DatabaseManager.ChrRaces.Values.FirstOrDefault(x => x.Match(character.Race));
             var inventory = Main.Database.GetInventory(character);
 
             this.Character = character;
-            this.KnownPlayers = new List<PlayerEntity>();
-            this.KnownUnits = new List<UnitEntity>();
-            this.OutOfRangeEntitys = new List<ObjectEntity>();
+            this.KnownPlayers = new List<Player>();
+            this.KnownUnits = new List<Unit>();
+            this.OutOfRangeEntitys = new List<Object>();
             this.UpdateBlocks = new List<UpdateBlock>();
 
             this.Guid = (uint)character.Id;
@@ -82,10 +82,7 @@ namespace World_Server.Game.Entitys
             foreach (var Item in inventory)
             {
                 // Equipamento Equipado
-                SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_CREATOR + (int) Item.Slot * 12, Item.Item);
                 SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (int)Item.Slot * 12, Item.Item);
-                SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_PROPERTIES + 0 + (int) Item.Slot * 12, 0);
-                SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_PROPERTIES + 1 + (int) Item.Slot * 12, 0);
 
                 if (Item.Slot != 23)
                 {

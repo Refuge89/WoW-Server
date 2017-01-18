@@ -1,110 +1,104 @@
-﻿namespace Framework.Database.XML
+﻿using System.Xml.Serialization;
+
+namespace Framework.Database.XML
 {
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public partial class items
+    [XmlType(AnonymousType = true)]
+    [XmlRoot(Namespace = "", IsNullable = false)]
+    public class items
     {
 
         private itemsItem[] itemField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("item")]
+        [XmlElement("item")]
         public itemsItem[] item
         {
-            get { return this.itemField; }
-            set { this.itemField = value; }
+            get { return itemField; }
+            set { itemField = value; }
         }
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class itemsItem
+    [XmlType(AnonymousType = true)]
+    public class itemsItem
     {
 
         private string nameField;
 
         private ushort displayIdField;
 
-        private byte classField;
+        private byte inventoryTypeField;
 
-        private bool classFieldSpecified;
-
-        private byte typeField;
-
-        private bool typeFieldSpecified;
+        private bool inventoryTypeFieldSpecified;
 
         private byte slotField;
 
         private bool slotFieldSpecified;
+
+        private byte classField;
 
         private ushort idField;
 
         /// <remarks/>
         public string name
         {
-            get { return this.nameField; }
-            set { this.nameField = value; }
+            get { return nameField; }
+            set { nameField = value; }
         }
 
         /// <remarks/>
         public ushort DisplayId
         {
-            get { return this.displayIdField; }
-            set { this.displayIdField = value; }
+            get { return displayIdField; }
+            set { displayIdField = value; }
         }
 
         /// <remarks/>
-        public byte Class
+        public byte InventoryType
         {
-            get { return this.classField; }
-            set { this.classField = value; }
+            get { return inventoryTypeField; }
+            set { inventoryTypeField = value; }
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool ClassSpecified
+        [XmlIgnore]
+        public bool InventoryTypeSpecified
         {
-            get { return this.classFieldSpecified; }
-            set { this.classFieldSpecified = value; }
-        }
-
-        /// <remarks/>
-        public byte Type
-        {
-            get { return this.typeField; }
-            set { this.typeField = value; }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool TypeSpecified
-        {
-            get { return this.typeFieldSpecified; }
-            set { this.typeFieldSpecified = value; }
+            get { return inventoryTypeFieldSpecified; }
+            set { inventoryTypeFieldSpecified = value; }
         }
 
         /// <remarks/>
         public byte Slot
         {
-            get { return this.slotField; }
-            set { this.slotField = value; }
+            get { return slotField; }
+            set { slotField = value; }
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool SlotSpecified
         {
-            get { return this.slotFieldSpecified; }
-            set { this.slotFieldSpecified = value; }
+            get { return slotFieldSpecified; }
+            set { slotFieldSpecified = value; }
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte Class
+        {
+            get { return classField; }
+            set { classField = value; }
+        }
+
+        /// <remarks/>
+        [XmlAttribute]
         public ushort id
         {
-            get { return this.idField; }
-            set { this.idField = value; }
+            get { return idField; }
+            set { idField = value; }
         }
     }
+
 }

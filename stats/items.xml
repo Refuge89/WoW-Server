@@ -1,16 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <items>
+	<item id="25">
+		<name>Worn Shortsword</name>
+		<DisplayId>1542</DisplayId>
+		<InventoryType>21</InventoryType>
+		<Class>2</Class>
+	</item>
+	
 	<item id="37">
 		<name>Worn Axe</name>
 		<DisplayId>14029</DisplayId>
-		<Type>21</Type>
+		<InventoryType>21</InventoryType>
 		<Class>2</Class>
 	</item>
 	
 	<item id="38">
 		<name>Recruit's Shirt</name>
 		<DisplayId>9891</DisplayId>
-		<Type>4</Type>
+		<InventoryType>4</InventoryType>
+		<Class>4</Class>
+	</item>
+	
+	<item id="39">
+		<name>Recruit's Pants</name>
+		<DisplayId>9892</DisplayId>
+		<InventoryType>7</InventoryType>
+		<Class>4</Class>
+	</item>
+	
+	<item id="40">
+		<name>Recruit's Boots</name>
+		<DisplayId>10141</DisplayId>
+		<InventoryType>8</InventoryType>
 		<Class>4</Class>
 	</item>
 	
@@ -23,14 +44,14 @@
 	<item id="127">
 		<name>Trapper's Shirt</name>
 		<DisplayId>9996</DisplayId>
-		<Type>4</Type>
+		<InventoryType>4</InventoryType>
 		<Class>4</Class>
 	</item>
 
 	<item id="139">
 		<name>Brawler's Pants</name>
 		<DisplayId>9988</DisplayId>
-		<Type>7</Type>
+		<InventoryType>7</InventoryType>
 		<Class>4</Class>
 	</item>
 	
@@ -43,7 +64,7 @@
 	<item id="804">
 		<name>Large Blue Sack</name>
 		<DisplayId>2588</DisplayId>
-		<Type>18</Type>
+		<InventoryType>18</InventoryType>
 		<Slot>10</Slot>
 		<Class>1</Class>
 	</item>
@@ -51,28 +72,35 @@
 	<item id="2101">
 		<name>Light Quiver</name>
 		<DisplayId>21328</DisplayId>
-		<Type>18</Type>
+		<InventoryType>18</InventoryType>
 		<Class>1</Class>
 	</item>
 	
 	<item id="2361">
 		<name>Battleworn Hammer</name>
 		<DisplayId>8690</DisplayId>
-		<Type>17</Type>
+		<InventoryType>17</InventoryType>
+		<Class>2</Class>
+	</item>
+	
+	<item id="2362">
+		<name>Worn Wooden Shield</name>
+		<DisplayId>18730</DisplayId>
+		<InventoryType>14</InventoryType>
 		<Class>2</Class>
 	</item>
 	
 	<item id="2504">
 		<name>Worn Shortbow</name>
 		<DisplayId>8106</DisplayId>
-		<Type>15</Type>
+		<InventoryType>15</InventoryType>
 		<Class>2</Class>
 	</item>
 	
 	<item id="2504">
 		<name>Rough Arrow</name>
 		<DisplayId>5996</DisplayId>
-		<Type>14</Type>
+		<InventoryType>14</InventoryType>
 		<Class>6</Class>
 	</item>
 
@@ -85,21 +113,21 @@
 	<item id="6125">
 		<name>Brawler's Harness</name>
 		<DisplayId>9995</DisplayId>
-		<Type>4</Type>
+		<InventoryType>4</InventoryType>
 		<Class>4</Class>
 	</item>
 	
 	<item id="6126">
 		<name>Trapper's Pants</name>
 		<DisplayId>10002</DisplayId>
-		<Type>7</Type>
+		<InventoryType>7</InventoryType>
 		<Class>4</Class>
 	</item>
 	
 	<item id="6127">
 		<name>Trapper's Boots</name>
 		<DisplayId>10003</DisplayId>
-		<Type>8</Type>
+		<InventoryType>8</InventoryType>
 		<Class>4</Class>
 	</item>
 	
@@ -107,6 +135,12 @@
 		<name>Hearthstone</name>
 		<DisplayId>6418</DisplayId>
 		<Class>15</Class>
+	</item>
+
+	<item id="9542">
+		<name>Simple Letter</name>
+		<DisplayId>3093</DisplayId>
+		<Class>12</Class>
 	</item>
 	
 	<item id="9547">

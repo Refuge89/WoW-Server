@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using Framework.Contants.Character;
 using Framework.Database;
@@ -175,22 +176,14 @@ namespace World_Server.Helpers
                 if (startItems.m_ItemID[j] <= 0)
                     continue;
 
-                uint itemId = (uint)startItems.m_ItemID[j];
+                var item = XmlManager.GetItem((uint)startItems.m_ItemID[j]);
 
-                var item = XmlManager.GetItem(itemId);
+                Main._Main.Log($"Tentano adicionar item ID: {(uint)startItems.m_ItemID[j]}", Color.DarkRed);
 
                 if (item == null)
-                {
-                    Console.WriteLine($"Item nao existe [{itemId}]");
                     continue;
-                }
 
-                // special amount for foor/drink
-                if (item?.Class == 0) // && Item.SubClass == 5)
-                {
-
-                }
-                // Adiciona todos os items aqui
+                Main._Main.Log($"Item Adicionado {(uint)startItems.m_ItemID[j]} [{item.name}]", Color.DarkMagenta);
 
                 using (var scope = new DataAccessScope())
                 {
@@ -202,39 +195,6 @@ namespace World_Server.Helpers
                         inventory.created_at = ServerDateTime.Now;
                     scope.Complete();
                 }
-            }
-
-            for (int i = 23; i < 39; ++i)
-            {
-                /*
-                if (Item * pItem = GetItemByPos(INVENTORY_SLOT_BAG_0, i))
-                {
-                    uint16 eDest;
-                    // equip offhand weapon/shield if it attempt equipped before main-hand weapon
-                    InventoryResult msg = CanEquipItem(NULL_SLOT, eDest, pItem, false);
-                    if (msg == EQUIP_ERR_OK)
-                    {
-                        RemoveItem(INVENTORY_SLOT_BAG_0, i, true);
-                        EquipItem(eDest, pItem, true);
-                    }
-                    // move other items to more appropriate slots (ammo not equipped in special bag)
-                    else
-                    {
-                        ItemPosCountVec sDest;
-                        msg = CanStoreItem(NULL_BAG, NULL_SLOT, sDest, pItem, false);
-                        if (msg == EQUIP_ERR_OK)
-                        {
-                            RemoveItem(INVENTORY_SLOT_BAG_0, i, true);
-                            pItem = StoreItem(sDest, pItem, true);
-                        }
-
-                        // if  this is ammo then use it
-                        msg = CanUseAmmo(pItem->GetEntry());
-                        if (msg == EQUIP_ERR_OK)
-                            SetAmmo(pItem->GetEntry());
-                    }
-                }
-                */
             }
         }
 
@@ -270,7 +230,7 @@ namespace World_Server.Helpers
 	            (int)InventorySlots.SLOT_RANGED // rangedright
             };
 
-            return (uint)slotTypes[item.Type];
+            return (uint)slotTypes[item.InventoryType];
         }
     }
 }

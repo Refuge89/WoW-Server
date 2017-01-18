@@ -19,7 +19,7 @@ namespace World_Server.Handlers.World
             EntityManager.OnPlayerSpawn += World_OnPlayerSpawn;
         }
 
-        private void World_OnPlayerSpawn(PlayerEntity player)
+        private void World_OnPlayerSpawn(Player player)
         {
             GenerateEntitysForPlayer(player);
         }
@@ -33,12 +33,12 @@ namespace World_Server.Handlers.World
             }
         }
 
-        public abstract void GenerateEntitysForPlayer(PlayerEntity player);
+        public abstract void GenerateEntitysForPlayer(Player player);
 
         public virtual void Update()
         {
             // Spawning && Despawning
-            foreach (PlayerEntity player in PlayerManager.Players)
+            foreach (Player player in PlayerManager.Players)
             {
                 foreach (T entity in Entitys.ToArray())
                 {
@@ -54,35 +54,35 @@ namespace World_Server.Handlers.World
             }
         }
 
-        public virtual void DespawnEntityForPlayer(PlayerEntity player, T entity)
+        public virtual void DespawnEntityForPlayer(Player player, T entity)
         {
             EntityListFromPlayer(player).Remove(entity);
 
-            player.OutOfRangeEntitys.Add((entity as ObjectEntity));
+            player.OutOfRangeEntitys.Add((entity as Game.Entitys.Object));
         }
 
-        public virtual void SpawnEntityForPlayer(PlayerEntity player, T entity)
+        public virtual void SpawnEntityForPlayer(Player player, T entity)
         {
             EntityListFromPlayer(player).Add(entity);
         }
 
-        public bool PlayerKnowsEntity(PlayerEntity player, T entity)
+        public bool PlayerKnowsEntity(Player player, T entity)
         {
             return EntityListFromPlayer(player).Contains(entity);
         }
 
-        public abstract bool InRange(PlayerEntity player, T entity, float range);
-        public abstract List<T> EntityListFromPlayer(PlayerEntity player);
+        public abstract bool InRange(Player player, T entity, float range);
+        public abstract List<T> EntityListFromPlayer(Player player);
     }
 
-    public class UnitComponent : EntityComponent<UnitEntity>
+    public class UnitComponent : EntityComponent<Unit>
     {
-        public override List<UnitEntity> EntityListFromPlayer(PlayerEntity player)
+        public override List<Unit> EntityListFromPlayer(Player player)
         {
             return player.KnownUnits;
         }
 
-        public override bool InRange(PlayerEntity player, UnitEntity entity, float range)
+        public override bool InRange(Player player, Unit entity, float range)
         {
             double distance = GetDistance(player.X, player.Y, entity.X, entity.Y);
 
@@ -97,7 +97,7 @@ namespace World_Server.Handlers.World
             return Math.Sqrt(a * a + b * b);
         }
 
-        public override void GenerateEntitysForPlayer(PlayerEntity player)
+        public override void GenerateEntitysForPlayer(Player player)
         {
             //throw new NotImplementedException();
         }

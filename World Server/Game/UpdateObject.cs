@@ -31,12 +31,12 @@ namespace World_Server.Game
 
         public UpdateObject(List<byte[]> blocks, int hasTansport = 0) : base(WorldOpcodes.SMSG_UPDATE_OBJECT)
         {
-            Write((uint)blocks.Count());
+            Write((uint)blocks.Count);
             Write((byte)hasTansport);
-            blocks.ForEach(b => Write(b));
+            blocks.ForEach(Write);
         }
 
-        public static UpdateObject CreateOwnCharacterUpdate(Character character, out PlayerEntity entity)
+        public static UpdateObject CreateOwnCharacterUpdate(Character character, out Player entity)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
@@ -73,21 +73,13 @@ namespace World_Server.Game
 
             writer.Write(0x1); // Unkown...
 
-            entity = new PlayerEntity(character) { ObjectGuid = new ObjectGuid((ulong) character.Id) };
-            //entity.GUID = new ObjectGuid((ulong)character.Id);
+            entity = new Player(character) { ObjectGuid = new ObjectGuid((ulong) character.Id) };
             entity.WriteUpdateFields(writer);
-
-            //new ContainerEntity(character);
-
-            foreach (var item in Main.Database.GetInventory(character))
-            {
-                new ItemEntity(character, item);
-            }
 
             return new UpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream)?.ToArray() });
         }
 
-        internal static ServerPacket UpdateValues(ObjectEntity player)
+        internal static ServerPacket UpdateValues(Entitys.Object player)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_VALUES);
@@ -97,7 +89,7 @@ namespace World_Server.Game
 
             player.WriteUpdateFields(writer);
 
-            return new UpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream)?.ToArray() }, (player is PlayerEntity) ? 0 : 1);
+            return new UpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream)?.ToArray() }, (player is Player) ? 0 : 1);
         }
 
         internal static ServerPacket CreateCharacterUpdate(Character character)
@@ -137,21 +129,21 @@ namespace World_Server.Game
 
             writer.Write(0x1); // Unkown...
 
-            PlayerEntity a = new PlayerEntity(character) {Guid = (uint) character.Id};
+            Player a = new Player(character) {Guid = (uint) character.Id};
 
             a.WriteUpdateFields(writer);
 
             return new UpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream)?.ToArray() });
         }
 
-        internal static ServerPacket CreateOutOfRangeUpdate(List<ObjectEntity> despawnPlayer)
+        internal static ServerPacket CreateOutOfRangeUpdate(List<Entitys.Object> despawnPlayer)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_OUT_OF_RANGE_OBJECTS);
 
             writer.Write((uint)despawnPlayer.Count);
 
-            foreach (ObjectEntity entity in despawnPlayer)
+            foreach (Entitys.Object entity in despawnPlayer)
             {
                 writer.WritePackedUInt64(entity.ObjectGuid.RawGuid);
             }

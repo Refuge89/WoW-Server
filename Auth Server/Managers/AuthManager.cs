@@ -17,6 +17,8 @@ namespace Auth_Server.Managers
         {
             AuthRouter.AddHandler<PcAuthLogonChallenge>(AuthServerOpcode.AUTH_LOGON_CHALLENGE, OnAuthLogonChallenge);
             AuthRouter.AddHandler<PcAuthLogonProof>(AuthServerOpcode.AUTH_LOGON_PROOF, OnLogonProof);
+            AuthRouter.AddHandler<PcAuthLogonChallenge>(AuthServerOpcode.AUTH_RECONNECT_CHALLENGE, OnAuthLogonChallenge);
+            AuthRouter.AddHandler<PcAuthLogonProof>(AuthServerOpcode.AUTH_RECONNECT_PROOF, OnLogonProof);
             AuthRouter.AddHandler(AuthServerOpcode.REALM_LIST, OnRealmList);
         }
 
@@ -41,10 +43,11 @@ namespace Auth_Server.Managers
             {
                 _user = Program.DatabaseManager.GetAccount(packet.Name);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("deu erro aqui");
-                Console.WriteLine(ex);  
+                session.Srp = new SRP(packet.Name.ToUpper(), packet.Name.ToUpper());
+                session.sendData(new PsAuthLogonChallange(session.Srp, AuthServerResult.Failure));
+                return;
             }
 
             // Error Unknow Account

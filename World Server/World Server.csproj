@@ -69,12 +69,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game\Entitys\ContainerEntity.cs" />
     <Compile Include="Game\Entitys\EntityBase.cs" />
-    <Compile Include="Game\Entitys\ItemEntity.cs" />
-    <Compile Include="Game\Entitys\ObjectEntity.cs" />
-    <Compile Include="Game\Entitys\PlayerEntity.cs" />
-    <Compile Include="Game\Entitys\UnitEntity.cs" />
+    <Compile Include="Game\Entitys\Item.cs" />
+    <Compile Include="Game\Entitys\Object.cs" />
+    <Compile Include="Game\Entitys\Player.cs" />
+    <Compile Include="Game\Entitys\Unit.cs" />
     <Compile Include="Game\UpdateObject.cs" />
     <Compile Include="Game\Update\ObjectGuid.cs" />
     <Compile Include="Game\Update\UpdateBlock.cs" />
@@ -117,9 +116,7 @@
       <Name>Framework</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Game\Objects\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

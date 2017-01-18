@@ -125,6 +125,5 @@ namespace World_Server.Game.Entitys
             Mask.SetAll(false);
             UpdateCount = 0;
         }
-
     }
 }

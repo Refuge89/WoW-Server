@@ -74,8 +74,6 @@
   <ItemGroup>
     <Compile Include="Handlers\AuthLogonChallange.cs" />
     <Compile Include="Handlers\AuthLogonProof.cs" />
-    <Compile Include="Handlers\AuthReconnectChallenge.cs" />
-    <Compile Include="Handlers\AuthReconnectProof.cs" />
     <Compile Include="Handlers\RealmList.cs" />
     <Compile Include="Managers\AuthManager.cs" />
     <Compile Include="Managers\DatabaseManager.cs" />

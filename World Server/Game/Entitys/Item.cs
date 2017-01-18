@@ -6,12 +6,12 @@ using World_Server.Game.Update;
 
 namespace World_Server.Game.Entitys
 {
-    public class ItemEntity : ObjectEntity
+    public class Item : Object
     {
         public override TypeID TypeId => TypeID.TYPEID_ITEM;
         public override int DataLength => (int)EItemFields.ITEM_END;
 
-        public ItemEntity(Character character, CharactersInventory item) : base(new ObjectGuid((uint)character.Id, TypeID.TYPEID_ITEM, HighGuid.HighguidItem))
+        public Item(Character character, CharactersInventory item) : base(new ObjectGuid((uint)character.Id, TypeID.TYPEID_ITEM, HighGuid.HighguidItem))
         {
             var ItemAtributes = XmlManager.GetItem((uint)item.Item);
 

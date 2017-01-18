@@ -144,7 +144,7 @@ namespace World_Server.Handlers
 
             string[] splitMessage = handler.Message.Split(' ');
 
-            UnitEntity entity = session.Entity.Target ?? session.Entity;
+            Unit entity = session.Entity.Target ?? session.Entity;
 
             if (splitMessage.Length == 2)
             {
@@ -164,7 +164,7 @@ namespace World_Server.Handlers
 
                 if (splitMessage[0].ToLower() == "xp")
                 {
-                    ((PlayerEntity)entity).Xp = int.Parse(splitMessage[1]);
+                    ((Player)entity).Xp = int.Parse(splitMessage[1]);
                 }
 
                 session.SendMessage($"Applied {splitMessage[0].ToLower()} = {splitMessage[1]}");

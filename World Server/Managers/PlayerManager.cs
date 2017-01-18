@@ -9,11 +9,11 @@ namespace World_Server.Managers
 {
     public class PlayerManager
     {
-        public static List<PlayerEntity> Players { get; private set; }
+        public static List<Player> Players { get; private set; }
 
         public static void Boot()
         {
-            Players = new List<PlayerEntity>();
+            Players = new List<Player>();
 
             EntityManager.OnPlayerSpawn += OnPlayerSpawn;
             EntityManager.OnPlayerDespawn += OnPlayerDespawn;
@@ -21,9 +21,9 @@ namespace World_Server.Managers
             new Thread(Update).Start();
         }
 
-        private static void OnPlayerDespawn(PlayerEntity player)
+        private static void OnPlayerDespawn(Player player)
         {
-            foreach (PlayerEntity remotePlayer in Players)
+            foreach (Player remotePlayer in Players)
             {
                 // Skip own player
                 if (player == remotePlayer) continue;
@@ -35,7 +35,7 @@ namespace World_Server.Managers
             Players.Remove(player);
         }
 
-        private static void OnPlayerSpawn(PlayerEntity player)
+        private static void OnPlayerSpawn(Player player)
         {
             // Player Requesting Spawn
             Players.Add(player);
@@ -46,9 +46,9 @@ namespace World_Server.Managers
             while (true)
             {
                 // Spawning && Despawning
-                foreach (PlayerEntity player in Players)
+                foreach (Player player in Players)
                 {
-                    foreach (PlayerEntity otherPlayer in Players)
+                    foreach (Player otherPlayer in Players)
                     {
                         // Ignore self
                         if (player == otherPlayer) continue;
@@ -67,7 +67,7 @@ namespace World_Server.Managers
                 }
 
                 // Update (Maybe have one for all entitys (GO, Unit & Players)
-                foreach (PlayerEntity player in Players)
+                foreach (Player player in Players)
                 {
                     if (player.UpdateCount > 0)
                     {
@@ -83,9 +83,9 @@ namespace World_Server.Managers
             }
         }
 
-        private static void DespawnPlayer(PlayerEntity remote, PlayerEntity player)
+        private static void DespawnPlayer(Player remote, Player player)
         {
-            List<ObjectEntity> despawnPlayer = new List<ObjectEntity> { player };
+            List<Game.Entitys.Object> despawnPlayer = new List<Game.Entitys.Object> { player };
 
             // Should be sending player entity
             remote.Session.SendPacket(UpdateObject.CreateOutOfRangeUpdate(despawnPlayer));
@@ -94,7 +94,7 @@ namespace World_Server.Managers
             remote.KnownPlayers.Remove(player);
         }
 
-        private static void SpawnPlayer(PlayerEntity remote, PlayerEntity player)
+        private static void SpawnPlayer(Player remote, Player player)
         {
             // Should be sending player entity
             remote.Session.SendPacket(UpdateObject.CreateCharacterUpdate(player.Character));
@@ -103,7 +103,7 @@ namespace World_Server.Managers
             remote.KnownPlayers.Add(player);
         }
 
-        private static bool InRangeCheck(PlayerEntity playerA, PlayerEntity playerB)
+        private static bool InRangeCheck(Player playerA, Player playerB)
         {
             double distance = GetDistance(playerA.Character.MapX, playerA.Character.MapY, playerB.Character.MapX, playerB.Character.MapY);
             return distance < 10;

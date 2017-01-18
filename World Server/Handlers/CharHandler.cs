@@ -9,7 +9,6 @@ using Framework.Database.Tables;
 using Framework.Database.XML;
 using Framework.Network;
 using World_Server.Sessions;
-using static World_Server.Program;
 using static World_Server.Main;
 
 namespace World_Server.Handlers
@@ -127,7 +126,7 @@ namespace World_Server.Handlers
                     {
                         itemsItem itm = XmlManager.GetItem((uint)abab.Item);
                         Write((int)itm.DisplayId);
-                        Write(itm.Type);
+                        Write(itm.InventoryType);
                     }
                     else
                     {
