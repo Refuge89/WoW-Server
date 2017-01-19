@@ -46,7 +46,7 @@ namespace World_Server.Managers
             WorldDataRouter.AddHandler<CmsgSetSelection>(WorldOpcodes.CMSG_SET_SELECTION, CharHandler.OnSetSelectionPacket);
             WorldDataRouter.AddHandler<CmsgSetActionButton>(WorldOpcodes.CMSG_SET_ACTION_BUTTON, CharHandler.OnSetActionButton);
 
-            //Item opcodes
+            //ItemEntity opcodes
             WorldDataRouter.AddHandler<CmsgItemQuerySingle>(WorldOpcodes.CMSG_ITEM_QUERY_SINGLE, ItemHandler.OnItemQuerySingle);
         }
 

@@ -147,7 +147,7 @@ namespace World_Server
         {
             string text = listView1.SelectedItems[0].Text;
 
-            Unit entity = WorldServer.GetSessionByUserName(text).Entity.Target ?? WorldServer.GetSessionByUserName(text).Entity;
+            UnitEntity entity = WorldServer.GetSessionByUserName(text).Entity.Target ?? WorldServer.GetSessionByUserName(text).Entity;
 
             try
             {

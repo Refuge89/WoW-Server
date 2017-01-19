@@ -6,7 +6,7 @@ using World_Server.Game.Update;
 
 namespace World_Server.Game.Entitys
 {
-    public class Item : Object
+    public class ItemEntity : ObjectEntity
     {
         public override TypeID TypeId => TypeID.TYPEID_ITEM;
         public override int DataLength => (int)ItemFields.ITEM_END;
@@ -15,13 +15,7 @@ namespace World_Server.Game.Entitys
 
         public new int Entry { get; set; }
 
-        public int[] EnchantmentIDs { get; set; }
-
-        public int RandomPropertyId { get; set; }
-
-        public int ItemSuffixFactor { get; set; }
-
-        public Item(Character character, CharactersInventory item) : base(new ObjectGuid((uint)character.Id, TypeID.TYPEID_ITEM, HighGuid.HighguidItem))
+        public ItemEntity(Character character, CharactersInventory item) : base(new ObjectGuid((uint)character.Id, TypeID.TYPEID_ITEM, HighGuid.HighguidItem))
         {
             var itemAtributes = XmlManager.GetItem((uint)item.Item);
 

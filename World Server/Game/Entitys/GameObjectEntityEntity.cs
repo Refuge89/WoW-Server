@@ -5,7 +5,7 @@ using World_Server.Game.Update;
 
 namespace World_Server.Game.Entitys
 {
-    public class GameObject : Object
+    public class GameObjectEntityEntity : ObjectEntity
     {
         public override TypeID TypeId => TypeID.TYPEID_GAMEOBJECT;
         public override int DataLength => (int)GameObjectFields.GAMEOBJECT_END;
@@ -15,7 +15,7 @@ namespace World_Server.Game.Entitys
 
         public override string Name => GameObjectTemplate.name;
 
-        public GameObject(WorldGameObjects gameObject) : base(ObjectGuid.GetGameObjectGuid())
+        public GameObjectEntityEntity(WorldGameObjects gameObject) : base(ObjectGuid.GetGameObjectGuid())
         {
             GameObjects = gameObject;
             GameObjectTemplate = gameObject.entry;
@@ -34,7 +34,7 @@ namespace World_Server.Game.Entitys
             SetUpdateField((int)GameObjectFields.GAMEOBJECT_DYN_FLAGS, GameObjectTemplate.flags);
 
             #if DEBUG
-            Main._Main.Log($"Spawn Object [{GameObjectTemplate.name}] para [{(GameObjectType)GameObjectTemplate.type}]", Color.Black);
+            Main._Main.Log($"Spawn ObjectEntity [{GameObjectTemplate.name}] para [{(GameObjectType)GameObjectTemplate.type}]", Color.Black);
             #endif
         }
 

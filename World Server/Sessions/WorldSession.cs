@@ -21,7 +21,7 @@ namespace World_Server.Sessions
         public Character Target;
 
         public uint OutOfSyncDelay { get; set; }
-        public Player Entity;
+        public PlayerEntity Entity;
 
         #region SMSG_AUTH_CHALLENGE
         sealed class SmsgAuthChallenge : ServerPacket

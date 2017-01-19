@@ -3,9 +3,9 @@ using World_Server.Game.Update;
 
 namespace World_Server.Game.Entitys
 {
-    public class Unit : Object
+    public class UnitEntity : ObjectEntity
     {
-        public Unit(ObjectGuid guid) : base(guid)
+        public UnitEntity(ObjectGuid guid) : base(guid)
         {
         }
 

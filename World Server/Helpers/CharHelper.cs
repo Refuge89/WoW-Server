@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Linq;
 using Framework.Contants.Character;
 using Framework.Database;
@@ -183,7 +182,7 @@ namespace World_Server.Helpers
                 if (item == null)
                     continue;
 
-                Main._Main.Log($"Item Adicionado {(uint)startItems.m_ItemID[j]} [{item.name}]", Color.DarkMagenta);
+                Main._Main.Log($"ItemEntity Adicionado {(uint)startItems.m_ItemID[j]} [{item.name}]", Color.DarkMagenta);
 
                 using (var scope = new DataAccessScope())
                 {

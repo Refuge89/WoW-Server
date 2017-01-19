@@ -10,18 +10,18 @@ using World_Server.Sessions;
 
 namespace World_Server.Game.Entitys
 {
-    public class Player : Unit
+    public class PlayerEntity : UnitEntity
     {
         public Character Character;
-        public Unit Target;
+        public UnitEntity Target;
 
-        public Item Inventory;
+        public ItemEntity Inventory;
 
-        public List<Player> KnownPlayers { get; private set; }
-        public List<Unit> KnownUnits { get; private set; }
-        public List<GameObject> KnownGameObjects { get; set; }
+        public List<PlayerEntity> KnownPlayers { get; private set; }
+        public List<UnitEntity> KnownUnits { get; private set; }
+        public List<GameObjectEntityEntity> KnownGameObjects { get; set; }
 
-        public List<Object> OutOfRangeEntitys { get; private set; }
+        public List<ObjectEntity> OutOfRangeEntitys { get; private set; }
         public List<UpdateBlock> UpdateBlocks { get; private set; }       
 
         public override string Name => Character.Name;
@@ -35,18 +35,18 @@ namespace World_Server.Game.Entitys
 
         public WorldSession Session { get; internal set; }
 
-        public Player(Character character) : base(new ObjectGuid((uint)character.Id, TypeID.TYPEID_PLAYER, HighGuid.HighguidMoTransport))
+        public PlayerEntity(Character character) : base(new ObjectGuid((uint)character.Id, TypeID.TYPEID_PLAYER, HighGuid.HighguidMoTransport))
         {
             var skin = Main.Database.GetSkin(character);
             var chrRaces = DatabaseManager.ChrRaces.Values.FirstOrDefault(x => x.Match(character.Race));
             var inventory = Main.Database.GetInventory(character);
 
             Character = character;
-            KnownPlayers = new List<Player>();
-            KnownUnits = new List<Unit>();
-            KnownGameObjects = new List<GameObject>();
+            KnownPlayers = new List<PlayerEntity>();
+            KnownUnits = new List<UnitEntity>();
+            KnownGameObjects = new List<GameObjectEntityEntity>();
 
-            OutOfRangeEntitys = new List<Object>();
+            OutOfRangeEntitys = new List<ObjectEntity>();
             UpdateBlocks = new List<UpdateBlock>();
 
             Guid = (uint)character.Id;
@@ -82,14 +82,14 @@ namespace World_Server.Game.Entitys
             SetUpdateField((int)PlayerField.PLAYER_NEXT_LEVEL_XP, 400);
 
             int i = 0;
-            foreach (var Item in inventory)
+            foreach (var item in inventory)
             {
                 // Equipamento Equipado
-                SetUpdateField((int)PlayerField.PLAYER_VISIBLE_ITEM_1_0 + (int)Item.Slot * 12, Item.Item);
+                SetUpdateField((int)PlayerField.PLAYER_VISIBLE_ITEM_1_0 + (int)item.Slot * 12, item.Item);
 
-                if (Item.Slot != 23)
+                if (item.Slot != 23)
                 {
-                    SetUpdateField((int)PlayerField.PLAYER_FIELD_INV_SLOT_HEAD + i * 2, Item.Item);
+                    SetUpdateField((int)PlayerField.PLAYER_FIELD_INV_SLOT_HEAD + i * 2, item.Item);
                     i++;
                 }
             }

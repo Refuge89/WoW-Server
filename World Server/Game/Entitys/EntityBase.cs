@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Framework.Contants.Game;
 using Framework.Extensions;
-using World_Server.Game.Update;
 
 namespace World_Server.Game.Entitys
 {
@@ -18,8 +18,12 @@ namespace World_Server.Game.Entitys
         public virtual int DataLength { get; set; }
         public virtual TypeID TypeId { get; internal set; }
         public virtual string Name { get; set; }
+        
+        public PropertyInfo PropertyInfo { get; set; }
+        public Byte UpdateField { get; set; }
+        public int Index { get; set; }
 
-        public Queue<UpdateFieldEntry> UpdateQueue = new Queue<UpdateFieldEntry>();
+        public Queue<EntityBase> UpdateQueue = new Queue<EntityBase>();
 
         public EntityBase()
         {

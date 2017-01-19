@@ -61,7 +61,6 @@ namespace World_Server.Managers
                     Char.MapY = charStarter.MapY;
                     Char.MapZ = charStarter.MapZ;
                     Char.MapRotation = charStarter.MapRotation;
-                    //Char.Equipment = String.Join(",", startItems.m_ItemID);
                     Char.firsttime = false;
                     Char.created_at = DateTime.Now;
 
@@ -206,7 +205,7 @@ namespace World_Server.Managers
             }
         }
 
-        internal List<WorldGameObjects> GetGameObjects(Player entity, float radius)
+        internal List<WorldGameObjects> GetGameObjects(PlayerEntity entity, float radius)
         {
             var ba = model.WorldGameObjects.Where(a => a.map == entity.Character.MapID).ToList();
 
@@ -215,6 +214,5 @@ namespace World_Server.Managers
                                        Math.Pow(a.mapX - a.mapY, 2))
                                    <= radius).ToList();
         }
-
     }
 }

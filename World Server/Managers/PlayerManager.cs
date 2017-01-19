@@ -11,11 +11,11 @@ namespace World_Server.Managers
 {
     public class PlayerManager
     {
-        public static List<Player> Players { get; private set; }
+        public static List<PlayerEntity> Players { get; private set; }
 
         public static void Boot()
         {
-            Players = new List<Player>();
+            Players = new List<PlayerEntity>();
 
             EntityManager.OnPlayerSpawn += OnPlayerSpawn;
             EntityManager.OnPlayerDespawn += OnPlayerDespawn;
@@ -23,31 +23,31 @@ namespace World_Server.Managers
             new Thread(Update).Start();
         }
 
-        private static void OnPlayerDespawn(Player player)
+        private static void OnPlayerDespawn(PlayerEntity playerEntity)
         {
-            foreach (Player remotePlayer in Players)
+            foreach (PlayerEntity remotePlayer in Players)
             {
-                if (player == remotePlayer) continue;
+                if (playerEntity == remotePlayer) continue;
 
-                if (remotePlayer.KnownPlayers.Contains(player))
-                    DespawnPlayer(remotePlayer, player);
+                if (remotePlayer.KnownPlayers.Contains(playerEntity))
+                    DespawnPlayer(remotePlayer, playerEntity);
             }
 
-            Players.Remove(player);
+            Players.Remove(playerEntity);
         }
 
-        private static void OnPlayerSpawn(Player player)
+        private static void OnPlayerSpawn(PlayerEntity playerEntity)
         {
-            Players.Add(player);
+            Players.Add(playerEntity);
         }
 
         private static void Update()
         {
             while (true)
             {
-                foreach (Player player in Players)
+                foreach (PlayerEntity player in Players)
                 {
-                    foreach (Player otherPlayer in Players)
+                    foreach (PlayerEntity otherPlayer in Players)
                     {
                         // Ignore self
                         if (player == otherPlayer) continue;
@@ -76,30 +76,30 @@ namespace World_Server.Managers
             }
         }
 
-        private static void DespawnPlayer(Player remote, Player player)
+        private static void DespawnPlayer(PlayerEntity remote, PlayerEntity playerEntity)
         {
-            List<Game.Entitys.Object> despawnPlayer = new List<Game.Entitys.Object> { player };
+            List<ObjectEntity> despawnPlayer = new List<ObjectEntity> { playerEntity };
 
-            // Should be sending player entity
+            // Should be sending playerEntity entityEntity
             remote.Session.SendPacket(UpdateObject.CreateOutOfRangeUpdate(despawnPlayer));
 
             // Add it to known players
-            remote.KnownPlayers.Remove(player);
+            remote.KnownPlayers.Remove(playerEntity);
         }
 
-        private static void SpawnPlayer(Player remote, Player player)
+        private static void SpawnPlayer(PlayerEntity remote, PlayerEntity playerEntity)
         {
-            // Should be sending player entity
-            remote.Session.SendPacket(UpdateObject.CreateCharacterUpdate(player.Character));
+            // Should be sending playerEntity entityEntity
+            remote.Session.SendPacket(UpdateObject.CreateCharacterUpdate(playerEntity.Character));
 
             // Add it to known players
-            remote.KnownPlayers.Add(player);
+            remote.KnownPlayers.Add(playerEntity);
         }
 
-        private static bool InRangeCheck(Player playerA, Player playerB)
+        private static bool InRangeCheck(PlayerEntity playerEntityA, PlayerEntity playerEntityB)
         {
-            double distance = GetDistance(playerA.Character.MapX, playerA.Character.MapY, playerB.Character.MapX, playerB.Character.MapY);
-            return distance < 10;
+            double distance = GetDistance(playerEntityA.Character.MapX, playerEntityA.Character.MapY, playerEntityB.Character.MapX, playerEntityB.Character.MapY);
+            return distance < 10; // DISTANCE
         }
 
         private static double GetDistance(float aX, float aY, float bX, float bY)

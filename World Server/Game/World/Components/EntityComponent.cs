@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using World_Server.Game.Entitys;
 using World_Server.Managers;
-using Object = World_Server.Game.Entitys.Object;
 
 namespace World_Server.Game.World.Components
 {
     public abstract class EntityComponent<T> where T : EntityBase
     {
         public List<T> Entitys;
-        public abstract bool InRange(Player player, T entity, float range);
-        public abstract List<T> EntityListFromPlayer(Player player);
-        public abstract void GenerateEntitysForPlayer(Player player);
+        public abstract bool InRange(PlayerEntity playerEntity, T entity, float range);
+        public abstract List<T> EntityListFromPlayer(PlayerEntity playerEntity);
+        public abstract void GenerateEntitysForPlayer(PlayerEntity playerEntity);
 
         protected EntityComponent()
         {
@@ -24,9 +22,9 @@ namespace World_Server.Game.World.Components
             EntityManager.OnPlayerSpawn += World_OnPlayerSpawn;
         }
 
-        private void World_OnPlayerSpawn(Player player)
+        private void World_OnPlayerSpawn(PlayerEntity playerEntity)
         {
-            GenerateEntitysForPlayer(player);
+            GenerateEntitysForPlayer(playerEntity);
         }
 
         private void UpdateThread()
@@ -40,7 +38,7 @@ namespace World_Server.Game.World.Components
 
         private bool Contains(T entity)
         {
-            return Entitys.FindAll(e => (e as Object).ObjectGuid.RawGuid == (entity as Object).ObjectGuid.RawGuid).Any();
+            return Entitys.FindAll(e => (e as ObjectEntity).ObjectGuid.RawGuid == (entity as ObjectEntity).ObjectGuid.RawGuid).Any();
         }
 
         public virtual void AddEntityToWorld(T entity)
@@ -52,33 +50,33 @@ namespace World_Server.Game.World.Components
         public virtual void Update()
         {
             // Spawning && Despawning
-            foreach (Player player in PlayerManager.Players)
+            foreach (PlayerEntity player in PlayerManager.Players)
             {
                 foreach (T entity in Entitys)
                 {
-                    if (InRange(player, entity, 1000) && !PlayerKnowsEntity(player, entity))
+                    if (InRange(player, entity, 1000) && !PlayerKnowsEntity(player, entity)) // DISTANCE
                        SpawnEntityForPlayer(player, entity);
 
-                    if (!InRange(player, entity, 5000) && PlayerKnowsEntity(player, entity))
+                    if (!InRange(player, entity, 5000) && PlayerKnowsEntity(player, entity)) // DISTANCE
                         DespawnEntityForPlayer(player, entity);
                 }
             }
         }
 
-        public virtual void DespawnEntityForPlayer(Player player, T entity)
+        public virtual void DespawnEntityForPlayer(PlayerEntity playerEntity, T entity)
         {
-            EntityListFromPlayer(player).Remove(entity);
-            player.Session.SendPacket(UpdateObject.CreateOutOfRangeUpdate(entity as GameObject));
+            EntityListFromPlayer(playerEntity).Remove(entity);
+            playerEntity.Session.SendPacket(UpdateObject.CreateOutOfRangeUpdate(entity as GameObjectEntityEntity));
         }
 
-        public virtual void SpawnEntityForPlayer(Player player, T entity)
+        public virtual void SpawnEntityForPlayer(PlayerEntity playerEntity, T entity)
         {
-            EntityListFromPlayer(player).Add(entity);
+            EntityListFromPlayer(playerEntity).Add(entity);
         }
 
-        public bool PlayerKnowsEntity(Player player, T entity)
+        public bool PlayerKnowsEntity(PlayerEntity playerEntity, T entity)
         {
-            return EntityListFromPlayer(player).Contains(entity);
+            return EntityListFromPlayer(playerEntity).Contains(entity);
         }
 
     }

@@ -17,12 +17,9 @@ namespace World_Server.Game.World.Blocks
         public void Build()
         {
             BuildData();
-
             Data = (Writer.BaseStream as MemoryStream)?.ToArray();
-            Info = BuildInfo();
         }
 
         public abstract void BuildData();
-        public abstract string BuildInfo();
     }
 }

@@ -6,33 +6,33 @@ using World_Server.Sessions;
 
 namespace World_Server.Managers
 {
-    public delegate void PlayerEvent(Player player);
+    public delegate void PlayerEvent(PlayerEntity playerEntity);
 
     public class EntityManager
     {
         public static event PlayerEvent OnPlayerSpawn;
         public static event PlayerEvent OnPlayerDespawn;
 
-        public static void DispatchOnPlayerSpawn(Player player)
+        public static void DispatchOnPlayerSpawn(PlayerEntity playerEntity)
         {
-            OnPlayerSpawn?.Invoke(player);
+            OnPlayerSpawn?.Invoke(playerEntity);
         }
 
-        public static void DispatchOnPlayerDespawn(Player player)
+        public static void DispatchOnPlayerDespawn(PlayerEntity playerEntity)
         {
-            OnPlayerDespawn?.Invoke(player);
+            OnPlayerDespawn?.Invoke(playerEntity);
         }
 
-        public static List<Player> PlayersWhoKnow(Player player)
+        public static List<PlayerEntity> PlayersWhoKnow(PlayerEntity playerEntity)
         {
-            return PlayerManager.Players.FindAll(p => p.KnownPlayers.Contains(player));
+            return PlayerManager.Players.FindAll(p => p.KnownPlayers.Contains(playerEntity));
         }
 
-        public static List<WorldSession> SessionsWhoKnow(Player player, bool includeSelf = false)
+        public static List<WorldSession> SessionsWhoKnow(PlayerEntity playerEntity, bool includeSelf = false)
         {
-            List<WorldSession> sessions = PlayersWhoKnow(player).ConvertAll(p => p.Session);
+            List<WorldSession> sessions = PlayersWhoKnow(playerEntity).ConvertAll(p => p.Session);
 
-            if (includeSelf) sessions.Add(player.Session);
+            if (includeSelf) sessions.Add(playerEntity.Session);
 
             return sessions;
         }
@@ -43,7 +43,7 @@ namespace World_Server.Managers
             worldSession.Entity.MapY = worldSession.Character.MapY;
             worldSession.Entity.MapZ = worldSession.Character.MapZ;
 
-            List<WorldGameObjects> gameObjects = Main.Database.GetGameObjects(worldSession.Entity, 1000);
+            List<WorldGameObjects> gameObjects = Main.Database.GetGameObjects(worldSession.Entity, 1000); // DISTANCE
 
             foreach (WorldGameObjects gameObject in gameObjects)
             {

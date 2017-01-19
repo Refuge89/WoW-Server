@@ -9,11 +9,12 @@ using World_Server.Sessions;
 
 namespace World_Server.Game.World.Components
 {
-    public sealed class SMSG_SPELL_START : ServerPacket
+
+    #region  SMSG_SPELL_START
+    public sealed class SmsgSpellStart : ServerPacket
     {
-        public SMSG_SPELL_START(WorldSession caster, Character target, int spellId) : base(WorldOpcodes.SMSG_SPELL_START)
+        public SmsgSpellStart(WorldSession caster, Character target, int spellId) : base(WorldOpcodes.SMSG_SPELL_START)
         {
-            Console.WriteLine("SMSG_SPELL_START");
             this.WritePackedUInt64((ulong) caster.Character.Id);
             this.WritePackedUInt64((ulong) target.Id);
 
@@ -26,6 +27,7 @@ namespace World_Server.Game.World.Components
             this.WritePackedUInt64((ulong)target.Id);
         }
     }
+    #endregion
 
     public class SpellComponent
     {
@@ -35,14 +37,7 @@ namespace World_Server.Game.World.Components
         internal void SendSpellStart()
         {
             this.State = SpellState.SPELL_STATE_PREPARING;
-            this.SetCastTime();
-
-            session.SendPacket(new SMSG_SPELL_START(session, Targets, (int)Spell.Id));
-        }
-
-        private void SetCastTime()
-        {
-            //throw new NotImplementedException();
+            session.SendPacket(new SmsgSpellStart(session, Targets, (int)Spell.Id));
         }
 
         internal void Initialize()

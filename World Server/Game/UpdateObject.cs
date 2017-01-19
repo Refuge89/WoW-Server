@@ -10,7 +10,6 @@ using Framework.Network;
 using World_Server.Game.Entitys;
 using World_Server.Game.Update;
 using World_Server.Game.World.Blocks;
-using Object = World_Server.Game.Entitys.Object;
 
 namespace World_Server.Game
 {
@@ -20,7 +19,6 @@ namespace World_Server.Game
         public static float RunningSpeed = 7.0f * 10;
         public static float SwimSpeed = 4.7222223f;
         public static float TurnRate = 3.141593f;
-        private List<UpdateBlock> updateBlocks;
 
         public UpdateObject(List<byte[]> blocks, int hasTansport = 0) : base(WorldOpcodes.SMSG_UPDATE_OBJECT)
         {
@@ -36,7 +34,7 @@ namespace World_Server.Game
             blocks.ForEach(block => Write(block.Data));
         }
 
-        public static UpdateObject CreateOwnCharacterUpdate(Character character, out Player entity)
+        public static UpdateObject CreateOwnCharacterUpdate(Character character, out PlayerEntity entity)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
@@ -73,7 +71,7 @@ namespace World_Server.Game
 
             writer.Write(0x1); // Unkown...
 
-            entity = new Player(character) { ObjectGuid = new ObjectGuid((ulong) character.Id, TypeID.TYPEID_PLAYER) };
+            entity = new PlayerEntity(character) { ObjectGuid = new ObjectGuid((ulong) character.Id, TypeID.TYPEID_PLAYER) };
             entity.WriteUpdateFields(writer);
 
             return new UpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream)?.ToArray() });
@@ -84,10 +82,10 @@ namespace World_Server.Game
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
 
-            GameObject entity = new GameObject(gameObject);
+            GameObjectEntityEntity entityEntity = new GameObjectEntityEntity(gameObject);
 
-            Console.WriteLine(entity.ObjectGuid.RawGuid);
-            byte[] guidBytes = GenerateGuidBytes(entity.ObjectGuid.RawGuid);
+            Console.WriteLine(entityEntity.ObjectGuid.RawGuid);
+            byte[] guidBytes = GenerateGuidBytes(entityEntity.ObjectGuid.RawGuid);
 
             for (int i = 0; i < guidBytes.Length; i++) writer.Write(guidBytes[i]);
 
@@ -108,12 +106,12 @@ namespace World_Server.Game
             writer.Write((uint)0x1);
             writer.Write((uint)0);
 
-            entity.WriteUpdateFields(writer);
+            entityEntity.WriteUpdateFields(writer);
 
             return new UpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream)?.ToArray() }, 1);
         }
 
-        internal static ServerPacket UpdateValues(Object player)
+        internal static ServerPacket UpdateValues(ObjectEntity player)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_VALUES);
@@ -123,7 +121,7 @@ namespace World_Server.Game
 
             player.WriteUpdateFields(writer);
 
-            return new UpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream)?.ToArray() }, (player is Player) ? 0 : 1);
+            return new UpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream)?.ToArray() }, (player is PlayerEntity) ? 0 : 1);
         }
 
         internal static ServerPacket CreateCharacterUpdate(Character character)
@@ -163,27 +161,27 @@ namespace World_Server.Game
 
             writer.Write(0x1); // Unkown...
 
-            Player player = new Player(character) {Guid = (uint) character.Id};
+            PlayerEntity playerEntity = new PlayerEntity(character) {Guid = (uint) character.Id};
 
-            player.WriteUpdateFields(writer);
+            playerEntity.WriteUpdateFields(writer);
 
             return new UpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream)?.ToArray() });
         }
 
-        internal static ServerPacket CreateOutOfRangeUpdate(GameObject gameObject)
+        internal static ServerPacket CreateOutOfRangeUpdate(GameObjectEntityEntity gameObjectEntityEntity)
         {
-            var despawnEntity = new List<Object> { gameObject };
+            var despawnEntity = new List<ObjectEntity> { gameObjectEntityEntity };
             return CreateOutOfRangeUpdate(despawnEntity);
         }
 
-        internal static ServerPacket CreateOutOfRangeUpdate(List<Object> despawnPlayer)
+        internal static ServerPacket CreateOutOfRangeUpdate(List<ObjectEntity> despawnPlayer)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_OUT_OF_RANGE_OBJECTS);
 
             writer.Write((uint)despawnPlayer.Count);
 
-            foreach (Object entity in despawnPlayer)
+            foreach (ObjectEntity entity in despawnPlayer)
             {
                 Console.WriteLine($"vai abacate [{entity.Name}] {entity.ObjectGuid.RawGuid}");
                 writer.WritePackedUInt64(entity.ObjectGuid.RawGuid);

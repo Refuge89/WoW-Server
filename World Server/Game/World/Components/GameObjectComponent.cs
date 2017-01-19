@@ -6,32 +6,32 @@ using World_Server.Game.World.Blocks;
 
 namespace World_Server.Game.World.Components
 {
-    public class GameObjectComponent : EntityComponent<GameObject>
+    public class GameObjectComponent : EntityComponent<GameObjectEntityEntity>
     {
-        public override void GenerateEntitysForPlayer(Player player)
+        public override void GenerateEntitysForPlayer(PlayerEntity playerEntity)
         {
-            List<WorldGameObjects> gameObjects = Main.Database.GetGameObjects(player, 1000);
+            List<WorldGameObjects> gameObjects = Main.Database.GetGameObjects(playerEntity, 1000); // DISTANCE
 
             gameObjects.ForEach(closeGo =>
             {
-                AddEntityToWorld(new GameObject(closeGo));
+                AddEntityToWorld(new GameObjectEntityEntity(closeGo));
             });
         }
 
-        public override void SpawnEntityForPlayer(Player player, GameObject entity)
+        public override void SpawnEntityForPlayer(PlayerEntity playerEntity, GameObjectEntityEntity entityEntity)
         {
-            lock (player.UpdateBlocks)
+            lock (playerEntity.UpdateBlocks)
             {
-                player.UpdateBlocks.Add(new GameObjectBlock(entity));
+                playerEntity.UpdateBlocks.Add(new GameObjectBlock(entityEntity));
             }
 
-            base.SpawnEntityForPlayer(player, entity);
+            base.SpawnEntityForPlayer(playerEntity, entityEntity);
         }
 
-        public override bool InRange(Player player, GameObject entity, float range)
+        public override bool InRange(PlayerEntity playerEntity, GameObjectEntityEntity entityEntity, float range)
         {
-            double distance = GetDistance(player.Character.MapX, player.Character.MapY, entity.GameObjects.mapX, entity.GameObjects.mapY);
-            return distance < 30;
+            double distance = GetDistance(playerEntity.Character.MapX, playerEntity.Character.MapY, entityEntity.GameObjects.mapX, entityEntity.GameObjects.mapY);
+            return distance < 30; // DISTANCE
         }
 
         private static double GetDistance(float aX, float aY, float bX, float bY)
@@ -42,9 +42,9 @@ namespace World_Server.Game.World.Components
             return Math.Sqrt(a * a + b * b);
         }
 
-        public override List<GameObject> EntityListFromPlayer(Player player)
+        public override List<GameObjectEntityEntity> EntityListFromPlayer(PlayerEntity playerEntity)
         {
-            return player.KnownGameObjects;
+            return playerEntity.KnownGameObjects;
         }
     }
 }

@@ -3,7 +3,7 @@ using World_Server.Game.Update;
 
 namespace World_Server.Game.Entitys
 {
-    public class Object : EntityBase
+    public class ObjectEntity : EntityBase
     {
         public ObjectGuid ObjectGuid { get; set; }
 
@@ -33,7 +33,7 @@ namespace World_Server.Game.Entitys
             set { SetUpdateField((int) ObjectFields.OBJECT_FIELD_SCALE_X, value); }
         }
 
-        public Object(ObjectGuid objectGuid)
+        public ObjectEntity(ObjectGuid objectGuid)
         {
             ObjectGuid = objectGuid;
             Guid = ObjectGuid.RawGuid;

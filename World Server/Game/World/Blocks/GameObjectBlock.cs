@@ -7,18 +7,18 @@ namespace World_Server.Game.World.Blocks
 {
     public class GameObjectBlock: UpdateBlock
     {
-        public GameObject Entity { get; }
+        public GameObjectEntityEntity EntityEntity { get; }
 
-        public GameObjectBlock(GameObject entity)
+        public GameObjectBlock(GameObjectEntityEntity entityEntity)
         {
-            Entity = entity;
+            EntityEntity = entityEntity;
             Build();
         }
 
         public override void BuildData()
         {
             Writer.Write((byte) ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
-            Writer.WritePackedUInt64(Entity.ObjectGuid.RawGuid);
+            Writer.WritePackedUInt64(EntityEntity.ObjectGuid.RawGuid);
             Writer.Write((byte) TypeID.TYPEID_GAMEOBJECT);
 
             ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_TRANSPORT |
@@ -28,34 +28,16 @@ namespace World_Server.Game.World.Blocks
             Writer.Write((byte)updateFlags);
 
             // Position
-            Writer.Write((float) Entity.GameObjects.mapX);
-            Writer.Write((float) Entity.GameObjects.mapY);
-            Writer.Write((float) Entity.GameObjects.mapZ);
+            Writer.Write(EntityEntity.GameObjects.mapX);
+            Writer.Write(EntityEntity.GameObjects.mapY);
+            Writer.Write(EntityEntity.GameObjects.mapZ);
 
             Writer.Write((float) 0); // R
 
             Writer.Write((uint) 0x1); // Unkown... time?
             Writer.Write((uint) 0); // Unkown... time?
 
-            Entity.WriteUpdateFields(Writer);
+            EntityEntity.WriteUpdateFields(Writer);
         }
-
-        public override string BuildInfo()
-        {
-            return "[CreateGO] " + Entity.GameObjectTemplate.name;
-        }
-    }
-
-    [Flags]
-    public enum ObjectUpdateFlag : byte
-    {
-        UPDATEFLAG_NONE = 0x0000,
-        UPDATEFLAG_SELF = 0x0001,
-        UPDATEFLAG_TRANSPORT = 0x0002,
-        UPDATEFLAG_FULLGUID = 0x0004,
-        UPDATEFLAG_HIGHGUID = 0x0008,
-        UPDATEFLAG_ALL = 0x0010,
-        UPDATEFLAG_LIVING = 0x0020,
-        UPDATEFLAG_HAS_POSITION = 0x0040
     }
 }

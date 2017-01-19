@@ -66,16 +66,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game\Entitys\EntityBase.cs" />
-    <Compile Include="Game\Entitys\GameObject.cs" />
-    <Compile Include="Game\Entitys\Item.cs" />
-    <Compile Include="Game\Entitys\Object.cs" />
-    <Compile Include="Game\Entitys\Player.cs" />
-    <Compile Include="Game\Entitys\Unit.cs" />
+    <Compile Include="Game\Entitys\GameObjectEntityEntity.cs" />
+    <Compile Include="Game\Entitys\ItemEntity.cs" />
+    <Compile Include="Game\Entitys\ObjectEntity.cs" />
+    <Compile Include="Game\Entitys\PlayerEntity.cs" />
+    <Compile Include="Game\Entitys\UnitEntity.cs" />
     <Compile Include="Game\UpdateObject.cs" />
     <Compile Include="Game\Update\ObjectGuid.cs" />
     <Compile Include="Game\World\Blocks\UpdateBlock.cs" />
     <Compile Include="Game\Update\UpdateField.cs" />
-    <Compile Include="Game\Update\UpdateFieldEntry.cs" />
     <Compile Include="Handlers\AuthHandler.cs" />
     <Compile Include="Handlers\CharHandler.cs" />
     <Compile Include="Handlers\ChatHandler.cs" />
@@ -86,7 +85,6 @@
     <Compile Include="Handlers\PlayerHandler.cs" />
     <Compile Include="Handlers\SpellHandler.cs" />
     <Compile Include="Game\World\Blocks\GameObjectBlock.cs" />
-    <Compile Include="Game\World\Blocks\OutOfRangeBlock.cs" />
     <Compile Include="Game\World\Components\EntityComponent.cs" />
     <Compile Include="Game\World\Components\GameObjectComponent.cs" />
     <Compile Include="Game\World\Components\SpellComponent.cs" />

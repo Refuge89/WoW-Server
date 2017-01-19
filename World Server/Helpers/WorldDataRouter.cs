@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using Framework.Contants;
 using World_Server.Sessions;
@@ -8,7 +7,7 @@ using World_Server.Sessions;
 namespace World_Server.Helpers
 {
     public delegate void ProcessWorldPacketCallback(WorldSession session, byte[] data);
-    public delegate void ProcessWorldPacketCallbackTypes<T>(WorldSession session, T handler);
+    public delegate void ProcessWorldPacketCallbackTypes<in T>(WorldSession session, T handler);
 
     public class WorldDataRouter
     {
@@ -36,7 +35,6 @@ namespace World_Server.Helpers
             }
             else
             {
-                Debug.WriteLine($"Missing handler: {opcode}");
                 Main._Main.Log($"Missing handler: {opcode}", Color.DarkMagenta);
             }
         }
