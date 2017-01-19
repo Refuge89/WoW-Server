@@ -31,7 +31,7 @@
 	<skills>
 		<skill id="98" min="300" max="300" /> 		<!-- Language: Common -->
 		<skill id="113" min="300" max="300" /> 		<!-- Language: Darnassian -->
-		<skill id="162" min="1" max="300" /> 		<!-- Unarmed -->
+		<skill id="162" min="1" max="5" /> 		<!-- Unarmed -->
 		<skill id="126" min="1" max="1" /> 		<!-- Human Night Elf -->
 	</skills>
 	<actions>
@@ -47,9 +47,9 @@
 				<spell id="201" />		<!-- Swords -->
 			</spells>
 			<skills>
-				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
-				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
-				<skill id="43" min="1" max="300" /> 		<!-- Swords -->
+				<skill id="173" min="1" max="5" /> 		<!-- Daggers -->
+				<skill id="54" min="1" max="5" /> 		<!-- Maces -->
+				<skill id="43" min="1" max="5" /> 		<!-- Swords -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -69,8 +69,8 @@
 				<spell id="264" /> 		<!-- Bows -->
 			</spells>
 			<skills>
-				<skill id="45" min="1" max="300" /> 		<!-- Bows -->
-				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
+				<skill id="45" min="1" max="5" /> 		<!-- Bows -->
+				<skill id="173" min="1" max="5" /> 		<!-- Daggers -->
 			</skills>
 			<items>
 				<item id="159" /> 		<!-- Refreshing Spring Water -->
@@ -96,8 +96,8 @@
 				<spell id="2764" /> 	<!-- Throw -->
 			</spells>
 			<skills>
-				<skill id="176" min="1" max="300" /> 		<!-- Thrown -->
-				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
+				<skill id="176" min="1" max="5" /> 		<!-- Thrown -->
+				<skill id="173" min="1" max="5" /> 		<!-- Daggers -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -119,8 +119,8 @@
 				<spell id="5019" /> 	<!-- Shoot -->
 			</spells>
 			<skills>
-				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
-				<skill id="228" min="1" max="300" /> 		<!-- Wands -->
+				<skill id="54" min="1" max="5" /> 		<!-- Maces -->
+				<skill id="228" min="1" max="5" /> 		<!-- Wands -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -143,7 +143,7 @@
 				<spell id="227" /> 		<!-- Staves -->
 			</spells>
 			<skills>
-				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
+				<skill id="173" min="1" max="5" /> 		<!-- Daggers -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Framework.Network;
 using World_Server.Game;
 using World_Server.Game.Entitys;
+using World_Server.Game.World.Blocks;
 
 namespace World_Server.Managers
 {
@@ -25,7 +27,6 @@ namespace World_Server.Managers
         {
             foreach (Player remotePlayer in Players)
             {
-                // Skip own player
                 if (player == remotePlayer) continue;
 
                 if (remotePlayer.KnownPlayers.Contains(player))
@@ -37,7 +38,6 @@ namespace World_Server.Managers
 
         private static void OnPlayerSpawn(Player player)
         {
-            // Player Requesting Spawn
             Players.Add(player);
         }
 
@@ -45,7 +45,6 @@ namespace World_Server.Managers
         {
             while (true)
             {
-                // Spawning && Despawning
                 foreach (Player player in Players)
                 {
                     foreach (Player otherPlayer in Players)
@@ -64,16 +63,10 @@ namespace World_Server.Managers
                                 DespawnPlayer(player, otherPlayer);
                         }
                     }
-                }
 
-                // Update (Maybe have one for all entitys (GO, Unit & Players)
-                foreach (Player player in Players)
-                {
                     if (player.UpdateCount > 0)
                     {
-                        // Generate update packet
                         ServerPacket packet = UpdateObject.UpdateValues(player);
-
                         player.Session.SendPacket(packet);
                         EntityManager.SessionsWhoKnow(player).ForEach(s => s.SendPacket(packet));
                     }

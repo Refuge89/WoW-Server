@@ -32,5 +32,12 @@ namespace Framework.Database
 
         [DataAccessObjects]
         public abstract DataAccessObjects<CharactersInventory> CharactersInventory { get; }
+
+        [DataAccessObjects]
+        public abstract DataAccessObjects<TemplateGameObjects> TemplateGameObjects { get; }
+
+        [DataAccessObjects]
+        public abstract DataAccessObjects<WorldGameObjects> WorldGameObjects { get; }
+        
     }
 }

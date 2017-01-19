@@ -170,34 +170,6 @@ namespace World_Server.Handlers
                 session.SendMessage($"Applied {splitMessage[0].ToLower()} = {splitMessage[1]}");
             }
 
-            if (splitMessage[0].ToLower() == "vem")
-            {
-                Console.WriteLine("vem comando");
-                try
-                {
-                    Console.WriteLine(splitMessage[2]);
-                    entity.SetUpdateField((int)(EItemFields)Enum.Parse(typeof(EItemFields), splitMessage[1]), int.Parse(splitMessage[2]));
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
-            }
-
-            if (splitMessage[0].ToLower() == "vam")
-            {
-                Console.WriteLine("vem comando");
-                try
-                {
-                    Console.WriteLine(splitMessage[2]);
-                    entity.SetUpdateField((int)(EContainerFields)Enum.Parse(typeof(EContainerFields), splitMessage[1]), int.Parse(splitMessage[2]));
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
-            }
-
             switch (handler.Type)
             {
                 case ChatMessageType.CHAT_MSG_SAY:

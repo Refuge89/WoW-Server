@@ -62,21 +62,20 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game\Entitys\EntityBase.cs" />
+    <Compile Include="Game\Entitys\GameObject.cs" />
     <Compile Include="Game\Entitys\Item.cs" />
     <Compile Include="Game\Entitys\Object.cs" />
     <Compile Include="Game\Entitys\Player.cs" />
     <Compile Include="Game\Entitys\Unit.cs" />
     <Compile Include="Game\UpdateObject.cs" />
     <Compile Include="Game\Update\ObjectGuid.cs" />
-    <Compile Include="Game\Update\UpdateBlock.cs" />
+    <Compile Include="Game\World\Blocks\UpdateBlock.cs" />
+    <Compile Include="Game\Update\UpdateField.cs" />
+    <Compile Include="Game\Update\UpdateFieldEntry.cs" />
     <Compile Include="Handlers\AuthHandler.cs" />
     <Compile Include="Handlers\CharHandler.cs" />
     <Compile Include="Handlers\ChatHandler.cs" />
@@ -86,9 +85,12 @@
     <Compile Include="Handlers\MovementHandler.cs" />
     <Compile Include="Handlers\PlayerHandler.cs" />
     <Compile Include="Handlers\SpellHandler.cs" />
-    <Compile Include="Handlers\World\SpellComponent.cs" />
-    <Compile Include="Handlers\World\SpellExtension.cs" />
-    <Compile Include="Handlers\World\UnitComponent.cs" />
+    <Compile Include="Game\World\Blocks\GameObjectBlock.cs" />
+    <Compile Include="Game\World\Blocks\OutOfRangeBlock.cs" />
+    <Compile Include="Game\World\Components\EntityComponent.cs" />
+    <Compile Include="Game\World\Components\GameObjectComponent.cs" />
+    <Compile Include="Game\World\Components\SpellComponent.cs" />
+    <Compile Include="Game\World\SpellExtension.cs" />
     <Compile Include="Helpers\CharHelper.cs" />
     <Compile Include="Helpers\WorldDataRouter.cs" />
     <Compile Include="Handlers\WorldHandler.cs" />

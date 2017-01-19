@@ -26,7 +26,7 @@ namespace World_Server.Sessions
         #region SMSG_AUTH_CHALLENGE
         sealed class SmsgAuthChallenge : ServerPacket
         {
-            private readonly uint _serverSeed = (uint)(new Random().Next(0, int.MaxValue));
+            private readonly uint _serverSeed = (uint) new Random().Next(0, int.MaxValue);
 
             public SmsgAuthChallenge() : base(WorldOpcodes.SMSG_AUTH_CHALLENGE)
             {

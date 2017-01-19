@@ -53,3 +53,33 @@ https://github.com/emulator-archive/WoWD
 - http://www.lootables.com/?guide=Mining
 - http://www.nytimes.com/2007/06/17/magazine/17lootfarmers-t.html
 - http://www.wow-mania.com/armory/?spells
+
+## Objects
+
+0 - Door
+1 - Button
+2 - QuestGiver
+3 - Chest
+4 - Binder
+5 - Generic
+6 - Trap
+7 - Chair
+8 - Spell Focus
+9 - Text
+10 - Goober
+11 - Transport // elevators, subways, railcars, etc.
+12 - Area Damage
+13 - Camera
+14 - Map Object
+15 - Mo Transport // all of the boats between areas, like Ratchet to BootyBay, have this type
+16 - Duel Arbiter
+17 - Fishing Node
+18 - Ritual
+19 - Mailbox
+20 - Auction House
+21 - Guard Post
+22 - Spell Caster
+23 - Meeting Stone
+24 - Flag Stand
+25 - Fishing Hole
+26 - Flag Drop

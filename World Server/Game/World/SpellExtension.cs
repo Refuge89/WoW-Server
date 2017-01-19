@@ -1,9 +1,10 @@
 ﻿using System;
 using Framework.Contants;
 using Framework.Network;
+using World_Server.Game.World.Components;
 using World_Server.Sessions;
 
-namespace World_Server.Handlers.World
+namespace World_Server.Game.World
 {
     public sealed class MSG_CHANNEL_START : ServerPacket
     {

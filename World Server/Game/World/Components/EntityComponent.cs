@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using World_Server.Game.Entitys;
 using World_Server.Managers;
+using Object = World_Server.Game.Entitys.Object;
 
-namespace World_Server.Handlers.World
+namespace World_Server.Game.World.Components
 {
     public abstract class EntityComponent<T> where T : EntityBase
     {
         public List<T> Entitys;
+        public abstract bool InRange(Player player, T entity, float range);
+        public abstract List<T> EntityListFromPlayer(Player player);
+        public abstract void GenerateEntitysForPlayer(Player player);
 
         protected EntityComponent()
         {
@@ -33,22 +38,28 @@ namespace World_Server.Handlers.World
             }
         }
 
-        public abstract void GenerateEntitysForPlayer(Player player);
+        private bool Contains(T entity)
+        {
+            return Entitys.FindAll(e => (e as Object).ObjectGuid.RawGuid == (entity as Object).ObjectGuid.RawGuid).Any();
+        }
+
+        public virtual void AddEntityToWorld(T entity)
+        {
+            if (!Contains(entity))
+                Entitys.Add(entity);
+        }
 
         public virtual void Update()
         {
             // Spawning && Despawning
             foreach (Player player in PlayerManager.Players)
             {
-                foreach (T entity in Entitys.ToArray())
+                foreach (T entity in Entitys)
                 {
-                    if (InRange(player, entity, 50))
-                    {
-                        if (!PlayerKnowsEntity(player, entity))
-                            SpawnEntityForPlayer(player, entity);
-                    }
+                    if (InRange(player, entity, 1000) && !PlayerKnowsEntity(player, entity))
+                       SpawnEntityForPlayer(player, entity);
 
-                    if (!InRange(player, entity, 100) && PlayerKnowsEntity(player, entity))
+                    if (!InRange(player, entity, 5000) && PlayerKnowsEntity(player, entity))
                         DespawnEntityForPlayer(player, entity);
                 }
             }
@@ -57,8 +68,7 @@ namespace World_Server.Handlers.World
         public virtual void DespawnEntityForPlayer(Player player, T entity)
         {
             EntityListFromPlayer(player).Remove(entity);
-
-            player.OutOfRangeEntitys.Add((entity as Game.Entitys.Object));
+            player.Session.SendPacket(UpdateObject.CreateOutOfRangeUpdate(entity as GameObject));
         }
 
         public virtual void SpawnEntityForPlayer(Player player, T entity)
@@ -71,35 +81,5 @@ namespace World_Server.Handlers.World
             return EntityListFromPlayer(player).Contains(entity);
         }
 
-        public abstract bool InRange(Player player, T entity, float range);
-        public abstract List<T> EntityListFromPlayer(Player player);
-    }
-
-    public class UnitComponent : EntityComponent<Unit>
-    {
-        public override List<Unit> EntityListFromPlayer(Player player)
-        {
-            return player.KnownUnits;
-        }
-
-        public override bool InRange(Player player, Unit entity, float range)
-        {
-            double distance = GetDistance(player.X, player.Y, entity.X, entity.Y);
-
-            return distance < range;
-        }
-
-        private static double GetDistance(float aX, float aY, float bX, float bY)
-        {
-            double a = aX - bX;
-            double b = bY - aY;
-
-            return Math.Sqrt(a * a + b * b);
-        }
-
-        public override void GenerateEntitysForPlayer(Player player)
-        {
-            //throw new NotImplementedException();
-        }
     }
 }

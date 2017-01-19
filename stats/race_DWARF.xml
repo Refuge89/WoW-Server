@@ -31,7 +31,7 @@
 	<skills>
 		<skill id="98" min="300" max="300" /> 		<!-- Language: Common -->
 		<skill id="111" min="300" max="300" /> 		<!-- Language: Dwarvern -->
-		<skill id="162" min="1" max="300" /> 		<!-- Unarmed -->
+		<skill id="162" min="1" max="5" /> 		<!-- Unarmed -->
 		<skill id="101" min="1" max="1" /> 		<!-- Dwarvern Racial -->
 	</skills>
 	<classes>
@@ -42,9 +42,9 @@
 				<spell id="197" />		<!-- Two-Handed Axes -->
 			</spells>
 			<skills>
-				<skill id="44" min="1" max="300" /> 		<!-- Axes -->
-				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
-				<skill id="172" min="1" max="300" /> 		<!-- Two-Handed Axes -->
+				<skill id="44" min="1" max="5" /> 		<!-- Axes -->
+				<skill id="54" min="1" max="5" /> 		<!-- Maces -->
+				<skill id="172" min="1" max="5" /> 		<!-- Two-Handed Axes -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -65,8 +65,8 @@
 				<spell id="199" />		<!-- Two-Handed Maces -->
 			</spells>
 			<skills>
-				<skill id="160" min="1" max="300" /> 		<!-- Two-Handed Maces -->
-				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
+				<skill id="160" min="1" max="5" /> 		<!-- Two-Handed Maces -->
+				<skill id="54" min="1" max="5" /> 		<!-- Maces -->
 			</skills>
 			<items>
 				<item id="4540" /> 		<!-- Tough Hunk of Bread -->
@@ -90,8 +90,8 @@
 				<spell id="266" />		<!-- Guns -->
 			</spells>
 			<skills>
-				<skill id="44" min="1" max="300" /> 		<!-- Axes -->
-				<skill id="46" min="1" max="300" /> 		<!-- Guns -->
+				<skill id="44" min="1" max="5" /> 		<!-- Axes -->
+				<skill id="46" min="1" max="5" /> 		<!-- Guns -->
 			</skills>
 			<items>
 				<item id="2508" /> 		<!-- Old Blunderbuss -->
@@ -119,8 +119,8 @@
 				<spell id="2764" />		<!-- Throw -->
 			</spells>
 			<skills>
-				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
-				<skill id="176" min="1" max="300" /> 		<!-- Thrown -->
+				<skill id="173" min="1" max="5" /> 		<!-- Daggers -->
+				<skill id="176" min="1" max="5" /> 		<!-- Thrown -->
 			</skills>
 			<items>
 				<item id="4540" /> 		<!-- Tough Hunk of Bread -->
@@ -144,8 +144,8 @@
 				<spell id="5019" />		<!-- Shoot -->
 			</spells>
 			<skills>
-				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
-				<skill id="228" min="1" max="300" /> 		<!-- Wands -->
+				<skill id="54" min="1" max="5" /> 		<!-- Maces -->
+				<skill id="228" min="1" max="5" /> 		<!-- Wands -->
 			</skills>
 			<items>
 				<item id="159" /> 		<!--Refreshing Spring Water -->

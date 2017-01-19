@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Framework.Contants.Character;
 using Framework.Contants.Game;
 using Framework.Database.Tables;
 using World_Server.Game.Update;
+using World_Server.Game.World.Blocks;
 using World_Server.Managers;
 using World_Server.Sessions;
 
@@ -19,18 +19,19 @@ namespace World_Server.Game.Entitys
 
         public List<Player> KnownPlayers { get; private set; }
         public List<Unit> KnownUnits { get; private set; }
+        public List<GameObject> KnownGameObjects { get; set; }
 
         public List<Object> OutOfRangeEntitys { get; private set; }
-        public List<UpdateBlock> UpdateBlocks { get; private set; }
+        public List<UpdateBlock> UpdateBlocks { get; private set; }       
 
         public override string Name => Character.Name;
 
         public int Xp
         {
-            set { SetUpdateField((int)EUnitFields.PLAYER_XP, value); }
+            set { SetUpdateField((int)PlayerField.PLAYER_XP, value); }
         }
 
-        public override int DataLength => (int)EUnitFields.PLAYER_END - 0x4;
+        public override int DataLength => (int)PlayerField.PLAYER_END - 0x4;
 
         public WorldSession Session { get; internal set; }
 
@@ -40,53 +41,55 @@ namespace World_Server.Game.Entitys
             var chrRaces = DatabaseManager.ChrRaces.Values.FirstOrDefault(x => x.Match(character.Race));
             var inventory = Main.Database.GetInventory(character);
 
-            this.Character = character;
-            this.KnownPlayers = new List<Player>();
-            this.KnownUnits = new List<Unit>();
-            this.OutOfRangeEntitys = new List<Object>();
-            this.UpdateBlocks = new List<UpdateBlock>();
+            Character = character;
+            KnownPlayers = new List<Player>();
+            KnownUnits = new List<Unit>();
+            KnownGameObjects = new List<GameObject>();
 
-            this.Guid = (uint)character.Id;
-            this.SetUpdateField((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)25);
-            this.Level = character.Level;
-            this.Xp = 0;
-            this.Scale = GetScale(character);
-            this.DisplayId = GetModel(character);
-            this.NativeDisplayID = GetModel(character);
-            this.FactionTemplate = chrRaces.FactionId;
+            OutOfRangeEntitys = new List<Object>();
+            UpdateBlocks = new List<UpdateBlock>();
 
-            this.RaceUnit    = (byte) character.Race;
-            this.ClassUnit   = (byte) character.Class;
-            this.Gender      = (byte) character.Gender;
-            this.Power       = GetPowerType(character);
+            Guid = (uint)character.Id;
+            SetUpdateField((int)ObjectFields.OBJECT_FIELD_TYPE, (byte)25);
+            Level = character.Level;
+            Xp = 0;
+            Scale = GetScale(character);
+            DisplayId = GetModel(character);
+            NativeDisplayID = GetModel(character);
+            FactionTemplate = chrRaces.FactionId;
+
+            RaceUnit    = (byte) character.Race;
+            ClassUnit   = (byte) character.Class;
+            Gender      = (byte) character.Gender;
+            Power       = GetPowerType(character);
 
             // Recupera a lista de Skills do Char
-            this.GenerateSkills();
+            GenerateSkills();
 
             // Monta Stats do Char
-            this.GenerateStats();
+            GenerateStats();
 
-            SetUpdateField((int)EUnitFields.PLAYER_BYTES, skin.Skin, 0);
-            SetUpdateField((int)EUnitFields.PLAYER_BYTES, skin.Face, 1);
-            SetUpdateField((int)EUnitFields.PLAYER_BYTES, skin.HairStyle, 2);
-            SetUpdateField((int)EUnitFields.PLAYER_BYTES, skin.HairColor, 3);
+            SetUpdateField((int)PlayerField.PLAYER_BYTES, skin.Skin, 0);
+            SetUpdateField((int)PlayerField.PLAYER_BYTES, skin.Face, 1);
+            SetUpdateField((int)PlayerField.PLAYER_BYTES, skin.HairStyle, 2);
+            SetUpdateField((int)PlayerField.PLAYER_BYTES, skin.HairColor, 3);
 
             // PLAYER_BYTES_2 [FacialHair - PlayerBytes2_2 - BankBags.Slots -  RestState
-            SetUpdateField((int)EUnitFields.PLAYER_BYTES_2, 20, 2);
+            SetUpdateField((int)PlayerField.PLAYER_BYTES_2, 20, 2);
 
             // PLAYER_BYTES_3 [ Gender - DrunkState - PlayerBytes3_3 - PvPRank
 
-            SetUpdateField((int)EUnitFields.PLAYER_NEXT_LEVEL_XP, 400);
+            SetUpdateField((int)PlayerField.PLAYER_NEXT_LEVEL_XP, 400);
 
             int i = 0;
             foreach (var Item in inventory)
             {
                 // Equipamento Equipado
-                SetUpdateField((int) EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (int)Item.Slot * 12, Item.Item);
+                SetUpdateField((int)PlayerField.PLAYER_VISIBLE_ITEM_1_0 + (int)Item.Slot * 12, Item.Item);
 
                 if (Item.Slot != 23)
                 {
-                    SetUpdateField((int) EUnitFields.PLAYER_FIELD_INV_SLOT_HEAD + i * 2, Item.Item);
+                    SetUpdateField((int)PlayerField.PLAYER_FIELD_INV_SLOT_HEAD + i * 2, Item.Item);
                     i++;
                 }
             }
@@ -96,22 +99,22 @@ namespace World_Server.Game.Entitys
 
         private void GenerateStats()
         {
-            this.Health = 120;
-            this.MaxHealth = 150;
+            Health = 120;
+            MaxHealth = 150;
 
-            this.Mana = 110;
-            this.MaxMana = 120;
+            Mana = 110;
+            MaxMana = 120;
 
-            this.MaxRage = 100;
+            MaxRage = 100;
         }
 
         private void GenerateSkills()
         {
             int a = 0;
-            foreach (CharactersSkill skill in Main.Database.GetSkills(this.Character))
+            foreach (CharactersSkill skill in Main.Database.GetSkills(Character))
             {
-                SetUpdateField((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3), skill.skill);
-                SetUpdateField((int)EUnitFields.PLAYER_SKILL_INFO_1_1 + (a * 3) + 1, (Int32)(skill.value + (skill.Max << 16)));
+                SetUpdateField((int)PlayerField.PLAYER_SKILL_INFO_1_1 + (a * 3), skill.skill);
+                SetUpdateField((int)PlayerField.PLAYER_SKILL_INFO_1_1 + (a * 3) + 1, skill.value + (skill.Max << 16));
                 a++;
             }
         }

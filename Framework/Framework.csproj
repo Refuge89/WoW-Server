@@ -84,8 +84,7 @@
     <Compile Include="Contants\Character\Opcodes.cs" />
     <Compile Include="Contants\Character\UnitOpcodes.cs" />
     <Compile Include="Contants\Game\ChatOpcodes.cs" />
-    <Compile Include="Contants\Game\ObjectOpcodes.cs" />
-    <Compile Include="Contants\Game\UnitFields.cs" />
+    <Compile Include="Contants\Game\World.cs" />
     <Compile Include="Contants\RealmOpcodes.cs" />
     <Compile Include="Contants\WorldOpcodes.cs" />
     <Compile Include="Crypt\SRP.cs" />
@@ -102,7 +101,9 @@
     <Compile Include="Database\Tables\CharactersSpells.cs" />
     <Compile Include="Database\Tables\CharactersStats.cs" />
     <Compile Include="Database\Tables\Realms.cs" />
+    <Compile Include="Database\Tables\TemplateGameObjects.cs" />
     <Compile Include="Database\Tables\Users.cs" />
+    <Compile Include="Database\Tables\WorldGameObjects.cs" />
     <Compile Include="Database\XmlManager.cs" />
     <Compile Include="Database\XML\classeXML.cs" />
     <Compile Include="Database\XML\itemsXML.cs" />

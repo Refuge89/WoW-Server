@@ -71,6 +71,10 @@ namespace Framework.Sessions
                 {
                     ConnectionSocket.BeginReceive(DataBuffer, 0, DataBuffer.Length, SocketFlags.None, new AsyncCallback(DataArrival), null);
                 }
+                catch (SocketException)
+                {
+                    ConnectionSocket.Close();
+                }
                 catch (Exception e)
                 {
                     Console.WriteLine("DataArrival Error: " +  e);

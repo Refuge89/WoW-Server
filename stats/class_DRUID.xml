@@ -48,7 +48,7 @@
 		</skill>
 		<skill id="95"> 		<!-- Defense-->
 			<min>1</min>
-			<max>300</max>
+			<max>5</max>
 		</skill>
 		<skill id="134"> 		<!-- Feral Combat -->
 			<min>1</min>

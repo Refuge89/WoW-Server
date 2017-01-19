@@ -29,9 +29,9 @@
 		<spell id="20552" />	<!-- Cultivation -->
 	</spells>
 	<skills>
-		<skill id="109" min="1" max="300" /> 		<!-- Language: Orcish -->
+		<skill id="109" min="300" max="300" /> 		<!-- Language: Orcish -->
 		<skill id="115" min="300" max="300" /> 		<!-- Language: Taurahe -->
-		<skill id="162" min="1" max="300" /> 		<!-- Unarmed -->
+		<skill id="162" min="1" max="5" /> 		<!-- Unarmed -->
 		<skill id="124" min="1" max="1" /> 		<!-- Tauren Racial -->
 	</skills>
 	<classes>
@@ -42,9 +42,9 @@
 				<spell id="199" />		<!-- Two-Handed Maces -->
 			</spells>
 			<skills>
-				<skill id="44" min="1" max="300" /> 		<!-- Axes -->
-				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
-				<skill id="160" min="1" max="300" /> 		<!-- Two-Handed Maces -->
+				<skill id="44" min="1" max="5" /> 		<!-- Axes -->
+				<skill id="54" min="1" max="5" /> 		<!-- Maces -->
+				<skill id="160" min="1" max="5" /> 		<!-- Two-Handed Maces -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -64,8 +64,8 @@
 				<spell id="266" /> 		<!-- Guns -->
 			</spells>
 			<skills>
-				<skill id="44" min="1" max="300" /> 		<!-- Axes -->
-				<skill id="46" min="1" max="300" /> 		<!--  -->
+				<skill id="44" min="1" max="5" /> 		<!-- Axes -->
+				<skill id="46" min="1" max="5" /> 		<!--  -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -91,8 +91,8 @@
 				<spell id="227" /> 		<!-- Staves -->
 			</spells>
 			<skills>
-				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
-				<skill id="136" min="1" max="300" /> 		<!-- Staves -->
+				<skill id="54" min="1" max="5" /> 		<!-- Maces -->
+				<skill id="136" min="1" max="5" /> 		<!-- Staves -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -115,8 +115,8 @@
 				<spell id="227" /> 		<!-- Staves -->
 			</spells>
 			<skills>
-				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
-				<skill id="136" min="1" max="300" /> 		<!-- Staves -->
+				<skill id="54" min="1" max="5" /> 		<!-- Maces -->
+				<skill id="136" min="1" max="5" /> 		<!-- Staves -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->

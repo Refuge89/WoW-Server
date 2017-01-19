@@ -48,48 +48,6 @@ namespace World_Server.Managers
 
             //Item opcodes
             WorldDataRouter.AddHandler<CmsgItemQuerySingle>(WorldOpcodes.CMSG_ITEM_QUERY_SINGLE, ItemHandler.OnItemQuerySingle);
-
-            
-
-
-            // CMSG_REQUEST_RAID_INFO => Aqui verifica se esta em raid group
-
-            /*      CMSG_GMTICKET_GETTICKET
-			    if (ticket != null)
-				{
-					packet.Write((uint)TicketInfoResponse.Pending);
-					packet.WriteCString(ticket.Message);
-					packet.Write((byte)ticket.Type);
-					packet.Write((float)0);
-					packet.Write((float)0);
-					packet.Write((float)0);
-					packet.Write((ushort)0);
-					client.Send(packet);
-				}
-				else
-				{
-					packet.Write((uint)TicketInfoResponse.NoTicket);
-				}
-
-	            public enum TicketInfoResponse : uint
-                {
-                    Fail = 1,
-                    Saved = 2,
-                    Pending = 6,
-                    Deleted = 9,
-                    NoTicket = 10,
-                }
-            */
-
-            // MSG_QUERY_NEXT_MAIL_TIME => acho que aq liga um timer de envio de email sei la [https://github.com/WCell/WCell/blob/master/Services/WCell.RealmServer/Handlers/MailHandler.cs]
-
-            // CMSG_BATTLEFIELD_STATUS => aqui verifica se esta no queue ou desertor??
-
-            // CMSG_MEETINGSTONE_INFO
-
-            // CMSG_MOVE_TIME_SKIPPED
-
-            // MSG_MOVE_FALL_LAND
         }
 
         private static readonly List<WorldOpcodes> MovementOpcodes = new List<WorldOpcodes>()

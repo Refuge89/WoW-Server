@@ -29,7 +29,7 @@
 	</spells>
 	<skills>
 		<skill id="109" min="300" max="300" /> 		<!-- Language: Orcish -->
-		<skill id="162" min="1" max="300" /> 		<!-- Unarmed -->
+		<skill id="162" min="1" max="5" /> 		<!-- Unarmed -->
 		<skill id="125" min="1" max="1" /> 		<!-- Orcish Racial -->
 	</skills>
 	<classes>
@@ -40,9 +40,9 @@
 				<spell id="201" />		<!-- Swords -->
 			</spells>
 			<skills>
-				<skill id="43" min="1" max="300" /> 		<!-- Swords -->
-				<skill id="44" min="1" max="300" /> 		<!-- Axes -->
-				<skill id="172" min="1" max="300" /> 		<!-- Two-Handed Axes -->
+				<skill id="43" min="1" max="5" /> 		<!-- Swords -->
+				<skill id="44" min="1" max="5" /> 		<!-- Axes -->
+				<skill id="172" min="1" max="5" /> 		<!-- Two-Handed Axes -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -62,8 +62,8 @@
 				<spell id="264" /> 		<!-- Bows -->
 			</spells>
 			<skills>
-				<skill id="44" min="1" max="300" /> 		<!-- Axes -->
-				<skill id="45" min="1" max="300" /> 		<!-- Bows -->
+				<skill id="44" min="1" max="5" /> 		<!-- Axes -->
+				<skill id="45" min="1" max="5" /> 		<!-- Bows -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -90,8 +90,8 @@
 				<spell id="2764" /> 	<!-- Throw -->
 			</spells>
 			<skills>
-				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
-				<skill id="176" min="1" max="300" /> 		<!-- Thrown -->
+				<skill id="173" min="1" max="5" /> 		<!-- Daggers -->
+				<skill id="176" min="1" max="5" /> 		<!-- Thrown -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -114,8 +114,8 @@
 				<spell id="227" /> 		<!-- Staves -->
 			</spells>
 			<skills>
-				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
-				<skill id="136" min="1" max="300" /> 		<!-- Staves -->
+				<skill id="54" min="1" max="5" /> 		<!-- Maces -->
+				<skill id="136" min="1" max="5" /> 		<!-- Staves -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -139,8 +139,8 @@
 				<spell id="5019" /> 	<!-- Shoot -->
 			</spells>
 			<skills>
-				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
-				<skill id="228" min="1" max="300" /> 		<!-- Wands -->
+				<skill id="173" min="1" max="5" /> 		<!-- Daggers -->
+				<skill id="228" min="1" max="5" /> 		<!-- Wands -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->

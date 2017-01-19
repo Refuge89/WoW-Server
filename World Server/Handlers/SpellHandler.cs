@@ -2,7 +2,8 @@
 using Framework.Contants;
 using Framework.Database.Tables;
 using Framework.Network;
-using World_Server.Handlers.World;
+using World_Server.Game.World;
+using World_Server.Game.World.Components;
 using World_Server.Managers;
 using World_Server.Sessions;
 using static World_Server.Program;

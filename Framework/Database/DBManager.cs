@@ -179,6 +179,15 @@ namespace Framework.Database
                     CharInfoTroll.TeamId = 7;
                     CharInfoTroll.TaxiMask = 32;
 
+                var TemplateGame = this.model.TemplateGameObjects.Create();
+                    TemplateGame.Id = 55;
+                    TemplateGame.type = 2;
+                    TemplateGame.displayId = 14;
+                    TemplateGame.name = "A half-eaten body";
+                    TemplateGame.faction = 0;
+                    TemplateGame.flags = 0;
+                    TemplateGame.size = 0.59f;
+
                 scope.Complete();
             }
         }

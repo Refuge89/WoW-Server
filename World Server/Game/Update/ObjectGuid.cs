@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Framework.Contants.Game;
 
 namespace World_Server.Game.Update
@@ -12,14 +13,17 @@ namespace World_Server.Game.Update
             return new ObjectGuid(TypeID.TYPEID_GAMEOBJECT, HighGuid.HighguidGameobject);
         }
 
+        public static ObjectGuid GetUnitGuid()
+        {
+            return new ObjectGuid(TypeID.TYPEID_UNIT, HighGuid.HighguidUnit);
+        }
+
         private static uint GetIndex(TypeID type)
         {
             if (!Indexes.ContainsKey(type)) Indexes.Add(type, 1);
 
             return Indexes[type]++;
         }
-
-        // ----------------------------------------------------------------------------
 
         public ulong RawGuid { get; }
 
@@ -29,9 +33,10 @@ namespace World_Server.Game.Update
 
         public HighGuid HighGuid { get; private set; }
 
-        public ObjectGuid(ulong guid)
+        public ObjectGuid(ulong guid, TypeID type)
         {
             RawGuid = guid;
+            TypeId = type;
         }
 
         public ObjectGuid(uint index, TypeID type, HighGuid high)
@@ -40,6 +45,11 @@ namespace World_Server.Game.Update
             HighGuid = high;
 
             RawGuid = index | ((ulong)type << 24) | ((ulong)high << 48);
+        }
+
+        public TypeID GetId()
+        {
+            return (TypeID)((RawGuid >> 24) & 0xFFFFF);
         }
 
         public ObjectGuid(TypeID type, HighGuid high) : this(GetIndex(type), type, high) { }

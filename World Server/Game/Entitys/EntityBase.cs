@@ -1,8 +1,10 @@
-﻿using Framework.Contants.Game;
-using Framework.Extensions;
-using System;
+﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using Framework.Contants.Game;
+using Framework.Extensions;
+using World_Server.Game.Update;
 
 namespace World_Server.Game.Entitys
 {
@@ -17,9 +19,11 @@ namespace World_Server.Game.Entitys
         public virtual TypeID TypeId { get; internal set; }
         public virtual string Name { get; set; }
 
+        public Queue<UpdateFieldEntry> UpdateQueue = new Queue<UpdateFieldEntry>();
+
         public EntityBase()
         {
-            MaskSize = ((DataLength) + 32) / 32;
+            MaskSize = (DataLength + 32) / 32;
             Mask = new BitArray(DataLength, false);
             UpdateData = new Hashtable();
         }

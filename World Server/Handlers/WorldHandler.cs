@@ -159,6 +159,8 @@ namespace World_Server.Handlers
             
             session.Entity.Session = session;
             EntityManager.DispatchOnPlayerSpawn(session.Entity);
+
+            //
         }
 
         private static void PreLoadLogin(WorldSession session)

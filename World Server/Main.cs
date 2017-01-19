@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Net;
 using System.Reflection;
@@ -10,7 +9,7 @@ using Framework.Helpers;
 using Framework.Network;
 using Framework.Sessions;
 using World_Server.Game.Entitys;
-using World_Server.Handlers.World;
+using World_Server.Game.World.Components;
 using World_Server.Managers;
 using World_Server.Sessions;
 
@@ -21,10 +20,9 @@ namespace World_Server
         private static readonly Assembly MAssembly = Assembly.GetEntryAssembly();
 
         public static WorldServer World { get; private set; }
-
         public static DatabaseManager Database;
 
-        public static UnitComponent UnitComponent { get; private set; }
+        public static GameObjectComponent GameObjectComponent { get; private set; }
 
         public void Log(string message, Color color)
         {
@@ -99,7 +97,7 @@ namespace World_Server
                 PlayerManager.Boot();
 
                 // World Spawn
-                UnitComponent = new UnitComponent();
+                GameObjectComponent = new GameObjectComponent();
 
                 ConsoleInput.AppendLine($"Server is now listening at {worldPoint.Address}:{worldPoint.Port}", Color.BlueViolet);
                 ConsoleInput.AppendLine($"Successfully started in {Time.getMSTimeDiff(time, Time.getMSTime()) / 1000}s", Color.BlueViolet);
@@ -159,12 +157,12 @@ namespace World_Server
 
                     if (splitMessage[3] == null)
                     {
-                        entity.SetUpdateField((int) (EUnitFields) Enum.Parse(typeof(EUnitFields), splitMessage[0]),
+                        entity.SetUpdateField((int) (UnitFields) Enum.Parse(typeof(UnitFields), splitMessage[0]),
                             int.Parse(splitMessage[1]));
                     }
                     else
                     {
-                        entity.SetUpdateField((int)(EUnitFields)Enum.Parse(typeof(EUnitFields), splitMessage[0]) + int.Parse(splitMessage[1]) * 12, int.Parse(splitMessage[1]));
+                        entity.SetUpdateField((int)(UnitFields)Enum.Parse(typeof(UnitFields), splitMessage[0]) + int.Parse(splitMessage[1]) * 12, int.Parse(splitMessage[1]));
                     }
                 }
             }

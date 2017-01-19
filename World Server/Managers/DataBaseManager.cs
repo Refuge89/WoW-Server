@@ -10,6 +10,7 @@ using Framework.Database.Tables;
 using Framework.DBC;
 using Framework.DBC.Structs;
 using Shaolinq;
+using World_Server.Game.Entitys;
 using World_Server.Handlers;
 using World_Server.Helpers;
 
@@ -60,7 +61,7 @@ namespace World_Server.Managers
                     Char.MapY = charStarter.MapY;
                     Char.MapZ = charStarter.MapZ;
                     Char.MapRotation = charStarter.MapRotation;
-                    Char.Equipment = String.Join(",", startItems.m_ItemID);
+                    //Char.Equipment = String.Join(",", startItems.m_ItemID);
                     Char.firsttime = false;
                     Char.created_at = DateTime.Now;
 
@@ -204,5 +205,16 @@ namespace World_Server.Managers
                 scope.Complete();
             }
         }
+
+        internal List<WorldGameObjects> GetGameObjects(Player entity, float radius)
+        {
+            var ba = model.WorldGameObjects.Where(a => a.map == entity.Character.MapID).ToList();
+
+            return ba.FindAll(a => (uint)Math.Sqrt(
+                                       Math.Pow(entity.Character.MapX - entity.Character.MapY, 2) -
+                                       Math.Pow(a.mapX - a.mapY, 2))
+                                   <= radius).ToList();
+        }
+
     }
 }

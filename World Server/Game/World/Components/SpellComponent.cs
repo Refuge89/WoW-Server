@@ -7,7 +7,7 @@ using Framework.Extensions;
 using Framework.Network;
 using World_Server.Sessions;
 
-namespace World_Server.Handlers.World
+namespace World_Server.Game.World.Components
 {
     public sealed class SMSG_SPELL_START : ServerPacket
     {
@@ -44,9 +44,6 @@ namespace World_Server.Handlers.World
         {
             //throw new NotImplementedException();
         }
-
-        private float _orientation;
-        private uint _health;
 
         internal void Initialize()
         {

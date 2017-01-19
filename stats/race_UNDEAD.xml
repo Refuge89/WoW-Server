@@ -29,9 +29,9 @@
 		<spell id="20579" />	<!-- Shadow Resistance -->
 	</spells>
 	<skills>
-		<skill id="109" min="1" max="300" /> 		<!-- Language: Orcish -->
+		<skill id="109" min="300" max="300" /> 		<!-- Language: Orcish -->
 		<skill id="673" min="300" max="300" /> 		<!-- Language: Gutterspeak -->
-		<skill id="162" min="1" max="300" /> 		<!-- Unarmed -->
+		<skill id="162" min="1" max="5" /> 		<!-- Unarmed -->
 		<skill id="220" min="1" max="1" /> 		<!-- Undead Racial -->
 	</skills>
 	<actions>
@@ -47,9 +47,9 @@
 				<spell id="1180" />		<!-- Daggers -->
 			</spells>
 			<skills>
-				<skill id="43" min="1" max="300" /> 		<!-- Swords -->
-				<skill id="55" min="1" max="300" /> 		<!-- Two-Handed Swords -->
-				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
+				<skill id="43" min="1" max="5" /> 		<!-- Swords -->
+				<skill id="55" min="1" max="5" /> 		<!-- Two-Handed Swords -->
+				<skill id="173" min="1" max="5" /> 		<!-- Daggers -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -70,8 +70,8 @@
 				<spell id="2764" />		<!-- Throw -->
 			</spells>
 			<skills>
-				<skill id="176" min="1" max="300" /> 		<!-- Thrown -->
-				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
+				<skill id="176" min="1" max="5" /> 		<!-- Thrown -->
+				<skill id="173" min="1" max="5" /> 		<!-- Daggers -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -95,8 +95,8 @@
 				<spell id="5019" />		<!-- Shoot -->
 			</spells>
 			<skills>
-				<skill id="54" min="1" max="300" /> 		<!-- Maces -->
-				<skill id="228" min="1" max="300" /> 		<!-- Wands -->
+				<skill id="54" min="1" max="5" /> 		<!-- Maces -->
+				<skill id="228" min="1" max="5" /> 		<!-- Wands -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -120,8 +120,8 @@
 				<spell id="5019" />		<!-- Shoot -->
 			</spells>
 			<skills>
-				<skill id="136" min="1" max="300" /> 		<!-- Staves -->
-				<skill id="228" min="1" max="300" /> 		<!-- Wands -->
+				<skill id="136" min="1" max="5" /> 		<!-- Staves -->
+				<skill id="228" min="1" max="5" /> 		<!-- Wands -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->
@@ -145,8 +145,8 @@
 				<spell id="5019" />		<!-- Shoot -->
 			</spells>
 			<skills>
-				<skill id="173" min="1" max="300" /> 		<!-- Daggers -->
-				<skill id="228" min="1" max="300" /> 		<!-- Wands -->
+				<skill id="173" min="1" max="5" /> 		<!-- Daggers -->
+				<skill id="228" min="1" max="5" /> 		<!-- Wands -->
 			</skills>
 			<items>
 				<item id="6948" /> 		<!-- Hearthstone -->

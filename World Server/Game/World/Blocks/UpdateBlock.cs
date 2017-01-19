@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace World_Server.Game.Update
+namespace World_Server.Game.World.Blocks
 {
     public abstract class UpdateBlock
     {

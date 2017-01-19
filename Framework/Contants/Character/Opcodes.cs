@@ -2,7 +2,7 @@
 
 namespace Framework.Contants.Character
 {
-    public enum RaceID : int
+    public enum RaceID
     {
         NONE                = 0,
         HUMAN               = 1,
@@ -19,10 +19,10 @@ namespace Framework.Contants.Character
         WORGEN              = 22,
         PANDAREN_NEUTRAL    = 24,
         PANDAREN_ALLIANCE   = 25,
-        PANDAREN_HORDE      = 26,
+        PANDAREN_HORDE      = 26
     }
 
-    public enum ClassID : int
+    public enum ClassID
     {
         PetTalents          = 0,
         WARRIOR             = 1,
@@ -36,13 +36,13 @@ namespace Framework.Contants.Character
         WARLOCK             = 9,
         MONK                = 10,
         DRUID               = 11,
-        DEMON_HUNTER        = 12,
+        DEMON_HUNTER        = 12
     }
 
     public enum GenderID : byte
     {
         MALE                = 0,
-        FEMALE              = 1,
+        FEMALE              = 1
     }
 
     [Flags]
@@ -73,7 +73,7 @@ namespace Framework.Contants.Character
         MOVEFLAG_SPLINE_ENABLED         = 0x08000000,               // used for flight paths
         MOVEFLAG_WATERWALKING           = 0x10000000,               // prevent unit from falling through water
         MOVEFLAG_SAFE_FALL              = 0x20000000,               // active rogue safe fall spell (passive)
-        MOVEFLAG_HOVER                  = 0x40000000,
+        MOVEFLAG_HOVER                  = 0x40000000
     }
 
     public enum SpellCastFlags

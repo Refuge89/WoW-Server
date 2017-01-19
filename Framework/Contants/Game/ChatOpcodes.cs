@@ -1,5 +1,6 @@
 ﻿namespace Framework.Contants.Game
 {
+
     public enum Emotes
     {
         NONE = 0,
@@ -261,4 +262,5 @@
         CHAT_PLAYER_INVITE_BANNED_NOTICE = 0x1E, //+ "[%s] %s has been banned.";
         CHAT_THROTTLED_NOTICE = 0x1F //+ "[%s] The number of messages that can be sent to this channel is limited, please wait to send another message.";
     }
+
 }
